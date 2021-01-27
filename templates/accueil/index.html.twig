@@ -1,0 +1,385 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - {% endblock %}
+
+{% block body %}
+<!-- Right Sidebar Panel Start-->
+<div class="right-sidebar-mini right-sidebar">
+    <div class="right-sidebar-panel p-0">
+        <div class="iq-card shadow-none">
+            <div class="iq-card-body p-0">
+                <div class="media-height p-3">
+                    <div class="card recent-posts mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title mx-0 mt-0 mb-3">Dernières Recettes</h4>
+                            <ul class="pl-2 ">
+                                <!--Boucle Dernières Recettes-->
+                                <!-- Item -->
+                                {% for recette in lastRecettes %}
+                                <li class="recent-post-item">
+                                    <img src="{{asset('images/' ~ recette.photo ) }}" alt="recettes" width="60"
+                                        height="60">
+                                    <div class="body-recent-post">
+                                        <a href="{{ path('recette_detail', {'id': recette.id}) }}">
+                                            <h5 class="mt-0 mx-0 mb-1 text-primary text-uppercase">
+                                                {{ recette.titre }}
+                                            </h5>
+                                        </a>
+                                        <span>
+                                            <i class="las la-thumbs-up la-lg"></i>
+                                            500
+                                        </span>
+                                        <span>
+                                            <i class="ri-chat-2-line la-1x mr-1"></i>
+                                            {{ recette.commentaires|length}}
+                                        </span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Catégories -->
+                    <div class="card recent-posts shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Catégories</h5>
+                            <ul class="pl-0">
+                                <li class="recent-post-item">
+                                    <a href="{{ path('recette')}}" style="font-weight: 500;">Recettes</a>
+                                    <span class="number-posts ml-auto text-primary"
+                                        style="font-weight: 500;">{{ recettes|length }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-sidebar-toggle bg-primary mt-3">
+                    <i class="ri-arrow-left-line side-left-icon"></i>
+                    <i class="ri-arrow-right-line side-right-icon"><span class="ml-3 d-inline-block">Fermer
+                            Menu</span></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Right Sidebar Panel End-->
+
+<!-- Page Content End-->
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 row m-0 p-0">
+                <div class="col-sm-12">
+                    {{ form_start(formPublication) }}
+                    <div class="publication-area p-2 iq-card mb-5">
+                        <nav class="navbar px-0 nav-pills nav-justified justify-content-between">
+                            <button type="button" class="nav-link" data-toggle="modal" data-target="#myRecette"><i
+                                    class="ri-restaurant-2-line ri-2x mr-2"></i> Créer
+                                une recette</button>
+
+                            <label for="publication_imageFile_file" role="button" class="nav-link"><i
+                                    class="ri-image-line ri-2x mr-2"></i>
+                                Nouvelle Publication
+                                <div class="d-none">{{ form_widget(formPublication.imageFile) }}</div>
+                            </label>
+                        </nav>
+
+                        <div class="">
+                            <div style="transition: border-color .3s; border: none; border-bottom: 1px solid #ccc; width: 100%; margin-bottom: 10px;
+                                ">{{form_widget(formPublication.contenu, {'attr': {'id': 'publication_contenu'}})}}
+                            </div>
+                            <button type="submit" class="btn btn-primary d-block w-100 mt-3">Publier</button>
+                        </div>
+                    </div>
+                    {{ form_end(formPublication) }}
+                </div>
+                <!--col-sm-12 end-->
+
+                <!--The Modal Recette-->
+                <div class="modal fade" id="myRecette">
+                    <div class="modal-dialog modal-dialog-centered">
+                        {{ form_start(formRecette) }}
+                        <div class="modal-content" style="width: 500px;">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                {% if app.user.photo is defined and app.user.photo is not null %}
+                                <img src="{{asset('images/' ~ recette.photo ) }}" class="img-fluid rounded-circle mr-2"
+                                    width="50" alt="photo profil">
+                                {% else %}
+                                <img src="{{ asset('images/user/foto1.jpg')}}" class="rounded-circle img-fluid mr-2"
+                                    width="50">
+                                {% endif %}
+                                {#  {% if user.pseudo is not null %} condicion para colocar el pseudo#}
+                                <h4>{{ app.user.prenom}} {{ app.user.nom}}</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div class="mb-4">
+                                    {{ form_widget(formRecette.titre, {'attr': {'class': '', 'placeholder': 'Titre'} } ) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_widget(formRecette.description, {'attr': {'class': '', 'placeholder': ' Brève description ...'} })}}
+                                </div>
+
+                                <!--Choisir Fichier-->
+                                <div class="custom-file mb-3">
+                                    {{ form_widget(formRecette.imageFile, {'attr':{'id':'customFile', 'class':'form-control-file border'}})}}
+                                </div>
+                                <!--Contenu /Textarea-->
+                                {{ form_widget(formRecette.contenu, {'attr': {'class': 'form-control', 'rows': 4, 'placeholder': 'Contenu ...'} })}}
+                                <!--Contenu /Textarea-->
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Envoyer</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                        {{form_end(formRecette)}}
+                    </div>
+                </div> <!-- modal fade end-->
+
+                <!-- PUBLICATIONS-->
+                {% for publication in publications %}
+                <div class="col-sm-12 mt-2">
+                    <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                        <div class="iq-card-body">
+                            <div class="user-post-data">
+                                <div class="d-flex flex-wrap">
+                                    <div class="media-support-user-img mr-3">
+                                        <!-- condition pour recuperer photo profil-->
+                                        {% if  publication.users.avatar is defined and publication.users.avatar is not null %}
+                                        <img src="{{ asset('images/' ~ publication.users.photo )}}" alt="Utilisateur">
+                                        {% else %}
+                                        <img class="rounded-circle img-fluid"
+                                            src="{{asset('images/user/profil_photo.png')}}" alt="Profil">
+                                        {% endif %}
+                                        <!-- Condition fin-->
+                                    </div>
+                                    <div class="media-support-info mt-2">
+                                        <h5 class="mb-0 d-inline-block"><a href="#" class="">{{ publication.users }}</a>
+                                        </h5>
+                                        <p class="mb-0 text-primary" style="font-weight: 500;">
+                                            {{ publication.createdAt| date('d/m/Y à h\\hi') }}
+                                        </p>
+                                        {% if publication.titre %}
+                                        <h5 class="text-center text-uppercase" style="font-weight: 550; color:#ff6c40 ">
+                                            {{publication.titre}}
+                                        </h5>
+                                        <p class="text-center" style="font-size: small; font-weight:600">Recettes</p>
+                                        {% endif %}
+                                    </div>
+                                    {% if is_granted(constant('\\App\\Security\\Voter\\PublicationVoter::PUBLICATION_DELETE'), publication) %}
+                                    <div class="iq-card-post-toolbar">
+                                        <div class="dropdown">
+                                            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false" role="button">
+                                                <i class="ri-more-fill"></i>
+                                            </span>
+                                            <div class="dropdown-menu dropdown-menu-right m-0 p-0">
+                                                <a class="dropdown-item"
+                                                    href="{{ path('publication_edit', {'id': publication.id }) }}"><i
+                                                        class="ri-pencil-fill mr-2"></i>Modifier</a>
+                                                <a class="dropdown-item" onclick="return ConfirmDeletePublication()"
+                                                    href="{{ path('publication_delete',{'id': publication.id }) }}"><i
+                                                        class="ri-delete-bin-6-fill mr-2"></i>Supprimer
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <!-- -->
+                                    {% endif %}
+                                </div>
+                                <!-- condition pour publier la description de la recette-->
+                                {% if publication.description is defined and publication.description is not null %}
+                                <div>
+                                    <p style="font-size: large; text-transform:initial;"> {{ publication.description }}
+                                    </p>
+                                </div>
+                                {% else %}
+                                <div>
+                                    <p style="font-size: large; text-transform: initial;"> {{ publication.contenu|raw }}
+                                    </p>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="user-post">
+                                {% if publication.photo %}
+                                <a href="javascript:void();"><img src="{{asset('images/')}}{{ publication.photo }}"
+                                        alt="post-image" class="img-fluid rounded w-100"></a>
+                                {% else %}
+
+                                {% endif %}
+                            </div>
+                            <!-- Commentaire Area-->
+                            <div class="comment-area mt-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="like-block position-relative d-flex align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="like-data">
+                                                <div class="dropdown">
+                                                    <span class="dropdown-toggle" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false" role="button">
+                                                        <i class="las la-thumbs-up la-2x"></i>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                            <div class="total-like-block ml-2 mr-3">
+                                                <div class="dropdown">
+                                                    <span class="dropdown-toggle" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false" role="button">
+                                                        140 J'aimes
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="total-comment-block">
+                                            <div class="dropdown">
+                                                <span class="dropdown-toggle" data-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false" role="button">
+                                                    <i class="ri-chat-2-line la-2x mr-1"></i>
+                                                    <span> {{ publication.commentaires|length}} Commentaires</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="total-like-block ml-2">
+                                            <i class="ri-heart-line mr-1 la-2x"></i><span> Favorite</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <!--Boucle pour les commentaires-->
+                                {% for commentaire in publication.commentaires %}
+                                <ul class="post-comments p-0 m-0">
+                                    <li class="mb-2">
+                                        <div class="d-flex ">
+                                            <div class="user-img">
+                                                {% if publication.users.photo is defined and publication.users.photo is not null %}
+                                                <img src="{{ asset('images/')}}{{ publication.user.featuredImage }}"
+                                                    class="avatar-35 rounded-circle img-fluid" alt="Avatar">
+                                                {% else %}
+                                                <img src="{{ asset('images/user/profil_photo.png')}}"
+                                                    class="avatar-35 rounded-circle img-fluid" alt="Avatar">
+                                                {% endif %}
+                                            </div>
+                                            <div class="comment-data-block w-100 ml-3">
+                                                <div class="d-flex justify-content-between">
+                                                    <h6>{{ commentaire.users }}</h6>
+                                                    {% if is_granted(constant('\\App\\Security\\Voter\\CommentaireVoter::COMMENTAIRE_DELETE'), commentaire) %}
+                                                    <div class="iq-card-post-toolbar">
+                                                        <div class="dropdown">
+                                                            <span class="dropdown-toggle" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false"
+                                                                role="button">
+                                                                <i class="ri-more-fill"></i>
+                                                            </span>
+                                                            <div class="dropdown-menu dropdown-menu-right m-0 p-0">
+                                                                <a class="dropdown-item"
+                                                                    href="/commentaire/{{ commentaire.id }}/edit"
+                                                                    data-sideclick-modal-trigger ><i
+                                                                        class="ri-pencil-fill mr-2"></i>Modifier</a>
+                                                                <a class="dropdown-item"
+                                                                    onclick="return ConfirmDelete()"
+                                                                    href="{{ path('commentaire_delete', {'id': commentaire.id }) }}"><i
+                                                                        class="ri-delete-bin-6-fill mr-2"></i>Supprimer</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% else %}
+                                                    <!---->
+                                                    {% endif %}
+
+                                                </div>
+                                                <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                    <span class="text-primary" style="font-weight: 400;">
+                                                        {{ commentaire.createdAt|date('d/m/Y à h\\hi')}} </span>
+                                                </div>
+                                                <p class="mb-2">{{ commentaire.contenu|raw }}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                {% endfor %}
+                                <!-- Boucle Commentaire-->
+                                <!-- Modal Modifier Commentaire -->
+                                <div class="modal fade" tabindex="-1" id="emptyModal" 
+                                    aria-labelledby="myModalLabel"  role="dialog" data-async aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                       
+                                    </div>
+                                </div>
+                                <!--Modal Commentaire end-->
+                                <!--
+                                 <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
+                                     <input type="text" class="form-control rounded">
+                                     <div class="comment-attagement d-flex">
+                                         <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
+                                         <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
+                                         <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
+                                     </div>
+                                 </form>-->
+                                <form action="{{ path('commentaire_pub') }}" method="POST"
+                                    class="comment-text d-flex align-items-center mt-3">
+                                    <input type="hidden" name="idPublication" id="postComment"
+                                        value="{{ publication.id}}">
+                                    <div class="input-group">
+                                        <input id="commenter" name="comment" type="text" class="form-control input-sm "
+                                            placeholder="Ecrivez votre message ici..." />
+                                        <button class="btn btn-primary btn-sm" type="submit" style="height: 45px;"><i
+                                                class="fa fa-send fa-1x" aria-hidden="true"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--col-12 end-->
+                {% endfor %}
+                <!--Boucle end-->
+
+            </div><!-- col-lg-8 end-->
+        </div><!-- row end-->
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="  {{ asset('js/jquery.min.js') }}"></script>
+
+<script src="{{ asset('bundles/sideclickbootstrapmodal/js/sideclick-bootstrap-modal.js') }}"></script>
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+
+// suprimir une publication et supprimir un commentaire
+    function ConfirmDelete() {
+        var resp = confirm("Etes-vous sûr de vouloir supprimer?");
+        if (resp == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function ConfirmDeletePublication() {
+        var response = confirm("Etes-vous sûr de vouloir supprimer?");
+        if (response == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }    
+</script>
+
+
+{% endblock %}

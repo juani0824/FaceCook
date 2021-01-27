@@ -1,0 +1,19 @@
+<!-- Contenu du Modal-->
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modifier Commentaire</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{ form_start(form, {'action': path('commentaire_edit', { 'id': commentaire.id }), 'method': 'POST'} ) }}
+    <div class="modal-body">
+        {{ form_widget(form) }}
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a class="btn btn-primary text-white" data-dismiss="modal">Fermer</a>
+    </div>
+    {{ form_end(form) }}
+</div>

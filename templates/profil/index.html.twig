@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}Profil - FaceCook</title>
+    {% block stylesheets %}{% endblock %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{asset('images/ico.png')}}" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href=" {{ asset('css/bootstrap.min.css')}}">
+    <!-- Typography CSS -->
+    <link rel="stylesheet" href=" {{ asset('css/typography.css')}} ">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href=" {{ asset('css/style.css')}}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href=" {{ asset('css/responsive.css')}}">
+    <!--Fonts style-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+</head>
+
+<!--HEADER AND NAVIGATION-->
+
+<body class="right-column-fixed">
+    {% block body %}
+    <!-- loader Start 
+    <div id="loading">
+        <div id="loading-center">
+        </div>
+    </div>-->
+    <!-- loader END -->
+    <!-- Wrapper Start -->
+    {% set route_name = app.request.attributes.get('_route') %}
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <div class="iq-sidebar">
+            <div id="sidebar-scrollbar">
+                <nav class="iq-sidebar-menu">
+                    <ul id="iq-sidebar-toggle" class="iq-menu">
+                        <li {% if route_name == "accueil" %} class="active" {% else %} class="nav-item" {% endif %}>
+                            <a href="/" class="iq-waves-effect"><i class="ri-home-line"></i>
+                                <span>Accueil</span></a>
+                        </li>
+                        <li class="active">
+                            <a href="#profilSubmenu" data-toggle="collapse" aria-expanded="false"
+                                class="dropdown-toggle">
+                                <i class="las la-user"></i>
+                                <span>Profil</span>
+                            </a>
+                            <ul class="collapse list-unstyled" id="profilSubmenu">
+                                <li>
+                                    <a href="{{ path('profil',{'id':app.user.id}) }}">Mon Profil</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('user_edit',{'id':app.user.id}) }}">Éditer Profil</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li {% if route_name == "recette" %} class="active" {% else %} class="" {% endif %}>
+                            <a href="{{path('recette')}}" class="iq-waves-effect">
+                                <i class="las la-list-alt"></i><span>Recettes</span></a>
+                        </li>
+
+
+                        <li {% if route_name == "document" %} class="active" {% else %} class="" {% endif %}>
+                            <a href="{{path('document')}}" class="iq-waves-effect">
+                                <i class="ri-folder-open-line"></i><span>Documents</span></a>
+                        </li>
+
+                        <li {% if route_name == "cantine_index" %} class="active" {% else %} class="" {% endif %}>
+                            <a href="{{path('cantine_index')}}" class="iq-waves-effect">
+                                <i class="ri-restaurant-line"></i><span>Cantine Scolaire</span></a>
+                        </li>
+
+                        <li>
+                            <a href="{{path('contact')}}" class="iq-waves-effect">
+                                <i class="ri-mail-send-line"></i><span>Contact</span></a>
+                        </li>
+                        <li>
+                            <a href="calendar.html" class="iq-waves-effect"><i
+                                    class="las la-calendar"></i><span>Calendrier</span></a>
+                        </li>
+                        <li>
+                            <a href="{{path('faq')}}" class="iq-waves-effect"> <i
+                                    class="las la-question"></i><span>FAQ</span></a>
+                        </li>
+                        <li class="active">
+                            <a href="{{path('app_logout')}}" class="iq-waves-effect" role="button"><i
+                                    class="ri-login-box-line"></i>
+                                <span>Déconnexion</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="p-3"></div>
+            </div>
+        </div>
+        <!-- TOP Nav Bar -->
+        <div class="iq-top-navbar">
+            <div class="iq-navbar-custom">
+                <nav class="navbar navbar-expand-lg navbar-light p-0">
+                    <div class="iq-navbar-logo d-flex justify-content-between">
+                        <a href="index.html">
+                            <img src="{{ asset('images/logo1.png')}}" class="img-fluid" alt="">
+                            <h2 class="d-flex justify-content-center" style="font-family:'BigJohn';">Face <span
+                                    style="font-family:'SlimJoe';">Cook</span></h2>
+                        </a>
+                        <div class="iq-menu-bt align-self-center">
+                            <div class="wrapper-menu">
+                                <div class="main-circle"><i class="ri-menu-line"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="iq-search-bar">
+                        <form action="#" class="searchbox">
+                            <input type="text" class="text search-input" placeholder="Rechercher">
+                            <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                        </form>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-label="Toggle navigation">
+                        <i class="ri-menu-3-line"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto navbar-list">
+                            <li>
+                                {% if app.user.photo is defined and app.user.photo is not null %}
+                                <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
+                                    <img src="{{asset('images/' ~ recette.photo ) }}"
+                                        class="img-fluid rounded-circle mr-3" alt="photo profil">
+                                    <div class="caption">
+                                        <h6 class="mb-0 line-height">{{ app.user.prenom }} {{ app.user.nom }}</h6>
+                                    </div>
+                                </a>
+                                {% else %}
+                                <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
+                                    <img src="{{asset('images/user/profil_photo.png')}}"
+                                        class="img-fluid rounded-circle mr-3" alt="user">
+                                    <div class="caption">
+                                        <h6 class="mb-0 line-height">{{ app.user.prenom }} {{ app.user.nom }}</h6>
+                                    </div>
+                                </a>
+                                {% endif %}
+                            </li>
+                            <li>
+                                <a href="/" class="iq-waves-effect d-flex align-items-center">
+                                    <i class="ri-home-line"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="search-toggle iq-waves-effect">
+                                    <div id="lottie-beil"></div>
+                                    <span class="bg-danger dots"></span>
+                                </a>
+                                <div class="iq-sub-dropdown">
+                                    <div class="iq-card shadow-none m-0">
+                                        <div class="iq-card-body p-0 ">
+                                            <div class="bg-primary p-3">
+                                                <h5 class="mb-0 text-white">All Notifications<small
+                                                        class="badge  badge-light float-right pt-1">4</small></h5>
+                                            </div>
+                                            <a href="#" class="iq-sub-card">
+                                                <div class="media align-items-center">
+                                                    <div class="">
+                                                        <img class="avatar-40 rounded" src="images/user/01.jpg" alt="">
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">Emma Watson Bni</h6>
+                                                        <small class="float-right font-size-12">Just Now</small>
+                                                        <p class="mb-0">95 MB</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="iq-sub-card">
+                                                <div class="media align-items-center">
+                                                    <div class="">
+                                                        <img class="avatar-40 rounded" src="images/user/02.jpg" alt="">
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">New customer is join</h6>
+                                                        <small class="float-right font-size-12">5 days ago</small>
+                                                        <p class="mb-0">Cyst Bni</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="iq-sub-card">
+                                                <div class="media align-items-center">
+                                                    <div class="">
+                                                        <img class="avatar-40 rounded" src="images/user/03.jpg" alt="">
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">Two customer is left</h6>
+                                                        <small class="float-right font-size-12">2 days ago</small>
+                                                        <p class="mb-0">Cyst Bni</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="iq-sub-card">
+                                                <div class="media align-items-center">
+                                                    <div class="">
+                                                        <img class="avatar-40 rounded" src="images/user/04.jpg" alt="">
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">New Mail from Fenny</h6>
+                                                        <small class="float-right font-size-12">3 days ago</small>
+                                                        <p class="mb-0">Cyst Bni</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="search-toggle iq-waves-effect">
+                                    <div id="lottie-mail"></div>
+                                    <span class="bg-primary count-mail"></span>
+                                </a>
+                                <div class="iq-sub-dropdown">
+                                    <div class="iq-card shadow-none m-0">
+                                        <div class="iq-card-body p-0 ">
+                                            <div class="bg-primary p-3">
+                                                <h5 class="mb-0 text-white">All Messages<small
+                                                        class="badge  badge-light float-right pt-1">5</small></h5>
+                                            </div>
+                                            <a href="#" class="iq-sub-card">
+                                                <div class="media align-items-center">
+                                                    <div class="">
+                                                        <img class="avatar-40 rounded" src="images/user/01.jpg" alt="">
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">Bni Emma Watson</h6>
+                                                        <small class="float-left font-size-12">13 Jun</small>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="iq-sub-card">
+                                                <div class="media align-items-center">
+                                                    <div class="">
+                                                        <img class="avatar-40 rounded" src="images/user/02.jpg" alt="">
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">Lorem Ipsum Watson</h6>
+                                                        <small class="float-left font-size-12">20 Apr</small>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="iq-sub-card">
+                                                <div class="media align-items-center">
+                                                    <div class="">
+                                                        <img class="avatar-40 rounded" src="images/user/03.jpg" alt="">
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">Why do we use it?</h6>
+                                                        <small class="float-left font-size-12">30 Jun</small>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="iq-sub-card">
+                                                <div class="media align-items-center">
+                                                    <div class="">
+                                                        <img class="avatar-40 rounded" src="images/user/04.jpg" alt="">
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">Variations Passages</h6>
+                                                        <small class="float-left font-size-12">12 Sep</small>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="iq-sub-card">
+                                                <div class="media align-items-center">
+                                                    <div class="">
+                                                        <img class="avatar-40 rounded" src="images/user/05.jpg" alt="">
+                                                    </div>
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-0 ">Lorem Ipsum generators</h6>
+                                                        <small class="float-left font-size-12">5 Dec</small>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!--
+                   <ul class="navbar-list">
+                      <li>
+                         <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
+                            <i class="ri-arrow-down-s-fill"></i>
+                         </a>
+                         <div class="iq-sub-dropdown iq-user-dropdown">
+                            <div class="iq-card shadow-none m-0">
+                               <div class="iq-card-body p-0 ">
+                                  <div class="bg-primary p-3 line-height">
+                                     <h5 class="mb-0 text-white line-height">Hello Bni Cyst</h5>
+                                     <span class="text-white font-size-12">Available</span>
+                                  </div>
+                                  <a href="profile.html" class="iq-sub-card iq-bg-primary-hover">
+                                     <div class="media align-items-center">
+                                        <div class="rounded iq-card-icon iq-bg-primary">
+                                           <i class="ri-file-user-line"></i>
+                                        </div>
+                                        <div class="media-body ml-3">
+                                           <h6 class="mb-0 ">My Profile</h6>
+                                           <p class="mb-0 font-size-12">View personal profile details.</p>
+                                        </div>
+                                     </div>
+                                  </a>
+                                  <a href="profile-edit.html" class="iq-sub-card iq-bg-warning-hover">
+                                     <div class="media align-items-center">
+                                        <div class="rounded iq-card-icon iq-bg-warning">
+                                           <i class="ri-profile-line"></i>
+                                        </div>
+                                        <div class="media-body ml-3">
+                                           <h6 class="mb-0 ">Edit Profile</h6>
+                                           <p class="mb-0 font-size-12">Modify your personal details.</p>
+                                        </div>
+                                     </div>
+                                  </a>
+                                 
+                               </div>
+                            </div>
+                         </div>
+                      </li>
+                   </ul>-->
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- TOP Nav Bar END -->
+
+        <!-- Right Sidebar Panel Start-->
+        <div class="right-sidebar-mini right-sidebar">
+            <div class="right-sidebar-panel p-0">
+                <div class="iq-card shadow-none">
+                    <div class="iq-card-body p-0">
+                        <div class="media-height p-3">
+                            <div class="card recent-posts mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h4 class="card-title mx-0 mt-0 mb-3">Dernières Recettes</h4>
+                                    <ul class="pl-2 ">
+                                        <!--Boucle Dernières Recettes-->
+                                        <!-- Item -->
+                                        {% for recette in lastRecettes %}
+                                        <li class="recent-post-item">
+                                            <img src="{{asset('images/' ~ recette.photo ) }}" alt="recettes" width="60"
+                                                height="60">
+                                            <div class="body-recent-post">
+                                                <a href="{{ path('recette_detail', {'id': recette.id}) }}">
+                                                    <h5 class="mt-0 mx-0 mb-1">{{ recette.titre }}</h5>
+                                                </a>
+                                                <span>
+                                                    <i class="las la-thumbs-up la-lg"></i>
+                                                    500
+                                                </span>
+                                                <span>
+                                                    <i class="ri-chat-2-line la-1x mr-1"></i>
+                                                    {{ recette.commentaires|length}}
+                                                </span>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Catégories -->
+                            <div class="card recent-posts shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Catégories</h5>
+                                    <ul class="pl-0">
+                                        <li class="recent-post-item">
+                                            <a href="{{ path('recette')}}" style="font-weight: 500;">Recettes</a>
+                                            <span class="number-posts ml-auto text-primary"
+                                                style="font-weight:500;">{{ recettes|length }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right-sidebar-toggle bg-primary mt-3">
+                            <i class="ri-arrow-left-line side-left-icon"></i>
+                            <i class="ri-arrow-right-line side-right-icon"><span class="ml-3 d-inline-block">Fermer
+                                    Menu</span></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right Sidebar Panel End-->
+
+        <!--PAGE CONTENT ...-->
+        <div id="content-page" class="content-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="iq-card">
+                            <div class="iq-card-body profile-page p-0">
+                                <div class="profile-header">
+                                    <div class="cover-container">
+                                        <img src="{{ asset('images/page-img/profile-bg1.jpg')}}" alt="profile-bg"
+                                            class="rounded img-fluid">
+                                        <ul class="header-nav d-flex flex-wrap justify-end p-0 m-0">
+                                            <li><a href="javascript:void();"><i class="ri-pencil-line"></i></a></li>
+                                            <!--
+                                            <li><a href="javascript:void();"><i class="ri-settings-4-line"></i></a></li>-->
+                                        </ul>
+                                    </div>
+                                    <div class="user-detail text-center mb-3">
+                                        {% if app.user.photo is defined and app.user.photo is not null %}
+                                        <div class="profile-img">
+                                            <img src="{{asset('images/' ~ user.photo ) }}" class="avatar-130 img-fluid"
+                                                alt="profil-img">                                                
+                                        </div>
+                                        <div class="profile-detail">
+                                            {#  {% if user.profils.pseudo is is defined  and user.profils.pseudo  is not null %} #}
+                                            {# <h3> {{ profil.pseudo}}</h3>#}
+                                            {# {% else %}  #}
+                                            <h3 class="">{{ app.user.prenom }} {{ app.user.nom}}</h3>
+                                            {# {% endif %}#}
+                                        </div>
+                                        {% else %}
+                                        <div class="profile-img">
+                                            <img src="{{asset('images/user/profil_photo.png')}}" alt="profile-img"
+                                                class="avatar-130 img-fluid">
+                                        </div>                                    
+                                        <div class="profile-detail">
+                                            {#  {% if user.profils.pseudo is is defined  and user.profils.pseudo  is not null %} #}
+                                            {# <h3> {{ profil.pseudo}}</h3>#}
+                                            {# {% else %}  #}
+                                            <h3 class="">{{ app.user.prenom }} {{ app.user.nom}}</h3>
+                                            {# {% endif %}#}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div
+                                        class="profile-info p-4 d-flex align-items-center justify-content-between position-relative">
+                                        <div class="social-links">
+
+                                            <h4>{{app.user.cantines}}</h4>
+                                        </div>
+                                        <div class="social-info">
+                                            <ul
+                                                class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
+                                                <li class="text-center pl-3">
+                                                    <h6> Post</h6>
+                                                    <p class="mb-0">690 </p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="iq-card">
+                            <div class="iq-card-body p-0">
+                                <div class="user-tabing">
+                                    <ul
+                                        class="nav nav-pills d-flex align-items-center justify-content-center profile-feed-items p-0 m-0">
+                                        <li class="col-sm-4 p-0">
+                                            <a class="nav-link active" data-toggle="pill"
+                                                href="#historique">Historique</a>
+                                        </li>
+                                        <!--
+                                        <li class="col-sm-3 p-0">
+                                            <a class="nav-link" data-toggle="pill" href="#about">About</a>
+                                        </li>
+                                    -->
+                                        <li class="col-sm-4 p-0">
+                                            <a class="nav-link" data-toggle="pill" href="#favoris">Favoris</a>
+                                        </li>
+                                        <li class="col-sm-4 p-0">
+                                            <a class="nav-link" data-toggle="pill" href="#recettes">Recettes</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="historique" role="tabpanel">
+                                <div class="iq-card-body p-0">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="iq-card">
+                                                <div class="iq-card-header d-flex justify-content-between">
+                                                    <div class="iq-header-title">
+                                                        <h4 class="card-title">Favoris</h4>
+                                                    </div>
+                                                    <!--
+                                                    <div class="iq-card-header-toolbar d-flex align-items-center">
+                                                        <p class="m-0"><a href="javacsript:void();">Add Photo </a></p>
+                                                    </div>-->
+                                                </div>
+                                                <div class="iq-card-body">
+                                                    <ul class="profile-img-gallary d-flex flex-wrap p-0 m-0">
+                                                        <li class="col-md-4 col-6 pl-2 pr-0 pb-3">
+                                                            <a href="javascript:void();">
+                                                                <img src="{{ asset('images/page-img/g1.jpg')}}"
+                                                                    alt="gallary-image" class="img-fluid">
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="iq-card">
+                                                <div class="iq-card-header d-flex justify-content-between">
+                                                    <div class="iq-header-title">
+                                                        <h4 class="card-title">Mes Recettes</h4>
+                                                    </div>
+                                                    <!--
+                                                    <div class="iq-card-header-toolbar d-flex align-items-center">
+                                                        <p class="m-0"><a href="javacsript:void();">Add New </a></p>
+                                                    </div>-->
+                                                </div>
+                                                <div class="iq-card-body">
+                                                    <ul class="profile-img-gallary d-flex flex-wrap p-0 m-0">
+                                                        {% for recette in lastPRecettes %}
+                                                        <li class="col-md-4 col-6 pl-2 pr-0 pb-3">
+                                                            <a href="">
+                                                                <img src="{{asset('images/' ~ recette.photo ) }}"
+                                                                    alt="gallary-image" class="img-fluid"></a>
+                                                        </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+
+                                            <!-- Post Boucle-->
+                                            {% for publication in publications %}
+                                            <div class="iq-card">
+                                                <div class="iq-card-body">
+                                                    <div class="post-item">
+                                                        <div class="user-post-data p-3">
+                                                            <div class="d-flex flex-wrap">
+                                                                <div class="media-support-user-img mr-3">
+                                                                    <!-- condition pour recuperer photo profil-->
+                                                                    {% if  publication.users.avatar is defined and publication.users.avatar is not null %}
+                                                                    <img src="{{ asset('images/')}}{{ publication.users.avatar }}"
+                                                                        alt="Utilisateur">
+                                                                    {% else %}
+                                                                    <img class="rounded-circle img-fluid"
+                                                                        src="{{asset('images/user/foto1.jpg')}}"
+                                                                        alt="Profil">
+                                                                    {% endif %}
+                                                                    <!-- Condition fin-->
+                                                                </div>
+                                                                <div class="media-support-info mt-2">
+                                                                    <h5 class="mb-0 d-inline-block"><a href="#"
+                                                                            class="">{{ publication.users }}</a></h5>
+                                                                    <p class="mb-0 text-primary"
+                                                                        style="font-weight: 500;">
+                                                                        {{ publication.createdAt| date('d/m/Y à h\\hi')}}
+                                                                    </p>
+                                                                    {% if publication.titre %}
+                                                                    <h5 class="text-center"
+                                                                        style="font-weight: 600; color:#ff6c40 ">
+                                                                        {{publication.titre}}
+                                                                    </h5>
+                                                                    <p class="text-center"
+                                                                        style="font-size: small; font-weight:600">
+                                                                        Recettes</p>
+                                                                    {% endif %}
+                                                                </div>
+
+                                                                <div class="iq-card-post-toolbar">
+                                                                    <div class="dropdown">
+                                                                        <div class="dropdown">
+                                                                            <span class="dropdown-toggle"
+                                                                                data-toggle="dropdown"
+                                                                                aria-haspopup="true"
+                                                                                aria-expanded="false" role="button">
+                                                                                <i class="ri-more-fill"></i>
+                                                                            </span>
+                                                                            <div
+                                                                                class="dropdown-menu dropdown-menu-right m-0 p-0">
+                                                                                <a class="dropdown-item" href="#"><i
+                                                                                        class="ri-pencil-fill mr-2"></i>Modifier</a>
+                                                                                <a class="dropdown-item" href="#"><i
+                                                                                        class="ri-delete-bin-6-fill mr-2"></i>Supprimer</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> <!-- flex-wrap end -->
+                                                            <div class="">
+                                                                <p style="font-size: large;"> {{ publication.contenu }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="user-post">
+                                                            {% if publication.photo %}
+                                                            <a href="javascript:void();"><img
+                                                                    src="{{asset('images/')}}{{ publication.photo }}"
+                                                                    alt="post-image"
+                                                                    class="img-fluid rounded w-100"></a>
+                                                            {% else %}
+
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="comment-area mt-3">
+                                                            <div
+                                                                class="d-flex justify-content-between align-items-center">
+                                                                <div
+                                                                    class="like-block position-relative d-flex align-items-center">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="like-data">
+                                                                            <div class="dropdown">
+                                                                                <span class="dropdown-toggle"
+                                                                                    data-toggle="dropdown"
+                                                                                    aria-haspopup="true"
+                                                                                    aria-expanded="false" role="button">
+                                                                                    <i
+                                                                                        class="las la-thumbs-up la-2x"></i>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="total-like-block ml-2 mr-3">
+                                                                            <div class="dropdown">
+                                                                                <span class="dropdown-toggle"
+                                                                                    data-toggle="dropdown"
+                                                                                    aria-haspopup="true"
+                                                                                    aria-expanded="false" role="button">
+                                                                                    140 J'aimes
+                                                                                </span>
+                                                                                <!--
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">Max Emum</a>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">Bill Yerds</a>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">Hap E. Birthday</a>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">Tara Misu</a>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">Midge Itz</a>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">Sal Vidge</a>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">Other</a>
+                                                                                </div> Users Liked Post-->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="total-comment-block">
+                                                                        <div class="dropdown">
+                                                                            <span class="dropdown-toggle"
+                                                                                data-toggle="dropdown"
+                                                                                aria-haspopup="true"
+                                                                                aria-expanded="false" role="button">
+                                                                                <i
+                                                                                    class="ri-chat-2-line la-2x mr-1"></i>
+                                                                                <span>{{ publication.commentaires|length}}
+                                                                                    Commentaires</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="total-like-block ml-2">
+                                                                        <i class="ri-heart-line mr-1 la-2x"></i><span>
+                                                                            Favorite</span>
+                                                                    </div>
+                                                                </div>
+                                                                <!--
+                                                                <div
+                                                                    class="share-block d-flex align-items-center feather-icon mr-3">
+                                                                    <a href="javascript:void();"><i
+                                                                            class="ri-share-line"></i>
+                                                                        <span class="ml-1">99 Share</span></a>
+                                                                </div>-->
+                                                            </div>
+                                                            <hr>
+                                                            {% for commentaire in publication.commentaires %}
+                                                            <ul class="post-comments p-0 m-0">
+                                                                <li class="mb-2">
+                                                                    <div class="d-flex flex-wrap">
+                                                                        <div class="user-img">
+                                                                            {% if publication.users.avatar is defined and publication.users.avatar is not null %}
+                                                                            <img src="{{ asset('images/')}}{{ publication.user.avatar }}"
+                                                                                class="avatar-35 rounded-circle img-fluid"
+                                                                                alt="Avatar">
+                                                                            {% else %}
+                                                                            <img src="{{ asset('images/user/profil_photo.png')}}"
+                                                                                class="avatar-35 rounded-circle img-fluid"
+                                                                                alt="Avatar">
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <div class="comment-data-block ml-3">
+                                                                            <h6>{{ commentaire.users }}</h6>
+                                                                            <p class="mb-0"> {{ commentaire.contenu }}
+                                                                            </p>
+                                                                            <div
+                                                                                class="d-flex flex-wrap align-items-center comment-activity">
+                                                                                <!-- <a href="javascript:void();">like</a>
+                                                                                <a href="javascript:void();">reply</a>-->
+                                                                                <span class="text-primary"
+                                                                                    style="font-weight: 400;">
+                                                                                    {{ commentaire.createdAt|date('d/m/Y à h\\hi')}}
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            {% endfor %}
+                                                            <!-- Boucle Commentaire-->
+
+                                                            <form action="{{ path('commentaire_profil') }}"
+                                                                method="POST"
+                                                                class="comment-text d-flex align-items-center mt-3">
+                                                                <input type="hidden" name="postComment" id="postComment"
+                                                                    value="{{ publication.id}}">
+                                                                <div class="input-group">
+                                                                    <input id="commenter" name="commenter" type="text"
+                                                                        class="form-control input-sm "
+                                                                        placeholder="Ecrivez votre message ici..." />
+                                                                    <button class="btn btn-primary btn-sm" type="submit"
+                                                                        style="height: 45px;"><i
+                                                                            class="fa fa-send fa-1x"
+                                                                            aria-hidden="true"></i></button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Boucle Publication -->
+                                                </div>
+                                            </div> {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- TAB PUBLICATIONS-->
+                            <div class="tab-pane fade" id="favoris" role="tabpanel">
+                                <div class="iq-card">
+                                    <div class="iq-card-body">
+                                        <h2>Mes Favoris</h2>
+                                        <div class="friend-list-tab mt-2">
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade active show" id="photosofyou" role="tabpanel">
+                                                    <div class="iq-card-body p-0">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-lg-3 mb-3">
+                                                                <div
+                                                                    class="user-images position-relative overflow-hidden">
+                                                                    <a href="#">
+                                                                        <img src="{{ asset('images/page-img/51.jpg')}}"
+                                                                            class="img-fluid rounded"
+                                                                            alt="Responsive image">
+                                                                    </a>
+                                                                    <div class="image-hover-data">
+                                                                        <div class="product-elements-icon">
+                                                                            <ul
+                                                                                class="d-flex align-items-center m-0 p-0 list-inline">
+                                                                                <li><a href="#" class="pr-3 text-white">
+                                                                                        60 <i
+                                                                                            class="ri-thumb-up-line"></i>
+                                                                                    </a></li>
+                                                                                <li><a href="#" class="pr-3 text-white">
+                                                                                        30 <i
+                                                                                            class="ri-chat-3-line"></i>
+                                                                                    </a></li>
+                                                                                <li><a href="#" class="pr-3 text-white">
+                                                                                        10 <i
+                                                                                            class="ri-share-forward-line"></i>
+                                                                                    </a></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                    <a href="#" class="image-edit-btn"
+                                                                        data-toggle="tooltip" data-placement="top"
+                                                                        title="" data-original-title="Edit or Remove"><i
+                                                                            class="ri-edit-2-fill"></i></a>
+                                                                </div>
+                                                            </div>
+                                                            <!--photo 1-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- TAB PUBLICATIONS END-->
+                            <!--TAB RECETTES-->
+                            <div class="tab-pane fade" id="recettes" role="tabpanel">
+                                <div class="iq-card">
+                                    <div class="iq-card-body">
+                                        <h2>Mes Recettes</h2>
+                                        <div class="friend-list-tab mt-2">
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade active show" id="photosofyou" role="tabpanel">
+                                                    <div class="iq-card-body p-0">
+                                                        <div class="row">
+                                                            <!--Boucle Recettes-->
+                                                            {% for recette in mesRecettes %}
+
+                                                            <div class="col-md-6 col-lg-3 mb-3">
+                                                                <div
+                                                                    class="user-images position-relative overflow-hidden">
+                                                                    <a href="#">
+                                                                        <img src="{{asset('images/' ~ recette.photo ) }}"
+                                                                            class="img-fluid rounded"
+                                                                            alt="Responsive image">
+                                                                    </a>
+
+                                                                    <div class="image-hover-data">
+                                                                        <div class="product-elements-icon">
+                                                                            <ul
+                                                                                class="d-flex align-items-center m-0 p-0 list-inline">
+                                                                                <li><a href="#" class="pr-3 text-white">
+                                                                                        60 <i
+                                                                                            class="ri-thumb-up-line"></i>
+                                                                                    </a></li>
+                                                                                <li><a href="#" class="pr-3 text-white">
+                                                                                        {{ recette.commentaires|length}}
+                                                                                        <i class="ri-chat-3-line"></i>
+                                                                                    </a></li>
+
+                                                                                <li><a href="{{ path('recette_detail', {'id': recette.id}) }}"
+                                                                                        class="pr-3 text-white">
+                                                                                        <i
+                                                                                            class="ri-share-forward-line"></i>
+                                                                                    </a>
+                                                                                </li>
+
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                    <a href="{{ path('publication_show', {'id': recette.id}) }}"
+                                                                        class="image-edit-btn" data-toggle="tooltip"
+                                                                        data-placement="top" title=""
+                                                                        data-original-title="Éditer ou Supprimer"><i
+                                                                            class="ri-edit-2-fill"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            {% endfor %}
+                                                            <!--photo 1-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> <!-- tab end-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="col-sm-12 text-center">
+                        <img src="images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
+                    </div>-->
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!--FOOTER-->
+    <footer class="bg-white iq-footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="privacy-policy.html">Politique de confidentialité</a>
+                        </li>
+                        <li class="list-inline-item"><a href="terms-of-service.html">Conditions d'utilisation</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 text-left">
+                    Copyright 2020 <a href="#">FaceCook - CCLTD</a> Tous les droits sont réservés.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% block javascripts %}{% endblock %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="  {{ asset('js/jquery.min.js') }}"></script>
+    <script src="  {{ asset('js/popper.min.js') }}"></script>
+    <script src="  {{ asset('js/bootstrap.min.js') }}"></script>
+    <!-- Wow JavaScript -->
+    <script src="{{asset('js/lottie.js')}}"></script>
+    <!-- Sidebar rigth -->
+    <script src="{{asset('js/chart-custom.js')}}"></script>
+    <!-- Custom JavaScript -->
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/scripts.js') }}"></script>
+    <!-- Appear JavaScript -->
+    <script src="{{asset('js/jquery.appear.js')}}"></script>
+    <script src="{{asset('js/jquery.counterup.min.js')}}"></script>
+    <!-- Slick JavaScript -->
+    <script src="{{asset('js/slick.min.js')}}"></script>
+    <!-- Select2 JavaScript -->
+    <script src="{{asset('js/select2.min.js')}}"></script>
+    <!-- Magnific Popup JavaScript -->
+    <script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script>
+    <!-- Smooth Scrollbar JavaScript -->
+    <script src="{{asset('js/smooth-scrollbar.js')}}"></script>
+
+
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+    {% endblock %}
+</body>
+
+</html>

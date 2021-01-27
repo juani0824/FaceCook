@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recettes -{% endblock %}
+
+{% block body %}
+
+<!-- Right Sidebar Panel Start-->
+<div class="right-sidebar-mini right-sidebar">
+    <div class="right-sidebar-panel p-0">
+        <div class="iq-card shadow-none">
+            <div class="iq-card-body p-0">
+                <div class="media-height p-3">
+                    <div class="card recent-posts mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title mx-0 mt-0 mb-3">Dernières Recettes</h4>
+                            <ul class="pl-2 ">
+                                <!--Boucle Dernières Recettes-->
+                                <!-- Item -->
+                                {% for recette in lastRecettes %}
+                                <li class="recent-post-item">
+                                    <img src="{{asset('images/' ~ recette.photo ) }}" alt="recettes" width="60"
+                                        height="60">
+                                    <div class="body-recent-post">
+                                        <a href="#">
+                                            <h5 class="mt-0 mx-0 mb-1 text-primary text-uppercase">{{ recette.titre }}
+                                            </h5>
+                                        </a>
+                                        <span>
+                                            <i class="las la-thumbs-up la-lg"></i>
+                                            500
+                                        </span>
+                                        <span>
+                                            <i class="ri-chat-2-line la-1x mr-1"></i>
+                                            {{ recette.commentaires|length}}
+                                        </span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Catégories -->
+                    <div class="card recent-posts shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Catégories</h5>
+                            <ul class="pl-0">
+                                <li class="recent-post-item">
+                                    <a href="{{ path('recette')}}" style="font-weight: 500;">Recettes</a>
+                                    <span class="number-posts ml-auto text-primary"
+                                        style="font-weight: 500;">{{ recettes|length }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-sidebar-toggle bg-primary mt-3">
+                    <i class="ri-arrow-left-line side-left-icon"></i>
+                    <i class="ri-arrow-right-line side-right-icon"><span class="ml-3 d-inline-block">Fermer
+                            Menu</span></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Right Sidebar Panel End-->
+<!-- PAGE CONTENT-->
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="iq-card iq-card-block iq-card-stretch iq-card-height blog blog-detail">
+                    <div class="iq-card-body">
+                        <div class="image-block">
+                            <img src="{{asset('images/' ~ publication.photo ) }}" class="img-fluid rounded w-100"
+                                alt="recette">
+                        </div>
+                        <div class="blog-description mt-3">
+                            <h4 class="mb-3 pb-3 border-bottom text-center text-uppercase" style="color: #ff6c40;">
+                                {{ publication.titre }}</h4>
+                            <div class="blog-meta d-flex align-items-center mb-3">
+                                <div class="date mr-4"><i
+                                        class="ri-calendar-2-fill text-primary pr-2"></i>{{ publication.createdAt| date('d/m/Y')}}
+                                </div>
+                                <div class="like mr-4"><i class="ri-thumb-up-line text-primary pr-2"></i>20 like</div>
+                                <div class="comments mr-4"> <i class="ri-chat-2-line text-primary  pr-2"></i>
+                                    {{ publication.commentaires|length}} commentaires
+                                </div>
+                                <div class="share"><i class="las la-user text-primary pr-2"></i> {{ publication.users }}
+                                </div>
+                            </div>
+                            <p>{{ publication.contenu }}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div><!-- row end-->
+    </div><!-- container-->
+</div> <!-- Content-page end-->
+
+
+{% endblock %}

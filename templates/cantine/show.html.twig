@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cantine{% endblock %}
+
+{% block body %}
+    <h1>Cantine</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cantine.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ cantine.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ cantine.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ cantine.ville }}</td>
+            </tr>
+            <tr>
+                <th>Cp</th>
+                <td>{{ cantine.cp }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ cantine.telephone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('cantine_index') }}">back to list</a>
+
+    <a href="{{ path('cantine_edit', {'id': cantine.id}) }}">edit</a>
+
+    {{ include('cantine/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Documents -{% endblock %}
+
+{% block body %}
+
+
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card">
+                    <div class="iq-card-body profile-page p-0">
+                        <div class="profile-header">
+                            <div class="cover-container">
+                                <img src="{{ asset('images/page-img/bg-2.png')}}" alt="profile-bg"
+                                    class="rounded img-fluid">
+                            </div>
+                            <div
+                                class="profile-info p-4 d-flex align-items-center justify-content-between position-relative">
+                                <div class="social-links">
+                                    <h4>Documents</h4>
+                                </div>
+                                <div class="social-info">
+                                    <ul
+                                        class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
+                                        <li class="text-center pl-3">
+                                            <h6> Post</h6>
+                                            <p class="mb-0 text-primary" style="font-size: large;">
+                                                {{ document| length }}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- col-12 end-->
+
+            <div class="col-12">
+                <div class="resources pt-50">
+                    <div class="section-header mb-xs-30 mb-md-31">
+                        <h3>Ressources CCLTD</h3>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi dolorem maxime ipsa dolor
+                            culpa officiis, illo id ullam consequatur facere saepe ipsum eligendi quasi distinctio
+                            incidunt perferendis officia voluptatum optio.</p>
+                    </div>
+                    <ul class="resources-list mb-4">
+                        <!--Boucle Document-->
+                        {% for document in document %}
+                        <li>
+                            <div class="resources-block">
+                                <div class="resources-img">
+                                    <img src="{{asset('images/paper-form.svg')}}" class="lazy resource-ico" alt="img">
+                                </div>
+                                <div class="resources-text">
+                                    <p class="text-initial">{{ document.nomDocument }}</p>
+                                    <a href="{{asset('docs/' ~ document.fileDocument) }}" target="_blank"><img
+                                            src="{{asset('images/pdf-ico.svg')}}" class="lazy" alt="img">Ouvrir le
+                                        pdf</a>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                        <!-- Boucle end -->
+                    </ul> <!-- Resources end-->
+                </div>
+            </div>
+
+            <!-- Liste des Recettes-->
+            {#{% for  recette in recettes %}
+            <!--Boucle recettes-->
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="container-img-fit" style="background: black;">
+                        <img class="card-img-top" src="{{asset('images/' ~ recette.photo ) }}" alt="Recette">
+                    </div>
+                    <div class="card-body text-center">
+                        <h4 class="card-title" style="color: #ff6c40;">{{ recette.titre }}</h4>
+                        <p class="card-text text-justify">{{ recette.description }}</p>
+                        <a href="#" class="btn btn-primary">Lire plus</a>
+                    </div>
+                </div>
+            </div><!-- .col-md-4 -->
+            {% endfor %}#}
+        </div>
+    </div>
+</div> <!-- Content-page end-->
+
+{% endblock %}

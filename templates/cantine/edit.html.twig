@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Cantine{% endblock %}
+
+{% block body %}
+    <h1>Edit Cantine</h1>
+
+    {{ include('cantine/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('cantine_index') }}">back to list</a>
+
+    {{ include('cantine/_delete_form.html.twig') }}
+{% endblock %}

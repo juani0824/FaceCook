@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publication{% endblock %}
+
+{% block body %}
+<div class="container" style="margin-top: 100px;">
+    {% if publication.titre is defined and publication.titre is not null %}
+    <h3 class="text-center text-primary mt-5">{{ publication.titre }}</h3>
+    <p class="text-center" style="font-size: large; font-weight:500">Recettes</p>
+
+    {% else %}
+
+    {% endif %}
+
+    <table class="table">
+        <tbody>
+
+            <tr>
+                <th>Photo</th>
+                <td><img src="{{ asset('images/')}}{{ publication.photo}}" class="img-fluid"></td>
+
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ publication.description }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ publication.contenu }}</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{{ publication.createdAt ? publication.createdAt|date('Y-m-d à H:i:s')}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-center mb-4">
+        <a href="{{ path('profil',{'id':app.user.id}) }}" class="btn btn-primary mr-2">Retour</a>
+        <a href="{{ path('publication_edit', {'id': publication.id}) }}" class="btn btn-primary mr-2">Éditer</a>
+        {# {{ include('publication/_delete_form.html.twig') }}#}
+        <form method="post" action="{{ path('publication_delete', {'id': publication.id}) }}"
+            onsubmit="return confirm('Êtes-vous sûr de bien vouloir supprimer ?');">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ publication.id) }}">
+            <button class="btn btn-danger">Supprimer</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Cantine Scolaire - {% endblock %}
+
+{% block body %}
+<!-- Right Sidebar Panel Start-->
+<div class="right-sidebar-mini right-sidebar">
+    <div class="right-sidebar-panel p-0">
+        <div class="iq-card shadow-none">
+            <div class="iq-card-body p-0">
+                <div class="media-height p-3">
+                    <div class="card recent-posts mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title mx-0 mt-0 mb-3">Dernières Recettes</h4>
+                            <ul class="pl-2 ">
+                                <!--Boucle Dernières Recettes-->
+                                <!-- Item -->
+                                {% for recette in lastRecettes %}
+                                <li class="recent-post-item">
+                                    <img src="{{asset('images/' ~ recette.photo ) }}" alt="recettes" width="60"
+                                        height="60">
+                                    <div class="body-recent-post">
+                                        <a href="{{ path('recette_detail', {'id': recette.id}) }}">
+                                            <h5 class="mt-0 mx-0 mb-1 text-primary text-uppercase">
+                                                {{ recette.titre }}
+                                            </h5>
+                                        </a>
+                                        <span>
+                                            <i class="las la-thumbs-up la-lg"></i>
+                                            500
+                                        </span>
+                                        <span>
+                                            <i class="ri-chat-2-line la-1x mr-1"></i>
+                                            {{ recette.commentaires|length}}
+                                        </span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Catégories -->
+                    <div class="card recent-posts shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Catégories</h5>
+                            <ul class="pl-0">
+                                <li class="recent-post-item">
+                                    <a href="{{ path('recette')}}" style="font-weight: 500;">Recettes</a>
+                                    <span class="number-posts ml-auto text-primary"
+                                        style="font-weight: 500;">{{ recettes|length }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-sidebar-toggle bg-primary mt-3">
+                    <i class="ri-arrow-left-line side-left-icon"></i>
+                    <i class="ri-arrow-right-line side-right-icon"><span class="ml-3 d-inline-block">Fermer
+                            Menu</span></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Right Sidebar Panel End-->
+
+<!-- Page Content  -->
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card">
+                    <div class="iq-card-body profile-page p-0">
+                        <div class="profile-header profile-info">
+                            <div class="cover-container">
+                                <img src="{{ asset('images/page-img/bg-4.png')}}" alt="profile-bg"
+                                    class="rounded img-fluid">
+                            </div>
+                            <div
+                                class="profile-info p-4 d-flex align-items-center justify-content-between position-relative">
+                                <div class="social-links">
+                                    <h4>Cantines Scolaires</h4>
+                                </div>
+                                <div class="social-info">
+                                    <ul
+                                        class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
+                                        <li class="text-center pl-3">
+                                            <h6> Total</h6>
+                                            <p class="mb-0 text-primary" style="font-size: large;">
+                                                {{ cantines| length }}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--col-sm-12-->
+            {% for cantine in cantines %}
+            <div class="col-lg-4 mt-5">
+                <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                    <div class="iq-card-body">
+                        <div class="iq-badges text-left">
+                            <div class="badges-icon">
+                                <img class="avatar-80 rounded" src="{{ asset('images/page-img/09.png')}}" alt="">
+                            </div>
+                            <h5 class="mb-2 text-center">{{ cantine.nom }}</h5>
+                            <p class="mb-0"><span class="text-primary" style="font-weight: 520;"> Adresse:</span>
+                                {{ cantine.adresse }}.</p>
+                            <p class="mb-0"><span class="text-primary" style="font-weight: 520;"> Ville:</span>
+                                {{ cantine.ville }}.</p>
+                            <p class="mb-0"><span class="text-primary" style="font-weight: 520;">CP :</span>
+                                {{ cantine.cp }}</p>
+                            <p><span class="text-primary" style="font-weight:520 ;"> Telephone:</span>
+                                {{ cantine.telephone }}</p>
+                            <p><span class="text-primary text-uppercase " style="font-weight:520 ;"> Resp:</span>
+                                {{ cantine.users }} </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- col-lg-4 end-->
+            {% endfor %}
+        </div><!-- col-row end-->
+    </div>
+</div>
+
+<!-- Wrapper END -->
+{% endblock %}

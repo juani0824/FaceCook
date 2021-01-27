@@ -1,0 +1,270 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer Profil -{% endblock %}
+
+{% block body %}
+
+<!--PAGE CONTENT-->
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="iq-card">
+                    <div class="iq-card-body p-0">
+                        <div class="iq-edit-list">
+                            <ul class="iq-edit-profile d-flex nav nav-pills">
+                                <li class="col-md-6 p-0">
+                                    <a class="nav-link active" data-toggle="pill" href="#personal-information">
+                                        Information Personnel
+                                    </a>
+                                </li>
+                                <li class="col-md-6 p-0">
+                                    <a class="nav-link" data-toggle="pill" href="#chang-pwd">
+                                        Changer le Mot de passe
+                                    </a>
+                                </li>
+                                <!--
+                         <li class="col-md-3 p-0">
+                            <a class="nav-link" data-toggle="pill" href="#emailandsms">
+                               Email and SMS
+                            </a>
+                         </li>
+                         <li class="col-md-3 p-0">
+                            <a class="nav-link" data-toggle="pill" href="#manage-contact">
+                               Manage Contact
+                            </a>
+                         </li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div> <!-- iq-card-->
+
+            </div><!-- col-lg-12-->
+            <div class="col-lg-12">
+                <div class="iq-edit-list-data">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
+                            <div class="iq-card">
+                                {% for profil in app.flashes('message') %}
+                                <div class="alert alert-success alert-dismissible fade show text-center">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <span> <strong>Success! &nbsp;&nbsp;</strong>{{ message }}</span>
+                                </div>
+                                {% endfor %}
+                                <div class="iq-card-header d-flex justify-content-between">
+                                    <div class="iq-header-title">
+                                        <h4 class="card-title">Information Personnel</h4>
+                                    </div>
+                                </div>
+                                {{ form_start (userForm)}}
+                                <div class="iq-card-body">
+                                    <div class="form-group row align-items-center">
+                                        <div class="col-md-12">
+                                            <div class="profile-img-edit">
+                                                {% if user.avatar is defined and user.avatar is not null %}
+                                                <img class="profile-pic" src="{{ asset('images/') }}{{user.avatar}}"
+                                                    alt="profil">
+                                                {% endif %}
+                                                <img class="profile-pic"
+                                                    src="{{ asset('images/user/profil_photo.png')}}" }} alt="profil">
+                                                <div class="p-image">
+                                                    <label for="registration_form_imageFile_file" role="button">
+                                                        <i class="ri-pencil-line upload-button text-white"></i>
+                                                        <div class="d-none">
+                                                            {#{{ form_widget(userForm.imageFile,  {'attr':{'class':'file-upload'}})
+                                                            }}#}</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" row align-items-center">                                       
+                                        <div class="form-group col-sm-6">
+                                            {{form_label (userForm.pseudo)}}
+                                            {{form_widget (userForm.pseudo, {'attr':{'class': 'form-control'}})}}
+
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            {{form_label (userForm.prenom)}}
+                                            {{form_widget (userForm.prenom, {'attr':{'class': 'form-control'}})}}
+
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            {{form_label (userForm.nom)}}
+                                            {{form_widget (userForm.nom, {'attr':{'class': 'form-control'}})}}
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            {{form_label (userForm.portable)}}
+                                            {{form_widget (userForm.portable, {'attr':{'class': 'form-control'}})}}
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            {{form_label (userForm.email)}}
+                                            {{form_widget (userForm.email, {'attr':{'class': 'form-control'}})}}
+                                        </div>
+                                        <!--
+                                        <div class="form-group col-sm-6">
+                                            {#{{form_label (userForm.genre)}}#}
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                               {#{{form_widget (userForm.genre)}}#}
+                                            </div>
+                                        </div>-->
+                                        <div class="form-group col-sm-6">
+                                            <label for="birthday">Date de naissance:</label>
+                                            <input type="date" class="form-control" id="birthday" value="24/08/1982">
+                                        </div>
+                                        <div class="form-group col-sm-6 d-none">
+                                            {{form_widget (userForm.plainPassword)}}
+                                        </div>
+                                        <div class="form-group col-sm-6 d-none">
+                                            {{form_widget (userForm.roles)}}
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mr-2">Enregistrer</button>
+                                    <button type="reset" class="btn iq-bg-danger">Anuler</button>
+                                </div>
+                                {{ form_end (userForm)}}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="chang-pwd" role="tabpanel">
+                            <div class="iq-card">
+                                <div class="iq-card-header d-flex justify-content-between">
+                                    <div class="iq-header-title">
+                                        <h4 class="card-title">Changer le Mot de passe</h4>
+                                    </div>
+                                </div>
+                                <div class="iq-card-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="cpass">Mot de passe actuel::</label>
+                                            <!--
+                                  <a href="javascripe:void();" class="float-right">Forgot Password</a>-->
+                                            <input type="Password" class="form-control" id="cpass" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="npass">Nouveau mot de passe:</label>
+                                            <input type="Password" class="form-control" id="npass" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="vpass">Vérifier le mot de passe:</label>
+                                            <input type="Password" class="form-control" id="vpass" value="">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mr-2">Enregistrer</button>
+                                        <button type="reset" class="btn iq-bg-danger">Anuler</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="emailandsms" role="tabpanel">
+                            <div class="iq-card">
+                                <div class="iq-card-header d-flex justify-content-between">
+                                    <div class="iq-header-title">
+                                        <h4 class="card-title">Email and SMS</h4>
+                                    </div>
+                                </div>
+                                <div class="iq-card-body">
+                                    <form>
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-md-3" for="emailnotification">Email Notification:</label>
+                                            <div class="col-md-9 custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="emailnotification" checked="">
+                                                <label class="custom-control-label" for="emailnotification"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-md-3" for="smsnotification">SMS Notification:</label>
+                                            <div class="col-md-9 custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="smsnotification"
+                                                    checked="">
+                                                <label class="custom-control-label" for="smsnotification"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-md-3" for="npass">When To Email</label>
+                                            <div class="col-md-9">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="email01">
+                                                    <label class="custom-control-label" for="email01">You have new
+                                                        notifications.</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="email02">
+                                                    <label class="custom-control-label" for="email02">You're sent a
+                                                        direct
+                                                        message</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="email03"
+                                                        checked="">
+                                                    <label class="custom-control-label" for="email03">Someone adds you
+                                                        as a
+                                                        connection</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-md-3" for="npass">When To Escalate Emails</label>
+                                            <div class="col-md-9">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="email04">
+                                                    <label class="custom-control-label" for="email04"> Upon new
+                                                        order.</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="email05">
+                                                    <label class="custom-control-label" for="email05"> New membership
+                                                        approval</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="email06"
+                                                        checked="">
+                                                    <label class="custom-control-label" for="email06"> Member
+                                                        registration</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                        <button type="reset" class="btn iq-bg-danger">Cancle</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="manage-contact" role="tabpanel">
+                            <div class="iq-card">
+                                <div class="iq-card-header d-flex justify-content-between">
+                                    <div class="iq-header-title">
+                                        <h4 class="card-title">Manage Contact</h4>
+                                    </div>
+                                </div>
+                                <div class="iq-card-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="cno">Contact Number:</label>
+                                            <input type="text" class="form-control" id="cno" value="001 2536 123 458">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email:</label>
+                                            <input type="text" class="form-control" id="email" value="Bnijone@demo.com">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="url">Url:</label>
+                                            <input type="text" class="form-control" id="url"
+                                                value="https://getbootstrap.com">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                        <button type="reset" class="btn iq-bg-danger">Cancle</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- row end-->
+    </div><!-- container end-->
+</div> <!-- PAGE CONTENT END-->
+
+
+
+{% endblock %}
