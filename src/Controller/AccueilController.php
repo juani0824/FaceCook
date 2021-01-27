@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commentaire;
 use App\Entity\Document;
 use App\Entity\Publication;
+use App\Entity\User;
 use App\Form\PublicationType;
 use App\Manager\CommentaireManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,6 +60,7 @@ class AccueilController extends AbstractController
             'publications' => $publicationManager->allPublication(),
             'recettes' => $publicationManager->allRecette(),
             'lastRecettes' => $publicationManager->lastXRecette(),
+            
         ]);
     }
 

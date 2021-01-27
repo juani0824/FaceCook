@@ -103,8 +103,8 @@
                         <div class="modal-content" style="width: 500px;">
                             <!-- Modal Header -->
                             <div class="modal-header">
-                                {% if app.user.photo is defined and app.user.photo is not null %}
-                                <img src="{{asset('images/' ~ recette.photo ) }}" class="img-fluid rounded-circle mr-2"
+                                {% if app.user.avatar is defined and app.user.avatar is not null %}
+                              <img src="{{asset('images/user/' ~ app.user.avatar) }}" class="img-fluid rounded-circle mr-2"
                                     width="50" alt="photo profil">
                                 {% else %}
                                 <img src="{{ asset('images/user/foto1.jpg')}}" class="rounded-circle img-fluid mr-2"
@@ -152,7 +152,7 @@
                                     <div class="media-support-user-img mr-3">
                                         <!-- condition pour recuperer photo profil-->
                                         {% if  publication.users.avatar is defined and publication.users.avatar is not null %}
-                                        <img src="{{ asset('images/' ~ publication.users.photo )}}" alt="Utilisateur">
+                                        <img src="{{ asset('images/user/' ~ publication.users.avatar )}}" class="rounded-circle" alt="Utilisateur">
                                         {% else %}
                                         <img class="rounded-circle img-fluid"
                                             src="{{asset('images/user/profil_photo.png')}}" alt="Profil">
@@ -260,8 +260,8 @@
                                     <li class="mb-2">
                                         <div class="d-flex ">
                                             <div class="user-img">
-                                                {% if publication.users.photo is defined and publication.users.photo is not null %}
-                                                <img src="{{ asset('images/')}}{{ publication.user.featuredImage }}"
+                                                {% if publication.users.avatar is defined and publication.users.avatar is not null %}
+                                                <img src="{{ asset('images/user/')}}{{ publication.users.avatar }}"
                                                     class="avatar-35 rounded-circle img-fluid" alt="Avatar">
                                                 {% else %}
                                                 <img src="{{ asset('images/user/profil_photo.png')}}"

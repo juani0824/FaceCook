@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Publication;
 use App\Entity\Commentaire;
 use App\Entity\User;
+use App\Form\ProfilType;
 use App\Form\PublicationType;
 use App\Form\RegistrationFormType;
 use App\Manager\PublicationManager;
@@ -30,17 +31,17 @@ class ProfilController extends AbstractController
             array('created_at' => 'Desc')
         );
         
-        $lastPRecette = $this->getDoctrine()->getRepository(Publication::class)->lastXRecette(9);
+       $lastPRecette = $this->getDoctrine()->getRepository(Publication::class)->lastXRecette(9);
       
         return $this->render('profil/index.html.twig', [
           
             'publications' => $publications,
             'mesRecettes' => $publicationManager->getRecetteByUser($user),
-            'recettes' => $publicationManager->allRecette(),
-            
+            'recettes' => $publicationManager->allRecette(),            
             'user' => $user,
             //'lastRecettes' => $lastRecettes,
             'lastRecettes' => $publicationManager->lastXRecette(),
+            //'lastPRecettes' => $publicationManager->lastPRecette($user),
             'lastPRecettes' => $lastPRecette,
         ]);
     }

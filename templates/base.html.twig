@@ -137,9 +137,9 @@
                             </li>
                             {% endif %}
                             <li>
-                                {% if app.user.photo is defined and app.user.photo is not null %}
+                                {% if app.user.avatar is defined and app.user.avatar is not null %}
                                 <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
-                                    <img src="{{asset('images/' ~ recette.photo ) }}"
+                                    <img src="{{asset('images/user/' ~ app.user.avatar ) }}"
                                         class="img-fluid rounded-circle mr-3" alt="photo profil">
                                     <div class="caption">
                                         <h6 class="mb-0 line-height">{{ app.user.prenom }} {{ app.user.nom }}</h6>

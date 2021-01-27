@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ProfilType;
 use App\Form\RegistrationFormType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -65,13 +66,27 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(ProfilType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+                            
+            $entityManager = $this->getDoctrine()->getManager();
+            $file = $form['avatar']->getData();
 
-            return $this->redirectToRoute('profil');
+
+            $avatar_directory = $this->getParameter('avatar_directory');
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move(
+                $this->getParameter('avatar_directory'),
+                $fileName
+            );
+
+            $user->setAvatar($fileName);
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            //return $this->redirectToRoute('user_edit',['id'=>$user->getId()]);
         }
 
         return $this->render('profil/edit.html.twig', [
@@ -81,7 +96,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/{id}/delete", name="user_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {

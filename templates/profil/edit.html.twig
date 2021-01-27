@@ -62,11 +62,12 @@
                                         <div class="col-md-12">
                                             <div class="profile-img-edit">
                                                 {% if user.avatar is defined and user.avatar is not null %}
-                                                <img class="profile-pic" src="{{ asset('images/') }}{{user.avatar}}"
-                                                    alt="profil">
-                                                {% endif %}
+                                                <img class="profile-pic" src="{{ asset('images/user/') }}{{user.avatar}}"
+                                                    alt="profil" class="rounded-circle img-fluid">
+                                                {% else %}
                                                 <img class="profile-pic"
                                                     src="{{ asset('images/user/profil_photo.png')}}" }} alt="profil">
+                                                {% endif %}
                                                 <div class="p-image">
                                                     <label for="registration_form_imageFile_file" role="button">
                                                         <i class="ri-pencil-line upload-button text-white"></i>
@@ -78,7 +79,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class=" row align-items-center">                                       
+                                    <div class=" row align-items-center">
                                         <div class="form-group col-sm-6">
                                             {{form_label (userForm.pseudo)}}
                                             {{form_widget (userForm.pseudo, {'attr':{'class': 'form-control'}})}}
@@ -111,12 +112,6 @@
                                         <div class="form-group col-sm-6">
                                             <label for="birthday">Date de naissance:</label>
                                             <input type="date" class="form-control" id="birthday" value="24/08/1982">
-                                        </div>
-                                        <div class="form-group col-sm-6 d-none">
-                                            {{form_widget (userForm.plainPassword)}}
-                                        </div>
-                                        <div class="form-group col-sm-6 d-none">
-                                            {{form_widget (userForm.roles)}}
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary mr-2">Enregistrer</button>

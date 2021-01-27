@@ -30,7 +30,6 @@ class PublicationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-
     public function lastPRecette($nombre, User $user)
     {
         return $this->createQueryBuilder('p')
