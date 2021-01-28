@@ -17,7 +17,7 @@
                                 <!-- Item -->
                                 {% for recette in lastRecettes %}
                                 <li class="recent-post-item">
-                                    <img src="{{asset('images/' ~ recette.photo ) }}" alt="recettes" width="60"
+                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes" width="60"
                                         height="60">
                                     <div class="body-recent-post">
                                         <a href="{{ path('recette_detail', {'id': recette.id}) }}">
@@ -104,11 +104,11 @@
                             <!-- Modal Header -->
                             <div class="modal-header">
                                 {% if app.user.avatar is defined and app.user.avatar is not null %}
-                              <img src="{{asset('images/user/' ~ app.user.avatar) }}" class="img-fluid rounded-circle mr-2"
-                                    width="50" alt="photo profil">
+                              <img src="{{asset('images/user/' ~ app.user.avatar) }}" class="rounded-circle mr-2"
+                                    width="60" heigth="60" alt="photo profil">
                                 {% else %}
-                                <img src="{{ asset('images/user/foto1.jpg')}}" class="rounded-circle img-fluid mr-2"
-                                    width="50">
+                                <img src="{{ asset('images/user/foto1.jpg')}}" class="rounded-circle mr-2"
+                                    width="60" height="60">
                                 {% endif %}
                                 {#  {% if user.pseudo is not null %} condicion para colocar el pseudo#}
                                 <h4>{{ app.user.prenom}} {{ app.user.nom}}</h4>
@@ -152,7 +152,7 @@
                                     <div class="media-support-user-img mr-3">
                                         <!-- condition pour recuperer photo profil-->
                                         {% if  publication.users.avatar is defined and publication.users.avatar is not null %}
-                                        <img src="{{ asset('images/user/' ~ publication.users.avatar )}}" class="rounded-circle" alt="Utilisateur">
+                                        <img src="{{ asset('images/user/' ~ publication.users.avatar )}}" class="rounded-circle" width="60" height="60" alt="Utilisateur">
                                         {% else %}
                                         <img class="rounded-circle img-fluid"
                                             src="{{asset('images/user/profil_photo.png')}}" alt="Profil">
@@ -210,7 +210,7 @@
 
                             <div class="user-post">
                                 {% if publication.photo %}
-                                <a href="javascript:void();"><img src="{{asset('images/')}}{{ publication.photo }}"
+                                <a href="javascript:void();"><img src="{{asset('images/publications/')}}{{ publication.photo }}"
                                         alt="post-image" class="img-fluid rounded w-100"></a>
                                 {% else %}
 

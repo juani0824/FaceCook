@@ -4,9 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    app.path.photo: 'images'
+    app.path.photo: 'images/publications'
     brochures_directory: '%kernel.project_dir%/public/docs' #Pour les documents pdf 
-    avatar_directory: '%kernel.project_dir%/public/images/user' #Pour les documents pdf 
+    avatar_directory: '%kernel.project_dir%/public/images/user' #Pour les photos profil de l'utilisateur 
 services:
     # default configuration for services in *this* file
     _defaults:

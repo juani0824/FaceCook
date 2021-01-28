@@ -18,11 +18,13 @@
                                 <!-- Item -->
                                 {% for recette in lastRecettes %}
                                 <li class="recent-post-item">
-                                    <img src="{{asset('images/' ~ recette.photo ) }}" alt="recettes" width="60"
+                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes" width="60"
                                         height="60">
                                     <div class="body-recent-post">
                                         <a href="{{ path('recette_detail', {'id': recette.id}) }}">
-                                            <h5 class="mt-0 mx-0 mb-1 text-primary text-uppercase">{{ recette.titre }}</h5>
+                                            <h5 class="mt-0 mx-0 mb-1 text-primary text-uppercase">
+                                                {{ recette.titre }}
+                                            </h5>
                                         </a>
                                         <span>
                                             <i class="las la-thumbs-up la-lg"></i>
@@ -64,6 +66,8 @@
 </div>
 <!-- Right Sidebar Panel End-->
 
+<!-- Page Content-->
+
 <div id="content-page" class="content-page">
     <div class="container">
         <div class="row">
@@ -101,7 +105,7 @@
             <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
                     <div class="container-img-fit" style="background: black;">
-                        <img class="card-img-top" src="{{asset('images/' ~ recette.photo ) }}" alt="Recette">
+                        <img class="card-img-top" src="{{asset('images/publications/' ~ recette.photo ) }}" alt="Recette">
                     </div>
                     <div class="card-body text-center">
                         <h4 class="card-title text-uppercase" style="color: #ff6c40;">{{ recette.titre }}</h4>

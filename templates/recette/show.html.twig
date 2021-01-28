@@ -18,11 +18,12 @@
                                 <!-- Item -->
                                 {% for recette in lastRecettes %}
                                 <li class="recent-post-item">
-                                    <img src="{{asset('images/' ~ recette.photo ) }}" alt="recettes" width="60"
+                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes" width="60"
                                         height="60">
                                     <div class="body-recent-post">
-                                        <a href="#">
-                                            <h5 class="mt-0 mx-0 mb-1 text-primary text-uppercase">{{ recette.titre }}
+                                        <a href="{{ path('recette_detail', {'id': recette.id}) }}">
+                                            <h5 class="mt-0 mx-0 mb-1 text-primary text-uppercase">
+                                                {{ recette.titre }}
                                             </h5>
                                         </a>
                                         <span>
@@ -64,6 +65,7 @@
     </div>
 </div>
 <!-- Right Sidebar Panel End-->
+
 <!-- PAGE CONTENT-->
 <div id="content-page" class="content-page">
     <div class="container">
@@ -72,21 +74,22 @@
                 <div class="iq-card iq-card-block iq-card-stretch iq-card-height blog blog-detail">
                     <div class="iq-card-body">
                         <div class="image-block">
-                            <img src="{{asset('images/' ~ publication.photo ) }}" class="img-fluid rounded w-100"
+                            <img src="{{asset('images/publications/' ~ publication.photo ) }}" class="img-fluid rounded w-100"
                                 alt="recette">
                         </div>
                         <div class="blog-description mt-3">
                             <h4 class="mb-3 pb-3 border-bottom text-center text-uppercase" style="color: #ff6c40;">
                                 {{ publication.titre }}</h4>
+
                             <div class="blog-meta d-flex align-items-center mb-3">
                                 <div class="date mr-4"><i
-                                        class="ri-calendar-2-fill text-primary pr-2"></i>{{ publication.createdAt| date('d/m/Y')}}
+                                        class="ri-calendar-2-fill text-primary pr-2" style="font-size: large;"></i>{{ publication.createdAt| date('d/m/Y')}}
                                 </div>
-                                <div class="like mr-4"><i class="ri-thumb-up-line text-primary pr-2"></i>20 like</div>
-                                <div class="comments mr-4"> <i class="ri-chat-2-line text-primary  pr-2"></i>
+                                <div class="like mr-4"><i class="ri-thumb-up-line text-primary pr-2" style="font-size: large;"></i>20 like</div>
+                                <div class="comments mr-4"> <i class="ri-chat-2-line text-primary  pr-2" style="font-size: large;"></i>
                                     {{ publication.commentaires|length}} commentaires
                                 </div>
-                                <div class="share"><i class="las la-user text-primary pr-2"></i> {{ publication.users }}
+                                <div class="share"><i class="far fa-user text-primary pr-2" style="font-size: large;"></i> {{ publication.users }}
                                 </div>
                             </div>
                             <p>{{ publication.contenu }}</p>
@@ -95,8 +98,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div><!-- row end-->
     </div><!-- container-->
 </div> <!-- Content-page end-->

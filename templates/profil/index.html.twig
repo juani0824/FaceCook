@@ -107,7 +107,7 @@
             <div class="iq-navbar-custom">
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
                     <div class="iq-navbar-logo d-flex justify-content-between">
-                        <a href="index.html">
+                        <a href="/">
                             <img src="{{ asset('images/logo1.png')}}" class="img-fluid" alt="">
                             <h2 class="d-flex justify-content-center" style="font-family:'BigJohn';">Face <span
                                     style="font-family:'SlimJoe';">Cook</span></h2>
@@ -132,12 +132,16 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto navbar-list">
                             <li>
-                                {% if app.user.photo is defined and app.user.photo is not null %}
-                                <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
-                                    <img src="{{asset('images/' ~ recette.photo ) }}"
+                                {% if app.user.avatar is defined and app.user.avatar is not null %}
+                                <a href="#" class="iq-waves-effect d-flex align-items-center">
+                                    <img src="{{asset('images/user/' ~ app.user.avatar ) }}"
                                         class="img-fluid rounded-circle mr-3" alt="photo profil">
                                     <div class="caption">
+                                        {% if app.user.pseudo is defined and app.user.pseudo is not null %}
+                                        <h6 class="mb-0 line-height">{{ app.user.pseudo }}</h6>
+                                        {% else %}
                                         <h6 class="mb-0 line-height">{{ app.user.prenom }} {{ app.user.nom }}</h6>
+                                        {% endif %}
                                     </div>
                                 </a>
                                 {% else %}
@@ -416,23 +420,23 @@
                                         </ul>
                                     </div>
                                     <div class="user-detail text-center mb-3">
-                                        {% if app.user.photo is defined and app.user.photo is not null %}
+                                        {% if app.user.avatar is defined and app.user.avatar is not null %}
                                         <div class="profile-img">
-                                            <img src="{{asset('images/' ~ user.photo ) }}" class="avatar-130 img-fluid"
-                                                alt="profil-img">                                                
+                                            <img src="{{asset('images/user/' ~ app.user.avatar ) }}" class="avatar-130 img-fluid"
+                                                alt="profil-img">
                                         </div>
                                         <div class="profile-detail">
-                                            {#  {% if user.profils.pseudo is is defined  and user.profils.pseudo  is not null %} #}
-                                            {# <h3> {{ profil.pseudo}}</h3>#}
-                                            {# {% else %}  #}
+                                            {% if app.user.pseudo is defined  and app.user.pseudo  is not null %} 
+                                            <h3> {{ app.user.pseudo}}</h3>
+                                            {% else %}  
                                             <h3 class="">{{ app.user.prenom }} {{ app.user.nom}}</h3>
-                                            {# {% endif %}#}
+                                            {% endif %}
                                         </div>
                                         {% else %}
                                         <div class="profile-img">
                                             <img src="{{asset('images/user/profil_photo.png')}}" alt="profile-img"
                                                 class="avatar-130 img-fluid">
-                                        </div>                                    
+                                        </div>
                                         <div class="profile-detail">
                                             {#  {% if user.profils.pseudo is is defined  and user.profils.pseudo  is not null %} #}
                                             {# <h3> {{ profil.pseudo}}</h3>#}
@@ -548,7 +552,8 @@
                                                                 <div class="media-support-user-img mr-3">
                                                                     <!-- condition pour recuperer photo profil-->
                                                                     {% if  publication.users.avatar is defined and publication.users.avatar is not null %}
-                                                                    <img src="{{ asset('images/')}}{{ publication.users.avatar }}"
+                                                                    <img src="{{ asset('images/user/')}}{{ publication.users.avatar }}"
+                                                                        class="rounded-circle img-fluid"
                                                                         alt="Utilisateur">
                                                                     {% else %}
                                                                     <img class="rounded-circle img-fluid"
@@ -688,7 +693,7 @@
                                                                     <div class="d-flex flex-wrap">
                                                                         <div class="user-img">
                                                                             {% if publication.users.avatar is defined and publication.users.avatar is not null %}
-                                                                            <img src="{{ asset('images/')}}{{ publication.user.avatar }}"
+                                                                            <img src="{{ asset('images/user/')}}{{ publication.users.avatar }}"
                                                                                 class="avatar-35 rounded-circle img-fluid"
                                                                                 alt="Avatar">
                                                                             {% else %}

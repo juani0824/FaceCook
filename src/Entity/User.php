@@ -8,13 +8,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
- * @Vich\Uploadable
  */
 class User implements UserInterface
 {
@@ -76,22 +73,16 @@ class User implements UserInterface
      */
     private $pseudo;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Cantine::class, mappedBy="users", cascade={"persist", "remove"})
-     */
-    private $cantines;
-
+    
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $avatar;
 
     /**
-     * @Vich\UploadableField(mapping="photo", fileNameProperty="avatar")
-     * @var File
+     * @ORM\OneToOne(targetEntity=Cantine::class, mappedBy="users", cascade={"persist", "remove"})
      */
-    private $imageFile;
-
+    private $cantines;
 
     public function __construct()
     {
@@ -321,6 +312,18 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
     public function getCantines(): ?Cantine
     {
         return $this->cantines;
@@ -337,51 +340,4 @@ class User implements UserInterface
 
         return $this;
     }
-
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
-    }
-
-    public function setAvatar(?string $avatar): self
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-
-    public function setImageFile(File $image = null)
-    {
-        $this->imageFile = $image;
-
-        if ($image) {
-            $this->updated_at = new \DateTime('now');
-        }
-    }
-
-    public function serialize() {
-
-        return serialize(array(
-        $this->id,
-        $this->email,
-        $this->password,
-        ));
-        
-        }
-        
-        public function unserialize($serialized) {
-        
-        list (
-        $this->id,
-        $this->email,
-        $this->password,
-        ) = unserialize($serialized);
-        }
-
 }

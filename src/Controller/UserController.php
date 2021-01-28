@@ -73,9 +73,7 @@ class UserController extends AbstractController
                             
             $entityManager = $this->getDoctrine()->getManager();
             $file = $form['avatar']->getData();
-
-
-            $avatar_directory = $this->getParameter('avatar_directory');
+            
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move(
                 $this->getParameter('avatar_directory'),

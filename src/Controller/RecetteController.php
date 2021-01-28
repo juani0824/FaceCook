@@ -18,8 +18,7 @@ class RecetteController extends AbstractController
     public function index(PublicationManager $publicationManager): Response
     {
         
-        return $this->render('recette/index.html.twig', [
-            'controller_name' => 'RecetteController',
+        return $this->render('recette/index.html.twig', [            
             'recettes' => $publicationManager->allRecette(),
             'lastRecettes' => $publicationManager->lastXRecette(),
         ]);
@@ -30,7 +29,7 @@ class RecetteController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/{id}", name="recette_detail", requirements={"id":"\d+"}, methods={"GET"})
      */
-    public function detail(Publication $publication): Response
+    public function detail(Publication $publication, PublicationManager $publicationManager): Response
     {
 
         // recuperer les 3 dernier recettes
@@ -40,6 +39,8 @@ class RecetteController extends AbstractController
         return $this->render('recette/show.html.twig', [
             'publication' => $publication,
             'lastRecettes' => $lastRecettes,
+            'recettes' => $publicationManager->allRecette(),
+
             
         ]);
     }
