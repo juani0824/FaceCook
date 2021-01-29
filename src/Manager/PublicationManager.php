@@ -46,9 +46,9 @@ class PublicationManager
         return $this->em->getRepository(Publication::class)->lastXRecette(4);
     }
 
-    public function lastPRecette(User $user)
+    public function lastPRecette(User $user, $cant)
     {
-        return $this->em->getRepository(Publication::class)->lastPRecette(9, $user);
+        return $this->em->getRepository(Publication::class)->lastPRecette($user, $cant);
     }
 
     public function create(Publication $publication, User $user)

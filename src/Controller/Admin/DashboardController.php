@@ -55,4 +55,5 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToLogout('Se déconnecter', 'fas fa-sign-out-alt');
 
     }
+
 }

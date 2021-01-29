@@ -49,7 +49,7 @@ class RegistrationFormType extends AbstractType
 
             ->add('roles', ChoiceType::class, array(
                 'choices' => [
-                    'Super Admin' => 'ROLE_SUPERADMIN',
+                    'Super Admin' => 'ROLE_SUPER_ADMIN',
                     'Admin' => 'ROLE_ADMIN',
                     'Cantinière' => 'CANTINIER',                    
                     'Visiteur' => 'ROLE_USER',

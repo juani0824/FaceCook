@@ -29,7 +29,7 @@ class PublicationCrudController extends AbstractCrudController
     {
         
         $imageFile = TextareaField::new('imageFile', 'Photo')->setFormType(VichImageType::class);
-        $image = ImageField::new('photo', 'Photo')->setBasePath('images');
+        $image = ImageField::new('photo', 'Photo')->setBasePath('images/publications');
      
         $fields=[
             IdField::new('id')->hideOnForm(),

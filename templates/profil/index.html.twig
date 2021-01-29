@@ -131,6 +131,14 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto navbar-list">
+                            {% if is_granted('ROLE_ADMIN')%}
+                            <li>
+                                <a href="{{ path('admin')}}" class="iq-waves-effect d-flex align-items-center">
+                                    <span>Admin</span><i class="las la-tachometer-alt" style="font-size: x-large;"></i>
+                                </a>
+                            </li>
+                            {% endif %}
+                            
                             <li>
                                 {% if app.user.avatar is defined and app.user.avatar is not null %}
                                 <a href="#" class="iq-waves-effect d-flex align-items-center">
@@ -356,7 +364,7 @@
                                         <!-- Item -->
                                         {% for recette in lastRecettes %}
                                         <li class="recent-post-item">
-                                            <img src="{{asset('images/' ~ recette.photo ) }}" alt="recettes" width="60"
+                                            <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes" width="60"
                                                 height="60">
                                             <div class="body-recent-post">
                                                 <a href="{{ path('recette_detail', {'id': recette.id}) }}">
@@ -532,7 +540,7 @@
                                                         {% for recette in lastPRecettes %}
                                                         <li class="col-md-4 col-6 pl-2 pr-0 pb-3">
                                                             <a href="">
-                                                                <img src="{{asset('images/' ~ recette.photo ) }}"
+                                                                <img src="{{asset('images/publications/' ~ recette.photo ) }}"
                                                                     alt="gallary-image" class="img-fluid"></a>
                                                         </li>
                                                         {% endfor %}
@@ -601,7 +609,7 @@
                                                                 </div>
                                                             </div> <!-- flex-wrap end -->
                                                             <div class="">
-                                                                <p style="font-size: large;"> {{ publication.contenu }}
+                                                                <p style="font-size: large;"> {{ publication.contenu|raw }}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -609,7 +617,7 @@
                                                         <div class="user-post">
                                                             {% if publication.photo %}
                                                             <a href="javascript:void();"><img
-                                                                    src="{{asset('images/')}}{{ publication.photo }}"
+                                                                    src="{{asset('images/publications/')}}{{ publication.photo }}"
                                                                     alt="post-image"
                                                                     class="img-fluid rounded w-100"></a>
                                                             {% else %}
@@ -639,7 +647,7 @@
                                                                                     data-toggle="dropdown"
                                                                                     aria-haspopup="true"
                                                                                     aria-expanded="false" role="button">
-                                                                                    140 J'aimes
+                                                                                    140 J'aime
                                                                                 </span>
                                                                                 <!--
                                                                                 <div class="dropdown-menu">
@@ -704,7 +712,7 @@
                                                                         </div>
                                                                         <div class="comment-data-block ml-3">
                                                                             <h6>{{ commentaire.users }}</h6>
-                                                                            <p class="mb-0"> {{ commentaire.contenu }}
+                                                                            <p class="mb-0"> {{ commentaire.contenu|raw }}
                                                                             </p>
                                                                             <div
                                                                                 class="d-flex flex-wrap align-items-center comment-activity">
@@ -816,7 +824,7 @@
                                                                 <div
                                                                     class="user-images position-relative overflow-hidden">
                                                                     <a href="#">
-                                                                        <img src="{{asset('images/' ~ recette.photo ) }}"
+                                                                        <img src="{{asset('images/publications/' ~ recette.photo ) }}"
                                                                             class="img-fluid rounded"
                                                                             alt="Responsive image">
                                                                     </a>

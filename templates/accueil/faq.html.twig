@@ -18,7 +18,7 @@
                                 <!-- Item -->
                                 {% for recette in lastRecettes %}
                                 <li class="recent-post-item">
-                                    <img src="{{asset('images/' ~ recette.photo ) }}" alt="recettes" width="60"
+                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes" width="60"
                                         height="60">
                                     <div class="body-recent-post">
                                         <a href="{{ path('recette_detail', {'id': recette.id}) }}">

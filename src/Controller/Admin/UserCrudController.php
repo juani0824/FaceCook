@@ -7,10 +7,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -23,12 +25,19 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+            IdField::new('id')->onlyOnIndex(),
             TextField::new('prenom', 'Prénom'),
             TextField::new('nom', 'Nom'),
             EmailField::new('email', 'Email'),
             TelephoneField::new('portable', 'Portable N°'),
-            //TextField::new('password'),     
+            TextField::new('password', 'Mot de Passe' )->onlyWhenCreating(),           
+            ChoiceField :: new ( 'roles' , 'Roles' )
+                    -> allowMultipleChoices ()                    
+                    -> setChoices ([ 'Visiteur' => 'ROLE_USER' ,
+                                     'Cantinière' => 'CANTINIER',
+                                     'Admin' => 'ROLE_ADMIN' ,
+                                     'SuperAdmin' => 'ROLE_SUPER_ADMIN' ]
+                                )  
         ];
     }
       

@@ -31,18 +31,17 @@ class ProfilController extends AbstractController
             array('created_at' => 'Desc')
         );
         
-       $lastPRecette = $this->getDoctrine()->getRepository(Publication::class)->lastXRecette(9);
+       //$lastPRecette = $this->getDoctrine()->getRepository(Publication::class)->lastXRecette(9);
       
         return $this->render('profil/index.html.twig', [
           
             'publications' => $publications,
             'mesRecettes' => $publicationManager->getRecetteByUser($user),
             'recettes' => $publicationManager->allRecette(),            
-            'user' => $user,
-            //'lastRecettes' => $lastRecettes,
+            'user' => $user,        
             'lastRecettes' => $publicationManager->lastXRecette(),
-            //'lastPRecettes' => $publicationManager->lastPRecette($user),
-            'lastPRecettes' => $lastPRecette,
+            'lastPRecettes' => $publicationManager->lastPRecette($user,6),
+            
         ]);
     }
 
@@ -61,12 +60,12 @@ class ProfilController extends AbstractController
 
         $commentaire->setContenu($commenter);
         $commentaire->setUsers($this->getUser());
-
+        $user = $this->getDoctrine()->getRepository('App:User')->find($this->getUser());
         $commentaire->setPublications($entityManager->getReference("App:Publication", $postComment));
         $commentaire->setCreatedAt(new \DateTime('now'));
         $entityManager->persist($commentaire);
         $entityManager->flush();
 
-        return $this->redirectToRoute('accueil'); // rediriger à la pagina profil
+        return $this->redirectToRoute('profil',['id'=>$user->getId()]); // rediriger à la pagina profil
     }
 }

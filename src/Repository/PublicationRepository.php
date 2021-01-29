@@ -30,11 +30,11 @@ class PublicationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function lastPRecette($nombre, User $user)
+    public function lastPRecette(User $user, $nombre)
     {
         return $this->createQueryBuilder('p')
             ->where('p.type = true')
-            ->andWhere('p.user = :user')
+            ->andWhere('p.users = :user')
             ->setParameter('user', $user)
             ->orderBy('p.id', 'DESC')
             ->setMaxResults($nombre)

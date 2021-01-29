@@ -50,16 +50,16 @@
             <div class="row no-gutters">
                 <div class="col-md-6 text-center">
                     <div class="sign-in-detail text-white">
-                        <a class="sign-in-logo mb-2" href="#">
-                            <img src="images/logo1.png" class="img-fluid" alt="" style="height: 70px;">
+                        <a class="sign-in-logo mb-2" href="/">
+                            <img src="{{asset('images/logo1.png')}}" class="img-fluid" alt="" style="height: 70px;">
                             <h2 class="d-flex justify-content-center" style="font-family:'BigJohn';">Face <span
                                     style="font-family:'SlimJoe';">Cook</span></h2>
                         </a>
                         <div class="">
-                            <img src="images/cheff.png" class="img-fluid mb-4" alt="cheff">
+                            <img src="{{asset('images/cheff.png')}}" class="img-fluid mb-4" alt="cheff">
                         </div>
                         <a class="sign-in-logo mb-5" href="#">
-                            <img src="images/Logo_TD_fd_transparent.png" class="img-fluid" alt="" style="height: 90px;">
+                            <img src="{{asset('images/Logo_TD_fd_transparent.png')}}" class="img-fluid" alt="" style="height: 90px;">
                         </a>
 
                     </div>
@@ -76,20 +76,20 @@
 
                             {% if app.user %}
                             <div class="mb-3">
-                                Vous êtes connecté(e) en tant que <span
+                                <span>Vous êtes connecté(e) en tant que</span>  <span
                                     style="color:#ff6c40; font-weight:400;">{{ app.user.username }}, </span><a
                                     href="{{ path('app_logout') }}">Déconnexion</a>
                             </div>
                             {% endif %}
 
                             <div class="form-group form-login">
-                                <label for="inputEmail">Email</label>
+                                <label for="inputEmail"><span>Email</span></label>
                                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
                                     class="form-control" required autofocus>
                             </div>
                             <div class="form-group mb-5 form-login">
-                                <label for="inputPassword">Mot de passe</label>
-                                <a href="#" class="float-right">Mot de passe oublié?</a>
+                                <label for="inputPassword"><span style="font-size: larger;">Mot de passe</span></label>
+                                <a href="{{path('app_forgot_password_request')}}" class="float-right"> <span>Mot de passe oublié?</span> </a>
                                 <input type="password" class="form-control mb-0" name="password" id="inputPassword"
                                     placeholder="Votre mot de passe" required>
                             </div>
@@ -110,7 +110,7 @@
                             <div class="d-inline-block w-100 mb-5">
                                 <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
                                     <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">Souvenir de moi </label>
+                                    <label class="custom-control-label text-primary" for="customCheck1" style="font-size: larger;">Souvenir de moi </label>
                                 </div>
                                 <button type="submit" class="btn btn-primary float-right">Login</button>
                             </div>
