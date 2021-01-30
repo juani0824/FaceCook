@@ -223,18 +223,18 @@
                                         <div class="d-flex align-items-center">
                                             <div class="like-data"
                                                  data-nblikes="{{ publication.likes|length }}"
-                                                 data-target="nb_likes_{{ publication.id }}"
+                                                 data-target="{{ publication.id }}"
                                                  data-path="{{ path('publication_like', {id: publication.id}) }}">
-                                                <div class="dropdown">
-                                                    <span class="dropdown-toggle" data-toggle="dropdown"
+                                                <div >
+                                                    <span class="dropdown-toggle"
                                                         aria-haspopup="true" aria-expanded="false" role="button">
-                                                        <i class="las la-thumbs-up la-2x"></i>
+                                                        <i id="thumb_{{ publication.id }}" class="las la-thumbs-up la-2x"></i>
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="total-like-block ml-2 mr-3">
-                                                <div class="dropdown">
-                                                    <span id="nb_likes_{{ publication.id }}" class="dropdown-toggle" data-toggle="dropdown"
+                                                <div>
+                                                    <span id="nb_likes_{{ publication.id }}"
                                                         aria-haspopup="true" aria-expanded="false" role="button">
                                                         {{ publication.likes|length }} J'aime
                                                     </span>
@@ -364,8 +364,9 @@
                 fetch(path, { method: 'POST' })
                 .then(response => response.json())
                 .then(data => {
-                    let likesText = document.getElementById(target);
+                    let likesText = document.getElementById(`nb_likes_${target}`);
                     data.toString() === '-' ? nbLikes-- : nbLikes++;
+                    document.getElementById(`thumb_${target}`).classList.toggle('text-primary')
 
                     likesText.innerText = `${nbLikes} J'aime`;
                     btn.dataset.nblikes = nbLikes;
