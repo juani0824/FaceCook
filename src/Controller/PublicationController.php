@@ -2,10 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Like;
 use App\Entity\Publication;
+use App\Entity\User;
 use App\Form\PublicationType;
 use App\Manager\PublicationManager;
+use App\Repository\LikeRepository;
 use App\Repository\PublicationRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Persisters\PersisterException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -94,5 +99,31 @@ class PublicationController extends AbstractController
         $publicationManager->delete($publication);
 
         return $this->redirectToRoute('accueil');
-    } 
+    }
+
+    /**
+     * @Route("/{id}/like", name="publication_like", methods={"POST"})
+     */
+    public function like(Publication $publication, LikeRepository $likeRepository, EntityManagerInterface $entityManager)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $content = '+';
+        $statusCode = 200;
+        if (null === $like = $likeRepository->findPublicationLikedBy($publication, $user)) {
+            $like = new Like();
+            $like->setUser($user)
+                ->setPublication($publication);
+
+            $entityManager->persist($like);
+        } else {
+            $entityManager->remove($like);
+            $content = '-';
+        }
+
+        $entityManager->flush();
+
+        return $this->json($content, $statusCode);
+    }
 }
