@@ -80,17 +80,22 @@
                         <div class="blog-description mt-3">
                             <h4 class="mb-3 pb-3 border-bottom text-center text-uppercase" style="color: #ff6c40;">
                                 {{ publication.titre }}</h4>
-
-                            <div class="blog-meta d-flex align-items-center mb-3">
-                                <div class="date mr-4"><i
-                                        class="ri-calendar-2-fill text-primary pr-2" style="font-size: large;"></i>{{ publication.createdAt| date('d/m/Y')}}
-                                </div>
-                                <div class="like mr-4"><i class="ri-thumb-up-line text-primary pr-2" style="font-size: large;"></i>20 J'aime</div>
-                                <div class="comments mr-4"> <i class="ri-chat-2-line text-primary  pr-2" style="font-size: large;"></i>
-                                    {{ publication.commentaires|length}} commentaires
-                                </div>
-                                <div class="share"><i class="far fa-user text-primary pr-2" style="font-size: large;"></i> {{ publication.users }}
-                                </div>
+                            <div class="like-block d-flex ">
+                                <a id="like-data"
+                                   data-nblikes="{{ publication.likes|length }}"
+                                   data-path="{{ path('publication_like', {id: publication.id}) }}">
+                                    <i id="icon_thumb"
+                                       class="{{ app.user and publication.likedByUser(app.user) ? 'ri-thumb-up-fill' : 'ri-thumb-up-line' }}
+                                       fa-2x"></i>
+                                    <span class="ml-2"
+                                      id="nb_likes"
+                                      aria-haspopup="true" aria-expanded="false" role="button">
+                                        {{ publication.likes|length }} J'aime
+                                    </span>
+                                </a>
+                                <a href="#" class="ml-4"> <i class="ri-chat-2-line  fa-2x"></i> {{ publication.commentaires|length}} <span class="ml-2"> Comments</span></a>
+                                <a href="#" class="ml-4"> <i class="ri-heart-fill  fa-2x"></i><span class="ml-2"> Favorite</span></a>
+                                <a href="#" class="ml-4"> <i class="far fa-user text-primary  fa-2x"></i><span class="ml-2"> {{ publication.users }}</span></a>
                             </div>
                             <p>{{ publication.contenu }}</p>
 
@@ -103,4 +108,31 @@
 </div> <!-- Content-page end-->
 
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let likeButton = document.getElementById('like-data');
+        likeButton.addEventListener('click', e => {
+            e.preventDefault();
+            let btn = e.currentTarget;
+            let path = btn.dataset.path;
+            let nbLikes = Number(btn.dataset.nblikes);
+            fetch(path, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    const likesText = document.getElementById(`nb_likes`);
+                    data.toString() === '-' ? nbLikes-- : nbLikes++;
+                    const thumb = document.getElementById(`icon_thumb`);
+                    if (thumb.classList.contains('ri-thumb-up-fill')) {
+                        thumb.classList.replace('ri-thumb-up-fill', 'ri-thumb-up-line');
+                    } else {
+                        thumb.classList.replace('ri-thumb-up-line', 'ri-thumb-up-fill');
+                    }
+
+                    likesText.innerText = `${nbLikes} J'aime`;
+                    btn.dataset.nblikes = nbLikes;
+                })
+        });
+    </script>
 {% endblock %}

@@ -90,6 +90,16 @@ class Publication
         $this->likes = new ArrayCollection();
     }
 
+    public function likedByUser($user) {
+        foreach ($this->getLikes() as $like) {
+            if ($like->getUser()->getId() === $user->getId()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

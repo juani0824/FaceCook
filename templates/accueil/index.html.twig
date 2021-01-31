@@ -220,38 +220,23 @@
                             <div class="comment-area mt-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="like-block position-relative d-flex align-items-center">
-                                        <div class="d-flex align-items-center">
-                                            <div class="like-data"
-                                                 data-nblikes="{{ publication.likes|length }}"
-                                                 data-target="{{ publication.id }}"
-                                                 data-path="{{ path('publication_like', {id: publication.id}) }}">
-                                                <div >
-                                                    <span class="dropdown-toggle"
-                                                        aria-haspopup="true" aria-expanded="false" role="button">
-                                                        <i id="thumb_{{ publication.id }}" class="las la-thumbs-up la-2x"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="total-like-block ml-2 mr-3">
-                                                <div>
-                                                    <span id="nb_likes_{{ publication.id }}"
-                                                        aria-haspopup="true" aria-expanded="false" role="button">
-                                                        {{ publication.likes|length }} J'aime
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="total-comment-block">
-                                            <div class="dropdown">
-                                                <span class="dropdown-toggle" data-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false" role="button">
-                                                    <i class="ri-chat-2-line la-2x mr-1"></i>
-                                                    <span> {{ publication.commentaires|length}} Commentaires</span>
+                                        <div class="like-block  d-flex ">
+                                            <a class="like-data"
+                                               data-nblikes="{{ publication.likes|length }}"
+                                               data-target="{{ publication.id }}"
+                                               data-path="{{ path('publication_like', {id: publication.id}) }}">
+                                                <i id="thumb_{{ publication.id }}"
+                                                   class="{{ app.user and publication.likedByUser(app.user) ? 'ri-thumb-up-fill' : 'ri-thumb-up-line' }}
+                                                fa-2x"></i>
+                                                <span class="ml-2"
+                                                  id="nb_likes_{{ publication.id }}"
+                                                  aria-haspopup="true" aria-expanded="false" role="button">
+                                                    {{ publication.likes|length }} J'aime
                                                 </span>
-                                            </div>
-                                        </div>
-                                        <div class="total-like-block ml-2">
-                                            <i class="ri-heart-line mr-1 la-2x"></i><span> Favorite</span>
+                                            </a>
+                                            <a class="ml-4"> <i class="ri-chat-2-line  fa-2x"></i> {{ publication.commentaires|length}} <span class="ml-2"> Comments</span></a>
+                                            <a class="ml-4"> <i class="ri-heart-fill  fa-2x"></i><span class="ml-2"> Favorite</span></a>
+                                            <a class="ml-4"> <i class="far fa-user text-primary  fa-2x"></i><span class="ml-2"> {{ publication.users }}</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -352,11 +337,11 @@
 {% endblock %}
 
 {% block javascripts %}
-
     <script>
         let likeButtons = Array.from(document.getElementsByClassName('like-data'));
         likeButtons.forEach(btn => {
             btn.addEventListener('click', e => {
+                e.preventDefault();
                 let btn = e.currentTarget;
                 let path = btn.dataset.path;
                 let target = btn.dataset.target;
@@ -364,9 +349,14 @@
                 fetch(path, { method: 'POST' })
                 .then(response => response.json())
                 .then(data => {
-                    let likesText = document.getElementById(`nb_likes_${target}`);
+                    const likesText = document.getElementById(`nb_likes_${target}`);
                     data.toString() === '-' ? nbLikes-- : nbLikes++;
-                    document.getElementById(`thumb_${target}`).classList.toggle('text-primary')
+                    const thumb = document.getElementById(`thumb_${target}`);
+                    if (thumb.classList.contains('ri-thumb-up-fill')) {
+                        thumb.classList.replace('ri-thumb-up-fill', 'ri-thumb-up-line');
+                    } else {
+                        thumb.classList.replace('ri-thumb-up-line', 'ri-thumb-up-fill');
+                    }
 
                     likesText.innerText = `${nbLikes} J'aime`;
                     btn.dataset.nblikes = nbLikes;
