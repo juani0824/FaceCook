@@ -235,7 +235,15 @@
                                                 </span>
                                             </a>
                                             <a class="ml-4"> <i class="ri-chat-2-line  fa-2x"></i> {{ publication.commentaires|length}} <span class="ml-2"> Comments</span></a>
-                                            <a class="ml-4"> <i class="ri-heart-fill  fa-2x"></i><span class="ml-2"> Favorite</span></a>
+                                            <a class="favorite-data"
+                                               data-target="icon_favorite_{{ publication.id }}"
+                                               data-path="{{ path('favorite_like', {id: publication.id}) }}">
+                                                <i id="icon_favorite_{{ publication.id }}"
+                                                   class="{{ app.user and publication.favoriteOfUser(app.user) ? 'ri-heart-fill' : 'ri-heart-line' }}
+                                                    fa-2x">
+                                                </i>
+                                                <span class="ml-2"> Favorite</span>
+                                            </a>
                                             <a class="ml-4"> <i class="far fa-user text-primary  fa-2x"></i><span class="ml-2"> {{ publication.users }}</span></a>
                                         </div>
                                     </div>
@@ -363,7 +371,30 @@
                 })
             })
         });
+
+
+        /* Comme tu le remarque probablement ces méthodes sont très similaires, je te laisse refactoriser si tu le souhaite */
+
+        let favoriteButtons = Array.from(document.getElementsByClassName('favorite-data'));
+        favoriteButtons.forEach(favoriteButton => {
+            favoriteButton.addEventListener('click', e => {
+                e.preventDefault();
+                let btn = e.currentTarget;
+                let path = btn.dataset.path;
+                let target = btn.dataset.target;
+                fetch(path, { method: 'POST' })
+                    .then(response => {
+                        const favorite = document.getElementById(`${target}`);
+                        if (favorite.classList.contains('ri-heart-fill')) {
+                            favorite.classList.replace('ri-heart-fill', 'ri-heart-line');
+                        } else {
+                            favorite.classList.replace('ri-heart-line', 'ri-heart-fill');
+                        }
+                    })
+            });
+        })
     </script>
+
 
 <script src="  {{ asset('js/jquery.min.js') }}"></script>
 

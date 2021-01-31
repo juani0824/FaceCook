@@ -84,15 +84,32 @@ class Publication
      */
     private $likes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="publication")
+     */
+    private $favorites;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
     }
 
     public function likedByUser($user) {
         foreach ($this->getLikes() as $like) {
             if ($like->getUser()->getId() === $user->getId()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    public function favoriteOfUser($user) {
+        foreach ($this->getFavorites() as $favorite) {
+            if ($favorite->getUser()->getId() === $user->getId()) {
                 return true;
             }
         }
@@ -269,6 +286,36 @@ class Publication
             // set the owning side to null (unless already changed)
             if ($like->getPublication() === $this) {
                 $like->setPublication(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Favorite[]
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Favorite $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
+            $favorite->setPublication($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Favorite $favorite): self
+    {
+        if ($this->favorites->removeElement($favorite)) {
+            // set the owning side to null (unless already changed)
+            if ($favorite->getPublication() === $this) {
+                $favorite->setPublication(null);
             }
         }
 

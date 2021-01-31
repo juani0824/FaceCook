@@ -86,7 +86,7 @@
                                    data-path="{{ path('publication_like', {id: publication.id}) }}">
                                     <i id="icon_thumb"
                                        class="{{ app.user and publication.likedByUser(app.user) ? 'ri-thumb-up-fill' : 'ri-thumb-up-line' }}
-                                       fa-2x"></i>
+                                fa-2x"></i>
                                     <span class="ml-2"
                                       id="nb_likes"
                                       aria-haspopup="true" aria-expanded="false" role="button">
@@ -94,7 +94,14 @@
                                     </span>
                                 </a>
                                 <a href="#" class="ml-4"> <i class="ri-chat-2-line  fa-2x"></i> {{ publication.commentaires|length}} <span class="ml-2"> Comments</span></a>
-                                <a href="#" class="ml-4"> <i class="ri-heart-fill  fa-2x"></i><span class="ml-2"> Favorite</span></a>
+                                <a id="favorite-data"
+                                   data-path="{{ path('favorite_like', {id: publication.id}) }}">
+                                    <i id="icon_favorite"
+                                       class="{{ app.user and publication.favoriteOfUser(app.user) ? 'ri-heart-fill' : 'ri-heart-line' }}
+                                       fa-2x">
+                                    </i>
+                                    <span class="ml-2"> Favorite</span>
+                                </a>
                                 <a href="#" class="ml-4"> <i class="far fa-user text-primary  fa-2x"></i><span class="ml-2"> {{ publication.users }}</span></a>
                             </div>
                             <p>{{ publication.contenu }}</p>
@@ -132,6 +139,25 @@
 
                     likesText.innerText = `${nbLikes} J'aime`;
                     btn.dataset.nblikes = nbLikes;
+                })
+        });
+
+        /* Comme tu le remarque probablement ces méthodes sont très similaires, je te laisse refactoriser si tu le souhaite */
+
+        let favoriteButton = document.getElementById('favorite-data');
+        favoriteButton.addEventListener('click', e => {
+            e.preventDefault();
+            let btn = e.currentTarget;
+            let path = btn.dataset.path;
+            fetch(path, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    const thumb = document.getElementById(`icon_favorite`);
+                    if (thumb.classList.contains('ri-heart-fill')) {
+                        thumb.classList.replace('ri-heart-fill', 'ri-heart-line');
+                    } else {
+                        thumb.classList.replace('ri-heart-line', 'ri-heart-fill');
+                    }
                 })
         });
     </script>
