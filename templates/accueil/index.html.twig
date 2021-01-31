@@ -68,7 +68,7 @@
 <!-- Page Content End-->
 <div id="content-page" class="content-page">
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-lg-8 row m-0 p-0">
                 <div class="col-sm-12">
                     {{ form_start(formPublication) }}
@@ -105,7 +105,7 @@
                             <div class="modal-header">
                                 {% if app.user.avatar is defined and app.user.avatar is not null %}
                               <img src="{{asset('images/user/' ~ app.user.avatar) }}" class="rounded-circle mr-2"
-                                    width="60" heigth="60" alt="photo profil">
+                                    width="60" height="60" alt="photo profil">
                                 {% else %}
                                 <img src="{{ asset('images/user/foto1.jpg')}}" class="rounded-circle mr-2"
                                     width="60" height="60">
@@ -219,38 +219,13 @@
                             <!-- Commentaire Area-->
                             <div class="comment-area mt-3">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="like-block position-relative d-flex align-items-center">
-                                        <div class="d-flex align-items-center">
-                                            <div class="like-data">
-                                                <div class="dropdown">
-                                                    <span class="dropdown-toggle" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false" role="button">
-                                                        <i class="las la-thumbs-up la-2x"></i>
-                                                    </span>
-
-                                                </div>
-                                            </div>
-                                            <div class="total-like-block ml-2 mr-3">
-                                                <div class="dropdown">
-                                                    <span class="dropdown-toggle" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false" role="button">
-                                                        140 J'aime
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="total-comment-block">
-                                            <div class="dropdown">
-                                                <span class="dropdown-toggle" data-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false" role="button">
-                                                    <i class="ri-chat-2-line la-2x mr-1"></i>
-                                                    <span> {{ publication.commentaires|length}} Commentaires</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="total-like-block ml-2">
-                                            <i class="ri-heart-line mr-1 la-2x"></i><span> Favorite</span>
-                                        </div>
+                                    <div class="like-block  d-flex "> 
+                                        <a href="#" class=""><i class="ri-thumb-up-line fa-2x"></i><span class="ml-2"> J'aime</span></a>
+                                        <a href="#" class="d-none"><i class="ri-thumb-up-fill fa-2x"></i><span class="ml-2"> J'aime</span></a>                                
+                                        <a href="#" class="ml-4"> <i class="ri-chat-2-line  fa-2x"></i> {{ publication.commentaires|length}} <span class="ml-2"> Comments</span></a>
+                                        <a href="#" class="ml-4"> <i class="ri-heart-line  fa-2x"></i><span class="ml-2"> Favorite</span></a>
+                                        <a href="#" class="ml-4 d-none"> <i class="ri-heart-fill  fa-2x"></i><span class="ml-2"> Favorite</span></a>
+                                        
                                     </div>
                                 </div>
                                 <hr>
@@ -314,16 +289,7 @@
                                        
                                     </div>
                                 </div>
-                                <!--Modal Commentaire end-->
-                                <!--
-                                 <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
-                                     <input type="text" class="form-control rounded">
-                                     <div class="comment-attagement d-flex">
-                                         <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
-                                         <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
-                                         <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
-                                     </div>
-                                 </form>-->
+                                <!--Modal Commentaire end-->                               
                                 <form action="{{ path('commentaire_pub') }}" method="POST"
                                     class="comment-text d-flex align-items-center mt-3">
                                     <input type="hidden" name="idPublication" id="postComment"
