@@ -41,7 +41,6 @@ class ProfilController extends AbstractController
             'user' => $user,        
             'lastRecettes' => $publicationManager->lastXRecette(),
             'lastPRecettes' => $publicationManager->lastPRecette($user,6),
-            
         ]);
     }
 

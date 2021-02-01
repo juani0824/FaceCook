@@ -90,7 +90,7 @@ class User implements UserInterface
     private $likes;
 
     /**
-     * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="user")
+     * @ORM\ManyToMany(targetEntity=Publication::class, inversedBy="favorites")
      */
     private $favorites;
 
@@ -384,31 +384,25 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Favorite[]
+     * @return Collection|Publication[]
      */
     public function getFavorites(): Collection
     {
         return $this->favorites;
     }
 
-    public function addFavorite(Favorite $favorite): self
+    public function addFavorite(Publication $favorite): self
     {
         if (!$this->favorites->contains($favorite)) {
             $this->favorites[] = $favorite;
-            $favorite->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeFavorite(Favorite $favorite): self
+    public function removeFavorite(Publication $favorite): self
     {
-        if ($this->favorites->removeElement($favorite)) {
-            // set the owning side to null (unless already changed)
-            if ($favorite->getUser() === $this) {
-                $favorite->setUser(null);
-            }
-        }
+        $this->favorites->removeElement($favorite);
 
         return $this;
     }
