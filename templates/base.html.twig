@@ -2,14 +2,11 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}FaceCook</title>
-    {% block stylesheets %}{% endblock %}
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title></title>
+    <title>{% block title %}{% endblock %}FaceCook</title>
+    {% block stylesheets %}{% endblock %} 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{asset('images/ico.png')}}" />
     <!-- Bootstrap CSS -->
@@ -362,7 +359,7 @@
         <!--PAGE CONTENT ...-->
 
         {% endblock %}
-    </div>
+    </div> <!-- div wrapper end-->
     <!--FOOTER-->
     <footer class="bg-white iq-footer">
         <div class="container-fluid">

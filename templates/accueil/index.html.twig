@@ -68,7 +68,7 @@
 <!-- Page Content End-->
 <div id="content-page" class="content-page">
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-lg-8 row m-0 p-0">
                 <div class="col-sm-12">
                     {{ form_start(formPublication) }}
@@ -105,7 +105,7 @@
                             <div class="modal-header">
                                 {% if app.user.avatar is defined and app.user.avatar is not null %}
                               <img src="{{asset('images/user/' ~ app.user.avatar) }}" class="rounded-circle mr-2"
-                                    width="60" heigth="60" alt="photo profil">
+                                    width="60" height="60" alt="photo profil">
                                 {% else %}
                                 <img src="{{ asset('images/user/foto1.jpg')}}" class="rounded-circle mr-2"
                                     width="60" height="60">
@@ -309,16 +309,7 @@
                                        
                                     </div>
                                 </div>
-                                <!--Modal Commentaire end-->
-                                <!--
-                                 <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
-                                     <input type="text" class="form-control rounded">
-                                     <div class="comment-attagement d-flex">
-                                         <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
-                                         <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
-                                         <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
-                                     </div>
-                                 </form>-->
+                                <!--Modal Commentaire end-->                               
                                 <form action="{{ path('commentaire_pub') }}" method="POST"
                                     class="comment-text d-flex align-items-center mt-3">
                                     <input type="hidden" name="idPublication" id="postComment"

@@ -138,7 +138,7 @@
                                 </a>
                             </li>
                             {% endif %}
-                            
+
                             <li>
                                 {% if app.user.avatar is defined and app.user.avatar is not null %}
                                 <a href="#" class="iq-waves-effect d-flex align-items-center">
@@ -364,8 +364,8 @@
                                         <!-- Item -->
                                         {% for recette in lastRecettes %}
                                         <li class="recent-post-item">
-                                            <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes" width="60"
-                                                height="60">
+                                            <img src="{{asset('images/publications/' ~ recette.photo ) }}"
+                                                alt="recettes" width="60" height="60">
                                             <div class="body-recent-post">
                                                 <a href="{{ path('recette_detail', {'id': recette.id}) }}">
                                                     <h5 class="mt-0 mx-0 mb-1">{{ recette.titre }}</h5>
@@ -413,8 +413,8 @@
         <!--PAGE CONTENT ...-->
         <div id="content-page" class="content-page">
             <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
+                <div class="row justify-content-center">
+                    <div class="col-sm-11">
                         <div class="iq-card">
                             <div class="iq-card-body profile-page p-0">
                                 <div class="profile-header">
@@ -430,13 +430,13 @@
                                     <div class="user-detail text-center mb-3">
                                         {% if app.user.avatar is defined and app.user.avatar is not null %}
                                         <div class="profile-img">
-                                            <img src="{{asset('images/user/' ~ app.user.avatar ) }}" class="avatar-130 img-fluid"
-                                                alt="profil-img">
+                                            <img src="{{asset('images/user/' ~ app.user.avatar ) }}"
+                                                class="avatar-130 img-fluid" alt="profil-img">
                                         </div>
                                         <div class="profile-detail">
-                                            {% if app.user.pseudo is defined  and app.user.pseudo  is not null %} 
+                                            {% if app.user.pseudo is defined  and app.user.pseudo  is not null %}
                                             <h3> {{ app.user.pseudo}}</h3>
-                                            {% else %}  
+                                            {% else %}
                                             <h3 class="">{{ app.user.prenom }} {{ app.user.nom}}</h3>
                                             {% endif %}
                                         </div>
@@ -498,7 +498,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-11">
                         <div class="tab-content">
                             <div class="tab-pane fade active show" id="historique" role="tabpanel">
                                 <div class="iq-card-body p-0">
@@ -609,7 +609,8 @@
                                                                 </div>
                                                             </div> <!-- flex-wrap end -->
                                                             <div class="">
-                                                                <p style="font-size: large;"> {{ publication.contenu|raw }}
+                                                                <p style="font-size: large;">
+                                                                    {{ publication.contenu|raw }}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -712,7 +713,8 @@
                                                                         </div>
                                                                         <div class="comment-data-block ml-3">
                                                                             <h6>{{ commentaire.users }}</h6>
-                                                                            <p class="mb-0"> {{ commentaire.contenu|raw }}
+                                                                            <p class="mb-0">
+                                                                                {{ commentaire.contenu|raw }}
                                                                             </p>
                                                                             <div
                                                                                 class="d-flex flex-wrap align-items-center comment-activity">
@@ -879,8 +881,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
     <!--FOOTER-->
     <footer class="bg-white iq-footer">

@@ -66,23 +66,6 @@
                     </ul> <!-- Resources end-->
                 </div>
             </div>
-
-            <!-- Liste des Recettes-->
-            {#{% for  recette in recettes %}
-            <!--Boucle recettes-->
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <div class="container-img-fit" style="background: black;">
-                        <img class="card-img-top" src="{{asset('images/' ~ recette.photo ) }}" alt="Recette">
-                    </div>
-                    <div class="card-body text-center">
-                        <h4 class="card-title" style="color: #ff6c40;">{{ recette.titre }}</h4>
-                        <p class="card-text text-justify">{{ recette.description }}</p>
-                        <a href="#" class="btn btn-primary">Lire plus</a>
-                    </div>
-                </div>
-            </div><!-- .col-md-4 -->
-            {% endfor %}#}
         </div>
     </div>
 </div> <!-- Content-page end-->
