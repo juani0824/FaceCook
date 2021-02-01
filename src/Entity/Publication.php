@@ -85,7 +85,7 @@ class Publication
     private $likes;
 
     /**
-     * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="publication")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="favorites")
      */
     private $favorites;
 
@@ -106,10 +106,9 @@ class Publication
         return false;
     }
 
-
     public function favoriteOfUser($user) {
         foreach ($this->getFavorites() as $favorite) {
-            if ($favorite->getUser()->getId() === $user->getId()) {
+            if ($favorite->getId() === $user->getId()) {
                 return true;
             }
         }
@@ -293,30 +292,27 @@ class Publication
     }
 
     /**
-     * @return Collection|Favorite[]
+     * @return Collection|User[]
      */
     public function getFavorites(): Collection
     {
         return $this->favorites;
     }
 
-    public function addFavorite(Favorite $favorite): self
+    public function addFavorite(User $favorite): self
     {
         if (!$this->favorites->contains($favorite)) {
             $this->favorites[] = $favorite;
-            $favorite->setPublication($this);
+            $favorite->addFavorite($this);
         }
 
         return $this;
     }
 
-    public function removeFavorite(Favorite $favorite): self
+    public function removeFavorite(User $favorite): self
     {
         if ($this->favorites->removeElement($favorite)) {
-            // set the owning side to null (unless already changed)
-            if ($favorite->getPublication() === $this) {
-                $favorite->setPublication(null);
-            }
+            $favorite->removeFavorite($this);
         }
 
         return $this;

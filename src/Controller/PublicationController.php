@@ -133,26 +133,21 @@ class PublicationController extends AbstractController
     /**
      * @Route("/{id}/favorite", name="favorite_like", methods={"POST"})
      */
-    public function favorite(Publication $publication, FavoriteRepository $favoriteRepository, EntityManagerInterface $entityManager)
+    public function favorite(Publication $publication, EntityManagerInterface $entityManager)
     {
         /** @var User $user */
         $user = $this->getUser();
 
         $content = '+';
-        $statusCode = 200;
-        if (null === $favorite = $favoriteRepository->findFavouritePublication($publication, $user)) {
-            $favorite = new Favorite();
-            $favorite->setUser($user)
-                ->setPublication($publication);
-
-            $entityManager->persist($favorite);
-        } else {
-            $entityManager->remove($favorite);
+        if ($publication->favoriteOfUser($this->getUser())) {
+            $publication->removeFavorite($user);
             $content = '-';
+        } else {
+            $publication->addFavorite($user);
         }
 
         $entityManager->flush();
 
-        return $this->json($content, $statusCode);
+        return $this->json($content);
     }
 }
