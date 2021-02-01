@@ -219,13 +219,33 @@
                             <!-- Commentaire Area-->
                             <div class="comment-area mt-3">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="like-block  d-flex "> 
-                                        <a href="#" class=""><i class="ri-thumb-up-line fa-2x"></i><span class="ml-2"> J'aime</span></a>
-                                        <a href="#" class="d-none"><i class="ri-thumb-up-fill fa-2x"></i><span class="ml-2"> J'aime</span></a>                                
-                                        <a href="#" class="ml-4"> <i class="ri-chat-2-line  fa-2x"></i> {{ publication.commentaires|length}} <span class="ml-2"> Comments</span></a>
-                                        <a href="#" class="ml-4"> <i class="ri-heart-line  fa-2x"></i><span class="ml-2"> Favorite</span></a>
-                                        <a href="#" class="ml-4 d-none"> <i class="ri-heart-fill  fa-2x"></i><span class="ml-2"> Favorite</span></a>
-                                        
+                                    <div class="like-block position-relative d-flex align-items-center">
+                                        <div class="like-block  d-flex ">
+                                            <a class="like-data"
+                                               data-nblikes="{{ publication.likes|length }}"
+                                               data-target="{{ publication.id }}"
+                                               data-path="{{ path('publication_like', {id: publication.id}) }}">
+                                                <i id="thumb_{{ publication.id }}"
+                                                   class="{{ app.user and publication.likedByUser(app.user) ? 'ri-thumb-up-fill' : 'ri-thumb-up-line' }}
+                                                fa-2x"></i>
+                                                <span class="ml-2"
+                                                  id="nb_likes_{{ publication.id }}"
+                                                  aria-haspopup="true" aria-expanded="false" role="button">
+                                                    {{ publication.likes|length }} J'aime
+                                                </span>
+                                            </a>
+                                            <a class="ml-4"> <i class="ri-chat-2-line  fa-2x"></i> {{ publication.commentaires|length}} <span class="ml-2"> Comments</span></a>
+                                            <a class="favorite-data"
+                                               data-target="icon_favorite_{{ publication.id }}"
+                                               data-path="{{ path('favorite_like', {id: publication.id}) }}">
+                                                <i id="icon_favorite_{{ publication.id }}"
+                                                   class="{{ app.user and publication.favoriteOfUser(app.user) ? 'ri-heart-fill' : 'ri-heart-line' }}
+                                                    fa-2x">
+                                                </i>
+                                                <span class="ml-2"> Favorite</span>
+                                            </a>
+                                            <a class="ml-4"> <i class="far fa-user text-primary  fa-2x"></i><span class="ml-2"> {{ publication.users }}</span></a>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr>
@@ -316,6 +336,56 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script>
+        let likeButtons = Array.from(document.getElementsByClassName('like-data'));
+        likeButtons.forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.preventDefault();
+                let btn = e.currentTarget;
+                let path = btn.dataset.path;
+                let target = btn.dataset.target;
+                let nbLikes = Number(btn.dataset.nblikes);
+                fetch(path, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    const likesText = document.getElementById(`nb_likes_${target}`);
+                    data.toString() === '-' ? nbLikes-- : nbLikes++;
+                    const thumb = document.getElementById(`thumb_${target}`);
+                    if (thumb.classList.contains('ri-thumb-up-fill')) {
+                        thumb.classList.replace('ri-thumb-up-fill', 'ri-thumb-up-line');
+                    } else {
+                        thumb.classList.replace('ri-thumb-up-line', 'ri-thumb-up-fill');
+                    }
+
+                    likesText.innerText = `${nbLikes} J'aime`;
+                    btn.dataset.nblikes = nbLikes;
+                })
+            })
+        });
+
+
+        /* Comme tu le remarque probablement ces méthodes sont très similaires, je te laisse refactoriser si tu le souhaite */
+
+        let favoriteButtons = Array.from(document.getElementsByClassName('favorite-data'));
+        favoriteButtons.forEach(favoriteButton => {
+            favoriteButton.addEventListener('click', e => {
+                e.preventDefault();
+                let btn = e.currentTarget;
+                let path = btn.dataset.path;
+                let target = btn.dataset.target;
+                fetch(path, { method: 'POST' })
+                    .then(response => {
+                        const favorite = document.getElementById(`${target}`);
+                        if (favorite.classList.contains('ri-heart-fill')) {
+                            favorite.classList.replace('ri-heart-fill', 'ri-heart-line');
+                        } else {
+                            favorite.classList.replace('ri-heart-line', 'ri-heart-fill');
+                        }
+                    })
+            });
+        })
+    </script>
+
 
 <script src="  {{ asset('js/jquery.min.js') }}"></script>
 
@@ -344,7 +414,7 @@
         } else {
             return false;
         }
-    }    
+    }
 </script>
 
 
