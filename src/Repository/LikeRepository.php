@@ -21,10 +21,6 @@ class LikeRepository extends ServiceEntityRepository
         parent::__construct($registry, Like::class);
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
     public function findPublicationLikedBy(Publication $publication, User $user)
     {
         return $this->createQueryBuilder('l')

@@ -85,27 +85,16 @@ class User implements UserInterface
     private $cantines;
 
     /**
-<<<<<<< HEAD
      * @ORM\OneToMany(targetEntity=Like::class, mappedBy="user", orphanRemoval=true)
-=======
-     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="user")
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
      */
     private $likes;
 
     /**
-<<<<<<< HEAD
      * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="user")
      */
     private $favorites;
 
    
-=======
-     * @ORM\ManyToMany(targetEntity=Publication::class, inversedBy="favorites")
-     */
-    private $favorites;
-
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -113,11 +102,8 @@ class User implements UserInterface
         $this->publications = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->favorites = new ArrayCollection();
-<<<<<<< HEAD
       
        
-=======
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
     }
 
     public function __toString()
@@ -401,35 +387,23 @@ class User implements UserInterface
     }
 
     /**
-<<<<<<< HEAD
      * @return Collection|Favorite[]
-=======
-     * @return Collection|Publication[]
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
      */
     public function getFavorites(): Collection
     {
         return $this->favorites;
     }
 
-<<<<<<< HEAD
     public function addFavorite(Favorite $favorite): self
     {
         if (!$this->favorites->contains($favorite)) {
             $this->favorites[] = $favorite;
             $favorite->setUser($this);
-=======
-    public function addFavorite(Publication $favorite): self
-    {
-        if (!$this->favorites->contains($favorite)) {
-            $this->favorites[] = $favorite;
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
         }
 
         return $this;
     }
 
-<<<<<<< HEAD
     public function removeFavorite(Favorite $favorite): self
     {
         if ($this->favorites->removeElement($favorite)) {
@@ -445,12 +419,4 @@ class User implements UserInterface
    
   
 
-=======
-    public function removeFavorite(Publication $favorite): self
-    {
-        $this->favorites->removeElement($favorite);
-
-        return $this;
-    }
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
 }
