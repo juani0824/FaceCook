@@ -35,7 +35,6 @@ class RecetteController extends AbstractController
      */
     public function detail(Publication $publication, PublicationManager $publicationManager): Response
     {
-
         // recuperer les 3 dernier recettes
         $lastRecettes = $this->getDoctrine()->getRepository(Publication::class)->lastXRecette(4);
 

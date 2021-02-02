@@ -4,15 +4,24 @@ namespace App\Controller;
 
 use App\Entity\Favorite;
 use App\Entity\Like;
+<<<<<<< HEAD
 use App\Entity\User;
+=======
+>>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
 use App\Entity\Publication;
+use App\Entity\User;
 use App\Form\PublicationType;
 use App\Manager\PublicationManager;
 use App\Repository\FavoriteRepository;
 use App\Repository\LikeRepository;
 use App\Repository\PublicationRepository;
+<<<<<<< HEAD
 use Doctrine\ORM\Persisters\PersisterException;
 use Doctrine\ORM\EntityManagerInterface;
+=======
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Persisters\PersisterException;
+>>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -103,8 +112,11 @@ class PublicationController extends AbstractController
         return $this->redirectToRoute('accueil');
     }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
     /**
      * @Route("/{id}/like", name="publication_like", methods={"POST"})
      */
@@ -131,15 +143,24 @@ class PublicationController extends AbstractController
         return $this->json($content, $statusCode);
     }
 
+<<<<<<< HEAD
     /**
      * @Route("/{id}/favorite", name="favorite_like", methods={"POST"})
      */
     public function favorite(Publication $publication, FavoriteRepository $favoriteRepository, EntityManagerInterface $entityManager)
+=======
+
+    /**
+     * @Route("/{id}/favorite", name="favorite_like", methods={"POST"})
+     */
+    public function favorite(Publication $publication, EntityManagerInterface $entityManager)
+>>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
     {
         /** @var User $user */
         $user = $this->getUser();
 
         $content = '+';
+<<<<<<< HEAD
         $statusCode = 200;
         if (null === $favorite = $favoriteRepository->findFavoritePublication($publication, $user)) {
             $favorite = new Favorite();
@@ -150,10 +171,23 @@ class PublicationController extends AbstractController
         } else {
             $entityManager->remove($favorite);
             $content = '-';
+=======
+        if ($publication->favoriteOfUser($this->getUser())) {
+            $publication->removeFavorite($user);
+            $content = '-';
+        } else {
+            $publication->addFavorite($user);
+>>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
         }
 
         $entityManager->flush();
 
+<<<<<<< HEAD
         return $this->json($content, $statusCode);
     }
 }
+=======
+        return $this->json($content);
+    }
+}
+>>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3

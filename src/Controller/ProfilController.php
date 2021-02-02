@@ -47,9 +47,13 @@ class ProfilController extends AbstractController
             'recettes' => $publicationManager->allRecette(),
             'user' => $user,
             'lastRecettes' => $publicationManager->lastXRecette(),
+<<<<<<< HEAD
             'lastPRecettes' => $publicationManager->lastPRecette($user, 6),
                
 
+=======
+            'lastPRecettes' => $publicationManager->lastPRecette($user,6),
+>>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
         ]);
     }
 

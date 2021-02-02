@@ -379,13 +379,12 @@
         </div>
     </footer>
 
-    {% block javascripts %}{% endblock %}
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="  {{ asset('js/jquery.min.js') }}"></script>
     <script src="  {{ asset('js/popper.min.js') }}"></script>
     <script src="  {{ asset('js/bootstrap.min.js') }}"></script>
+
     <!-- Wow JavaScript -->
     <script src="{{asset('js/lottie.js')}}"></script>
     <!-- Sidebar rigth -->
@@ -404,6 +403,8 @@
     <script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script>
     <!-- Smooth Scrollbar JavaScript -->
     <script src="{{asset('js/smooth-scrollbar.js')}}"></script>
+    <!-- Modal-->
+    <script src="{{ asset('bundles/sideclickbootstrapmodal/js/sideclick-bootstrap-modal.js') }}"></script>
 
     <script>
         // Add the following code if you want the name of the file appear on select
@@ -412,6 +413,7 @@
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
     </script>
+    {% block javascripts %}{% endblock %}
 </body>
 
 </html>
