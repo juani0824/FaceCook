@@ -17,19 +17,19 @@
                                 <!-- Item -->
                                 {% for recette in lastRecettes %}
                                 <li class="recent-post-item">
-                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes" width="60"
-                                        height="60">
+                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes"
+                                        width="60" height="60">
                                     <div class="body-recent-post">
                                         <a href="{{ path('recette_detail', {'id': recette.id}) }}">
-                                            <h5 class="mt-0 mx-0 mb-1 text-primary text-uppercase">
+                                            <h5 class="mt-0 mx-0 mb-1 text-uppercase">
                                                 {{ recette.titre }}
                                             </h5>
                                         </a>
-                                        <span>
+                                        <span class="text-primary">
                                             <i class="las la-thumbs-up la-lg"></i>
-                                            500
+                                            {{ recette.likes|length }}
                                         </span>
-                                        <span>
+                                        <span class="text-primary">
                                             <i class="ri-chat-2-line la-1x mr-1"></i>
                                             {{ recette.commentaires|length}}
                                         </span>
@@ -104,11 +104,11 @@
                             <!-- Modal Header -->
                             <div class="modal-header">
                                 {% if app.user.avatar is defined and app.user.avatar is not null %}
-                              <img src="{{asset('images/user/' ~ app.user.avatar) }}" class="rounded-circle mr-2"
+                                <img src="{{asset('images/user/' ~ app.user.avatar) }}" class="rounded-circle mr-2"
                                     width="60" height="60" alt="photo profil">
                                 {% else %}
-                                <img src="{{ asset('images/user/foto1.jpg')}}" class="rounded-circle mr-2"
-                                    width="60" height="60">
+                                <img src="{{ asset('images/user/foto1.jpg')}}" class="rounded-circle mr-2" width="60"
+                                    height="60">
                                 {% endif %}
                                 {#  {% if user.pseudo is not null %} condicion para colocar el pseudo#}
                                 <h4>{{ app.user.prenom}} {{ app.user.nom}}</h4>
@@ -152,7 +152,8 @@
                                     <div class="media-support-user-img mr-3">
                                         <!-- condition pour recuperer photo profil-->
                                         {% if  publication.users.avatar is defined and publication.users.avatar is not null %}
-                                        <img src="{{ asset('images/user/' ~ publication.users.avatar )}}" class="rounded-circle" width="60" height="60" alt="Utilisateur">
+                                        <img src="{{ asset('images/user/' ~ publication.users.avatar )}}"
+                                            class="rounded-circle" width="60" height="60" alt="Utilisateur">
                                         {% else %}
                                         <img class="rounded-circle img-fluid"
                                             src="{{asset('images/user/profil_photo.png')}}" alt="Profil">
@@ -210,8 +211,9 @@
 
                             <div class="user-post">
                                 {% if publication.photo %}
-                                <a href="javascript:void();"><img src="{{asset('images/publications/')}}{{ publication.photo }}"
-                                        alt="post-image" class="img-fluid rounded w-100"></a>
+                                <a href="javascript:void();"><img
+                                        src="{{asset('images/publications/')}}{{ publication.photo }}" alt="post-image"
+                                        class="img-fluid rounded w-100"></a>
                                 {% else %}
 
                                 {% endif %}
@@ -219,13 +221,32 @@
                             <!-- Commentaire Area-->
                             <div class="comment-area mt-3">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="like-block  d-flex "> 
-                                        <a href="#" class=""><i class="ri-thumb-up-line fa-2x"></i><span class="ml-2"> J'aime</span></a>
-                                        <a href="#" class="d-none"><i class="ri-thumb-up-fill fa-2x"></i><span class="ml-2"> J'aime</span></a>                                
-                                        <a href="#" class="ml-4"> <i class="ri-chat-2-line  fa-2x"></i> {{ publication.commentaires|length}} <span class="ml-2"> Comments</span></a>
-                                        <a href="#" class="ml-4"> <i class="ri-heart-line  fa-2x"></i><span class="ml-2"> Favorite</span></a>
-                                        <a href="#" class="ml-4 d-none"> <i class="ri-heart-fill  fa-2x"></i><span class="ml-2"> Favorite</span></a>
-                                        
+                                    <div class="d-flex align-items-center">
+                                        <!--Likes-->
+                                        <a class="like-data" data-nblikes="{{ publication.likes|length }}"
+                                            data-target="{{ publication.id }}"
+                                            data-path="{{ path('publication_like', {id: publication.id}) }}">
+                                            <i id="thumb_{{ publication.id }}" class="{{ app.user and publication.likedByUser(app.user) ? 'ri-thumb-up-fill text-primary' : 'ri-thumb-up-line text-primary' }}
+                                         fa-2x">
+                                            </i>
+                                            <span class=" text-primary" id="nb_likes_{{ publication.id }}"
+                                                aria-haspopup="true" aria-expanded="false" role="button">
+                                                {{ publication.likes|length }} &nbsp; J'aime
+                                            </span>
+                                        </a>
+                                        <!-- Commentaires et Favorites-->
+                                        <a href="#" class="ml-4"> <i class="ri-chat-2-line  fa-2x"></i>
+                                            {{ publication.commentaires|length}} <span class="ml-2">
+                                                Comments</span></a>
+                                        <!-- Favorite-->
+                                        <a class="favorite-data ml-4" data-target="icon_favorite_{{ publication.id }}"
+                                            data-path="{{ path('favorite_like', {id: publication.id}) }}">
+                                            <i id="icon_favorite_{{ publication.id }}" class="{{ app.user and publication.favoriteOfUser(app.user) ? 'ri-heart-fill text-primary' : 'ri-heart-line text-primary' }}
+                                             fa-2x">
+                                            </i>
+                                            <span class="text-primary"> Favorite</span>
+                                        </a>
+                                     
                                     </div>
                                 </div>
                                 <hr>
@@ -257,7 +278,7 @@
                                                             <div class="dropdown-menu dropdown-menu-right m-0 p-0">
                                                                 <a class="dropdown-item"
                                                                     href="/commentaire/{{ commentaire.id }}/edit"
-                                                                    data-sideclick-modal-trigger ><i
+                                                                    data-sideclick-modal-trigger><i
                                                                         class="ri-pencil-fill mr-2"></i>Modifier</a>
                                                                 <a class="dropdown-item"
                                                                     onclick="return ConfirmDelete()"
@@ -283,13 +304,13 @@
                                 {% endfor %}
                                 <!-- Boucle Commentaire-->
                                 <!-- Modal Modifier Commentaire -->
-                                <div class="modal fade" tabindex="-1" id="emptyModal" 
-                                    aria-labelledby="myModalLabel"  role="dialog" data-async aria-hidden="true">
+                                <div class="modal fade" tabindex="-1" id="emptyModal" aria-labelledby="myModalLabel"
+                                    role="dialog" data-async aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
-                                       
+
                                     </div>
                                 </div>
-                                <!--Modal Commentaire end-->                               
+                                <!--Modal Commentaire end-->
                                 <form action="{{ path('commentaire_pub') }}" method="POST"
                                     class="comment-text d-flex align-items-center mt-3">
                                     <input type="hidden" name="idPublication" id="postComment"
@@ -327,7 +348,7 @@
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 
-// suprimir une publication et supprimir un commentaire
+    // suprimir une publication et supprimir un commentaire
     function ConfirmDelete() {
         var resp = confirm("Etes-vous sûr de vouloir supprimer?");
         if (resp == true) {
@@ -344,7 +365,59 @@
         } else {
             return false;
         }
-    }    
+    }
+
+    //////////////LIKES/////// ///////       
+    let likeButtons = Array.from(document.getElementsByClassName('like-data'));
+    likeButtons.forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            let btn = e.currentTarget;
+            let path = btn.dataset.path;
+            let target = btn.dataset.target;
+            let nbLikes = Number(btn.dataset.nblikes);
+            fetch(path, {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const likesText = document.getElementById(`nb_likes_${target}`);
+                    data.toString() === '-' ? nbLikes-- : nbLikes++;
+
+                    const thumb = document.getElementById(`thumb_${target}`);
+                    if (thumb.classList.contains('ri-thumb-up-fill')) {
+                        thumb.classList.replace('ri-thumb-up-fill', 'ri-thumb-up-line');
+                    } else {
+                        thumb.classList.replace('ri-thumb-up-line', 'ri-thumb-up-fill');
+                    }
+
+                    likesText.innerText = `${nbLikes} J'aime`;
+                    btn.dataset.nblikes = nbLikes;
+                })
+        })
+    });
+
+    /////////// FAVORITES /////////////
+    let favoriteButtons = Array.from(document.getElementsByClassName('favorite-data'));
+    favoriteButtons.forEach(favoriteButton => {
+        favoriteButton.addEventListener('click', e => {
+            e.preventDefault();
+            let btn = e.currentTarget;
+            let path = btn.dataset.path;
+            let target = btn.dataset.target;
+            fetch(path, {
+                    method: 'POST'
+                })
+                .then(response => {
+                    const favorite = document.getElementById(`${target}`);
+                    if (favorite.classList.contains('ri-heart-fill')) {
+                        favorite.classList.replace('ri-heart-fill', 'ri-heart-line');
+                    } else {
+                        favorite.classList.replace('ri-heart-line', 'ri-heart-fill');
+                    }
+                })
+        });
+    })
 </script>
 
 

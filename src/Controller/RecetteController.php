@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Favorite;
+use App\Entity\User;
 use App\Entity\Publication;
 use App\Manager\PublicationManager;
+use App\Repository\FavoriteRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,4 +48,32 @@ class RecetteController extends AbstractController
             
         ]);
     }
+
+    /**
+     * @Route("/{id}/favorite", name="recette_favorite", methods={"POST"})
+     */
+    public function favorite(Publication $publication, FavoriteRepository $favoriteRepository, EntityManagerInterface $entityManager)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $content = '+';
+        $statusCode = 200;
+        if (null === $favorite = $favoriteRepository->findFavoritePublication($publication, $user)) {
+            $favorite = new Favorite();
+            $favorite->setUser($user)
+                ->setPublication($publication);
+
+            $entityManager->persist($favorite);
+        } else {
+            $entityManager->remove($favorite);
+            $content = '-';
+        }
+
+        $entityManager->flush();
+
+        return $this->json($content, $statusCode);
+    }
+    
+
 }

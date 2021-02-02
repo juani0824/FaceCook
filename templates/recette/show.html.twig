@@ -18,19 +18,17 @@
                                 <!-- Item -->
                                 {% for recette in lastRecettes %}
                                 <li class="recent-post-item">
-                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes" width="60"
-                                        height="60">
+                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}"
+                                        alt="recettes" width="60" height="60">
                                     <div class="body-recent-post">
                                         <a href="{{ path('recette_detail', {'id': recette.id}) }}">
-                                            <h5 class="mt-0 mx-0 mb-1 text-primary text-uppercase">
-                                                {{ recette.titre }}
-                                            </h5>
+                                            <h5 class="mt-0 mx-0 mb-1 text-uppercase">{{ recette.titre }}</h5>
                                         </a>
-                                        <span>
+                                        <span class="text-primary">
                                             <i class="las la-thumbs-up la-lg"></i>
-                                            500
+                                            {{ recette.likes|length }}
                                         </span>
-                                        <span>
+                                        <span class="text-primary">
                                             <i class="ri-chat-2-line la-1x mr-1"></i>
                                             {{ recette.commentaires|length}}
                                         </span>
@@ -81,17 +79,31 @@
                             <h4 class="mb-3 pb-3 border-bottom text-center text-uppercase" style="color: #ff6c40;">
                                 {{ publication.titre }}</h4>
 
-                            <div class="blog-meta d-flex align-items-center mb-3">
-                                <div class="date mr-4"><i
-                                        class="ri-calendar-2-fill text-primary pr-2" style="font-size: large;"></i>{{ publication.createdAt| date('d/m/Y')}}
-                                </div>
-                                <div class="like mr-4"><i class="ri-thumb-up-line text-primary pr-2" style="font-size: large;"></i>20 J'aime</div>
-                                <div class="comments mr-4"> <i class="ri-chat-2-line text-primary  pr-2" style="font-size: large;"></i>
-                                    {{ publication.commentaires|length}} commentaires
-                                </div>
-                                <div class="share"><i class="far fa-user text-primary pr-2" style="font-size: large;"></i> {{ publication.users }}
-                                </div>
+                            <div class="like-block d-flex align-items-center ">
+                                <a id="like-data"
+                                   data-nblikes="{{ publication.likes|length }}"
+                                   data-path="{{ path('publication_like', {id: publication.id}) }}">
+                                    <i id="icon_thumb"
+                                       class="{{ app.user and publication.likedByUser(app.user) ? 'ri-thumb-up-fill text-primary' : 'ri-thumb-up-line text-primary' }}
+                                       fa-2x"></i>
+                                    <span class=" text-primary"
+                                      id="nb_likes"
+                                      aria-haspopup="true" aria-expanded="false" role="button">
+                                        {{ publication.likes|length }} &nbsp; J'aime
+                                    </span>
+                                </a>
+                                <a href="#" class="ml-4"> <i class="ri-chat-2-line  fa-2x"></i> {{ publication.commentaires|length}} <span class="ml-2 text-primary"> Comments</span></a>
+                                 <!-- Favorite-->
+                                 <a class="favorite-data ml-4" data-target="icon_favorite_{{ publication.id }}"
+                                 data-path="{{ path('recette_favorite', {id: publication.id}) }}">
+                                 <i id="icon_favorite_{{ publication.id }}" class="{{ app.user and publication.favoriteOfUser(app.user) ? 'ri-heart-fill text-primary' : 'ri-heart-line text-primary' }}
+                                  fa-2x">
+                                 </i>
+                                 <span class="text-primary"> Favorite</span>
+                             </a>                               
+                                <a href="#" class="ml-4"> <i class="far  fa-user text-primary  fa-2x"></i><span class="ml-2 text-primary"> {{ publication.users }}</span></a>
                             </div>
+                            <hr>
                             <p>{{ publication.contenu }}</p>
 
                         </div>
@@ -102,5 +114,33 @@
     </div><!-- container-->
 </div> <!-- Content-page end-->
 
+
+{% endblock %}
+
+{%  block javascripts %} 
+
+<script>
+      /////////// FAVORITES /////////////
+      let favoriteButtons = Array.from(document.getElementsByClassName('favorite-data'));
+      favoriteButtons.forEach(favoriteButton => {
+          favoriteButton.addEventListener('click', e => {
+              e.preventDefault();
+              let btn = e.currentTarget;
+              let path = btn.dataset.path;
+              let target = btn.dataset.target;
+              fetch(path, {
+                      method: 'POST'
+                  })
+                  .then(response => {
+                      const favorite = document.getElementById(`${target}`);
+                      if (favorite.classList.contains('ri-heart-fill')) {
+                          favorite.classList.replace('ri-heart-fill', 'ri-heart-line');
+                      } else {
+                          favorite.classList.replace('ri-heart-line', 'ri-heart-fill');
+                      }
+                  })
+          });
+      })
+</script>
 
 {% endblock %}

@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Publication;
 use App\Entity\Commentaire;
+use App\Entity\Favorite;
+use App\Entity\Like;
 use App\Entity\User;
-use App\Form\ProfilType;
-use App\Form\PublicationType;
-use App\Form\RegistrationFormType;
 use App\Manager\PublicationManager;
+use App\Repository\FavoriteRepository;
+use App\Repository\LikeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,18 +32,24 @@ class ProfilController extends AbstractController
             array('users' => $user->getId()),
             array('created_at' => 'Desc')
         );
-        
-       //$lastPRecette = $this->getDoctrine()->getRepository(Publication::class)->lastXRecette(9);
-      
+
+        // Lister mes Favorites
+        $favorites = $em->getRepository('App:Favorite')->findBy(
+            array('user' => $user->getId())
+           
+        );      
+
         return $this->render('profil/index.html.twig', [
-          
+
             'publications' => $publications,
             'mesRecettes' => $publicationManager->getRecetteByUser($user),
-            'recettes' => $publicationManager->allRecette(),            
-            'user' => $user,        
+            'mesFavoris' => $favorites,
+            'recettes' => $publicationManager->allRecette(),
+            'user' => $user,
             'lastRecettes' => $publicationManager->lastXRecette(),
-            'lastPRecettes' => $publicationManager->lastPRecette($user,6),
-            
+            'lastPRecettes' => $publicationManager->lastPRecette($user, 6),
+               
+
         ]);
     }
 
@@ -66,6 +74,60 @@ class ProfilController extends AbstractController
         $entityManager->persist($commentaire);
         $entityManager->flush();
 
-        return $this->redirectToRoute('profil',['id'=>$user->getId()]); // rediriger à la pagina profil
+        return $this->redirectToRoute('profil', ['id' => $user->getId()]); // rediriger à la pagina profil
+    }
+
+
+    /**
+     * @Route("/{id}/like", name="profil_like", methods={"POST"})
+     */
+    public function like(Publication $publication, LikeRepository $likeRepository, EntityManagerInterface $entityManager)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $content = '+';
+        $statusCode = 200;
+        if (null === $like = $likeRepository->findPublicationLikedBy($publication, $user)) {
+            $like = new Like();
+            $like->setUser($user)
+                ->setPublication($publication);
+
+            $entityManager->persist($like);
+        } else {
+            $entityManager->remove($like);
+            $content = '-';
+        }
+
+        $entityManager->flush();
+
+        return $this->json($content, $statusCode);
+    }
+
+
+    /**
+     * @Route("/{id}/favorite", name="profil_favorite", methods={"POST"})
+     */
+    public function favorite(Publication $publication, FavoriteRepository $favoriteRepository, EntityManagerInterface $entityManager)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $content = '+';
+        $statusCode = 200;
+        if (null === $favorite = $favoriteRepository->findFavoritePublication($publication, $user)) {
+            $favorite = new Favorite();
+            $favorite->setUser($user)
+                ->setPublication($publication);
+
+            $entityManager->persist($favorite);
+        } else {
+            $entityManager->remove($favorite);
+            $content = '-';
+        }
+
+        $entityManager->flush();
+
+        return $this->json($content, $statusCode);
     }
 }

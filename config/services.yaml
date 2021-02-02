@@ -7,6 +7,7 @@ parameters:
     app.path.photo: 'images/publications'
     brochures_directory: '%kernel.project_dir%/public/docs' #Pour les documents pdf 
     avatar_directory: '%kernel.project_dir%/public/images/user' #Pour les photos profil de l'utilisateur 
+    
 services:
     # default configuration for services in *this* file
     _defaults:

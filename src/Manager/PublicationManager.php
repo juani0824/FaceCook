@@ -3,7 +3,7 @@
 
 namespace App\Manager;
 
-
+use App\Entity\Favorite;
 use App\Entity\Publication;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,14 +25,16 @@ class PublicationManager
     public function getRecetteByUser(User $user)
     {
         return $this->em->getRepository(Publication::class)->findBy(
-            ['type' => true, 'users' => $user->getId()],['created_at' => 'desc']);
-        
+            ['type' => true, 'users' => $user->getId()],
+            ['created_at' => 'desc']
+        );
     }
 
     public function allRecette()
     {
         return $this->em->getRepository(Publication::class)->findBy(
-            ['type'=>true], ['created_at' => 'desc']
+            ['type' => true],
+            ['created_at' => 'desc']
         );
     }
 
@@ -51,6 +53,12 @@ class PublicationManager
         return $this->em->getRepository(Publication::class)->lastPRecette($user, $cant);
     }
 
+    /*
+    public function lastXFavorite(User $user,Publication $publication, $cant)
+    {
+        return $this->em->getRepository(Favorite::class)->lastXFavorite($user, $publication, $cant);
+    }    
+*/
     public function create(Publication $publication, User $user)
     {
         $publication->setUsers($user);
@@ -58,7 +66,6 @@ class PublicationManager
         $publication->setUpdatedAt(new \DateTime());
         $this->em->persist($publication);
         $this->em->flush();
-
     }
 
     public function updated(Publication $publication)

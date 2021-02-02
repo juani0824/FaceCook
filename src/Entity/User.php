@@ -84,11 +84,26 @@ class User implements UserInterface
      */
     private $cantines;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $likes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="user")
+     */
+    private $favorites;
+
+   
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
         $this->documents = new ArrayCollection();
         $this->publications = new ArrayCollection();
+        $this->likes = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
+      
+       
     }
 
     public function __toString()
@@ -340,4 +355,68 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Like[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Favorite[]
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Favorite $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
+            $favorite->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Favorite $favorite): self
+    {
+        if ($this->favorites->removeElement($favorite)) {
+            // set the owning side to null (unless already changed)
+            if ($favorite->getUser() === $this) {
+                $favorite->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+   
+  
+
 }

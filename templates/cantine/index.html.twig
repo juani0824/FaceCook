@@ -17,19 +17,19 @@
                                 <!-- Item -->
                                 {% for recette in lastRecettes %}
                                 <li class="recent-post-item">
-                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes" width="60"
-                                        height="60">
+                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes"
+                                        width="60" height="60">
                                     <div class="body-recent-post">
                                         <a href="{{ path('recette_detail', {'id': recette.id}) }}">
-                                            <h5 class="mt-0 mx-0 mb-1 text-primary text-uppercase">
+                                            <h5 class="mt-0 mx-0 mb-1 text-uppercase">
                                                 {{ recette.titre }}
                                             </h5>
                                         </a>
-                                        <span>
+                                        <span class="text-primary">
                                             <i class="las la-thumbs-up la-lg"></i>
-                                            500
+                                            {{ recette.favorites|length }}
                                         </span>
-                                        <span>
+                                        <span class="text-primary">
                                             <i class="ri-chat-2-line la-1x mr-1"></i>
                                             {{ recette.commentaires|length}}
                                         </span>

@@ -142,8 +142,8 @@
                             <li>
                                 {% if app.user.avatar is defined and app.user.avatar is not null %}
                                 <a href="#" class="iq-waves-effect d-flex align-items-center">
-                                    <img src="{{asset('images/user/' ~ app.user.avatar ) }}"
-                                        class="img-fluid rounded-circle mr-3" alt="photo profil">
+                                    <img src="{{asset('images/user/' ~ app.user.avatar ) }}" class="rounded-circle mr-3"
+                                        alt="photo profil">
                                     <div class="caption">
                                         {% if app.user.pseudo is defined and app.user.pseudo is not null %}
                                         <h6 class="mb-0 line-height">{{ app.user.pseudo }}</h6>
@@ -368,13 +368,13 @@
                                                 alt="recettes" width="60" height="60">
                                             <div class="body-recent-post">
                                                 <a href="{{ path('recette_detail', {'id': recette.id}) }}">
-                                                    <h5 class="mt-0 mx-0 mb-1">{{ recette.titre }}</h5>
+                                                    <h5 class="mt-0 mx-0 mb-1 text-uppercase">{{ recette.titre }}</h5>
                                                 </a>
-                                                <span>
+                                                <span class="text-primary">
                                                     <i class="las la-thumbs-up la-lg"></i>
-                                                    500
+                                                    {{ recette.likes|length }}
                                                 </span>
-                                                <span>
+                                                <span class="text-primary">
                                                     <i class="ri-chat-2-line la-1x mr-1"></i>
                                                     {{ recette.commentaires|length}}
                                                 </span>
@@ -430,8 +430,8 @@
                                     <div class="user-detail text-center mb-3">
                                         {% if app.user.avatar is defined and app.user.avatar is not null %}
                                         <div class="profile-img">
-                                            <img src="{{asset('images/user/' ~ app.user.avatar ) }}"
-                                                class="avatar-130 img-fluid" alt="profil-img">
+                                            <img src="{{asset('images/user/' ~ app.user.avatar ) }}" class="avatar-130"
+                                                alt="profil-img">
                                         </div>
                                         <div class="profile-detail">
                                             {% if app.user.pseudo is defined  and app.user.pseudo  is not null %}
@@ -443,7 +443,7 @@
                                         {% else %}
                                         <div class="profile-img">
                                             <img src="{{asset('images/user/profil_photo.png')}}" alt="profile-img"
-                                                class="avatar-130 img-fluid">
+                                                class="avatar-130">
                                         </div>
                                         <div class="profile-detail">
                                             {#  {% if user.profils.pseudo is is defined  and user.profils.pseudo  is not null %} #}
@@ -460,6 +460,7 @@
 
                                             <h4>{{app.user.cantines}}</h4>
                                         </div>
+                                        {# 
                                         <div class="social-info">
                                             <ul
                                                 class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
@@ -468,7 +469,7 @@
                                                     <p class="mb-0">690 </p>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div>#}
                                     </div>
                                 </div>
                             </div>
@@ -482,11 +483,6 @@
                                             <a class="nav-link active" data-toggle="pill"
                                                 href="#historique">Historique</a>
                                         </li>
-                                        <!--
-                                        <li class="col-sm-3 p-0">
-                                            <a class="nav-link" data-toggle="pill" href="#about">About</a>
-                                        </li>
-                                    -->
                                         <li class="col-sm-4 p-0">
                                             <a class="nav-link" data-toggle="pill" href="#favoris">Favoris</a>
                                         </li>
@@ -508,22 +504,21 @@
                                                 <div class="iq-card-header d-flex justify-content-between">
                                                     <div class="iq-header-title">
                                                         <h4 class="card-title">Favoris</h4>
-                                                    </div>
-                                                    <!--
-                                                    <div class="iq-card-header-toolbar d-flex align-items-center">
-                                                        <p class="m-0"><a href="javacsript:void();">Add Photo </a></p>
-                                                    </div>-->
+                                                    </div>                                                   
                                                 </div>
+                                                <!-- Boucle Derniers Favoris-->
+                                                {#{% for favoris in lastFavorites %}
                                                 <div class="iq-card-body">
                                                     <ul class="profile-img-gallary d-flex flex-wrap p-0 m-0">
                                                         <li class="col-md-4 col-6 pl-2 pr-0 pb-3">
                                                             <a href="javascript:void();">
-                                                                <img src="{{ asset('images/page-img/g1.jpg')}}"
+                                                                <img src="{{asset('images/publications/' ~ favorite.publication.photo) }}"
                                                                     alt="gallary-image" class="img-fluid">
                                                             </a>
                                                         </li>
                                                     </ul>
                                                 </div>
+                                                {% endfor %}#}
                                             </div>
                                             <div class="iq-card">
                                                 <div class="iq-card-header d-flex justify-content-between">
@@ -561,10 +556,10 @@
                                                                     <!-- condition pour recuperer photo profil-->
                                                                     {% if  publication.users.avatar is defined and publication.users.avatar is not null %}
                                                                     <img src="{{ asset('images/user/')}}{{ publication.users.avatar }}"
-                                                                        class="rounded-circle img-fluid"
+                                                                        class="rounded-circle" width="60" height="60"
                                                                         alt="Utilisateur">
                                                                     {% else %}
-                                                                    <img class="rounded-circle img-fluid"
+                                                                    <img class="rounded-circle"
                                                                         src="{{asset('images/user/foto1.jpg')}}"
                                                                         alt="Profil">
                                                                     {% endif %}
@@ -631,61 +626,40 @@
                                                                 <div
                                                                     class="like-block position-relative d-flex align-items-center">
                                                                     <div class="d-flex align-items-center">
-                                                                        <div class="like-data">
-                                                                            <div class="dropdown">
-                                                                                <span class="dropdown-toggle"
-                                                                                    data-toggle="dropdown"
-                                                                                    aria-haspopup="true"
-                                                                                    aria-expanded="false" role="button">
-                                                                                    <i
-                                                                                        class="las la-thumbs-up la-2x"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="total-like-block ml-2 mr-3">
-                                                                            <div class="dropdown">
-                                                                                <span class="dropdown-toggle"
-                                                                                    data-toggle="dropdown"
-                                                                                    aria-haspopup="true"
-                                                                                    aria-expanded="false" role="button">
-                                                                                    140 J'aime
-                                                                                </span>
-                                                                                <!--
-                                                                                <div class="dropdown-menu">
-                                                                                    <a class="dropdown-item"
-                                                                                        href="#">Max Emum</a>
-                                                                                    <a class="dropdown-item"
-                                                                                        href="#">Bill Yerds</a>
-                                                                                    <a class="dropdown-item"
-                                                                                        href="#">Hap E. Birthday</a>
-                                                                                    <a class="dropdown-item"
-                                                                                        href="#">Tara Misu</a>
-                                                                                    <a class="dropdown-item"
-                                                                                        href="#">Midge Itz</a>
-                                                                                    <a class="dropdown-item"
-                                                                                        href="#">Sal Vidge</a>
-                                                                                    <a class="dropdown-item"
-                                                                                        href="#">Other</a>
-                                                                                </div> Users Liked Post-->
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="total-comment-block">
-                                                                        <div class="dropdown">
-                                                                            <span class="dropdown-toggle"
-                                                                                data-toggle="dropdown"
+                                                                        <!--Likes-->
+                                                                        <a class="like-data"
+                                                                            data-nblikes="{{ publication.likes|length }}"
+                                                                            data-target="{{ publication.id }}"
+                                                                            data-path="{{ path('profil_like', {id: publication.id}) }}">
+                                                                            <i id="thumb_{{ publication.id }}"
+                                                                                class="{{ app.user and publication.likedByUser(app.user) ? 'ri-thumb-up-fill text-primary' : 'ri-thumb-up-line text-primary' }}  fa-2x">
+
+                                                                            </i>
+                                                                            <span class=" text-primary"
+                                                                                id="nb_likes_{{ publication.id }}"
                                                                                 aria-haspopup="true"
                                                                                 aria-expanded="false" role="button">
-                                                                                <i
-                                                                                    class="ri-chat-2-line la-2x mr-1"></i>
-                                                                                <span>{{ publication.commentaires|length}}
-                                                                                    Commentaires</span>
-                                                                        </div>
+                                                                                {{ publication.likes|length }} &nbsp;
+                                                                                J'aime
+                                                                            </span>
+                                                                        </a>
+                                                                        <!-- Commentaires et Favorites-->
+                                                                        <a href="#" class="ml-4"> <i
+                                                                                class="ri-chat-2-line  fa-2x"></i>
+                                                                            {{ publication.commentaires|length}} <span
+                                                                                class="ml-2">
+                                                                                Comments</span></a>
+                                                                        <!-- Favorite-->
+                                                                        <a class="favorite-data ml-4"
+                                                                            data-target="icon_favorite_{{ publication.id }}"
+                                                                            data-path="{{ path('profil_favorite', {id: publication.id}) }}">
+                                                                            <i id="icon_favorite_{{ publication.id }}"
+                                                                                class="{{ app.user and publication.favoriteOfUser(app.user) ? 'ri-heart-fill text-primary' : 'ri-heart-line text-primary' }} fa-2x">
+                                                                            </i>
+                                                                            <span class="text-primary">Favorite</span>
+                                                                        </a>
                                                                     </div>
-                                                                    <div class="total-like-block ml-2">
-                                                                        <i class="ri-heart-line mr-1 la-2x"></i><span>
-                                                                            Favorite</span>
-                                                                    </div>
+
                                                                 </div>
                                                                 <!--
                                                                 <div
@@ -757,7 +731,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- TAB PUBLICATIONS-->
+
+                            <!-- TAB FAVORIS-->
                             <div class="tab-pane fade" id="favoris" role="tabpanel">
                                 <div class="iq-card">
                                     <div class="iq-card-body">
@@ -767,11 +742,15 @@
                                                 <div class="tab-pane fade active show" id="photosofyou" role="tabpanel">
                                                     <div class="iq-card-body p-0">
                                                         <div class="row">
+                                                            {% for favorite in mesFavoris %}
                                                             <div class="col-md-6 col-lg-3 mb-3">
+                                                                <p class="text-center text-primary text-uppercase"
+                                                                    style="font-size: small;">
+                                                                    {{ favorite.publication.titre}}</p>
                                                                 <div
                                                                     class="user-images position-relative overflow-hidden">
                                                                     <a href="#">
-                                                                        <img src="{{ asset('images/page-img/51.jpg')}}"
+                                                                        <img src="{{asset('images/publications/' ~ favorite.publication.photo) }}"
                                                                             class="img-fluid rounded"
                                                                             alt="Responsive image">
                                                                     </a>
@@ -780,28 +759,31 @@
                                                                             <ul
                                                                                 class="d-flex align-items-center m-0 p-0 list-inline">
                                                                                 <li><a href="#" class="pr-3 text-white">
-                                                                                        60 <i
-                                                                                            class="ri-thumb-up-line"></i>
+                                                                                        {{ favorite.publication.likes|length }}
+                                                                                        <i class="ri-thumb-up-line"></i>
                                                                                     </a></li>
                                                                                 <li><a href="#" class="pr-3 text-white">
-                                                                                        30 <i
+                                                                                        {{ favorite.publication.commentaires|length}}<i
                                                                                             class="ri-chat-3-line"></i>
                                                                                     </a></li>
+                                                                                {#
                                                                                 <li><a href="#" class="pr-3 text-white">
-                                                                                        10 <i
+                                                                                        <i
                                                                                             class="ri-share-forward-line"></i>
-                                                                                    </a></li>
+                                                                                    </a></li>#}
                                                                             </ul>
                                                                         </div>
                                                                     </div>
                                                                     <a href="#" class="image-edit-btn"
                                                                         data-toggle="tooltip" data-placement="top"
-                                                                        title="" data-original-title="Edit or Remove"><i
-                                                                            class="ri-edit-2-fill"></i></a>
+                                                                        title="" data-original-title="Supprimer"><i
+                                                                            class="ri-delete-bin-6-fill"></i></a>
                                                                 </div>
-                                                            </div>
+                                                            </div> <!-- col-md-6 end-->
+                                                            {% endfor %}
+
                                                             <!--photo 1-->
-                                                        </div>
+                                                        </div> <!-- row -end-->
                                                     </div>
                                                 </div>
                                             </div>
@@ -823,6 +805,8 @@
                                                             {% for recette in mesRecettes %}
 
                                                             <div class="col-md-6 col-lg-3 mb-3">
+                                                                <p class="text-center text-primary text-uppercase"
+                                                                    style="font-size: small;"> {{ recette.titre}}</p>
                                                                 <div
                                                                     class="user-images position-relative overflow-hidden">
                                                                     <a href="#">
@@ -836,7 +820,7 @@
                                                                             <ul
                                                                                 class="d-flex align-items-center m-0 p-0 list-inline">
                                                                                 <li><a href="#" class="pr-3 text-white">
-                                                                                        60 <i
+                                                                                        {{ recette.likes|length }} <i
                                                                                             class="ri-thumb-up-line"></i>
                                                                                     </a></li>
                                                                                 <li><a href="#" class="pr-3 text-white">
@@ -936,7 +920,61 @@
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
+
+        //////////Likes ///////        
+        let likeButtons = Array.from(document.getElementsByClassName('like-data'));
+        likeButtons.forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.preventDefault();
+                let btn = e.currentTarget;
+                let path = btn.dataset.path;
+                let target = btn.dataset.target;
+                let nbLikes = Number(btn.dataset.nblikes);
+                fetch(path, {
+                        method: 'POST'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const likesText = document.getElementById(`nb_likes_${target}`);
+                        data.toString() === '-' ? nbLikes-- : nbLikes++;
+
+                        const thumb = document.getElementById(`thumb_${target}`);
+                        if (thumb.classList.contains('ri-thumb-up-fill')) {
+                            thumb.classList.replace('ri-thumb-up-fill', 'ri-thumb-up-line');
+                        } else {
+                            thumb.classList.replace('ri-thumb-up-line', 'ri-thumb-up-fill');
+                        }
+
+                        likesText.innerText = `${nbLikes} J'aime`;
+                        btn.dataset.nblikes = nbLikes;
+                    })
+            })
+        });
+
+        ///////////////////FAVORITE////////////////////
+
+        let favoriteButtons = Array.from(document.getElementsByClassName('favorite-data'));
+        favoriteButtons.forEach(favoriteButton => {
+            favoriteButton.addEventListener('click', e => {
+                e.preventDefault();
+                let btn = e.currentTarget;
+                let path = btn.dataset.path;
+                let target = btn.dataset.target;
+                fetch(path, {
+                        method: 'POST'
+                    })
+                    .then(response => {
+                        const favorite = document.getElementById(`${target}`);
+                        if (favorite.classList.contains('ri-heart-fill')) {
+                            favorite.classList.replace('ri-heart-fill', 'ri-heart-line');
+                        } else {
+                            favorite.classList.replace('ri-heart-line', 'ri-heart-fill');
+                        }
+                    })
+            });
+        })
     </script>
+
     {% endblock %}
 </body>
 
