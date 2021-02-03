@@ -221,7 +221,6 @@
                             <!-- Commentaire Area-->
                             <div class="comment-area mt-3">
                                 <div class="d-flex justify-content-between align-items-center">
-<<<<<<< HEAD
                                     <div class="d-flex align-items-center">
                                         <!--Likes-->
                                         <a class="like-data" data-nblikes="{{ publication.likes|length }}"
@@ -246,37 +245,7 @@
                                              fa-2x">
                                             </i>
                                             <span class="text-primary"> Favorite</span>
-                                        </a>
-                                     
-=======
-                                    <div class="like-block position-relative d-flex align-items-center">
-                                        <div class="like-block  d-flex ">
-                                            <a class="like-data"
-                                               data-nblikes="{{ publication.likes|length }}"
-                                               data-target="{{ publication.id }}"
-                                               data-path="{{ path('publication_like', {id: publication.id}) }}">
-                                                <i id="thumb_{{ publication.id }}"
-                                                   class="{{ app.user and publication.likedByUser(app.user) ? 'ri-thumb-up-fill' : 'ri-thumb-up-line' }}
-                                                fa-2x"></i>
-                                                <span class="ml-2"
-                                                  id="nb_likes_{{ publication.id }}"
-                                                  aria-haspopup="true" aria-expanded="false" role="button">
-                                                    {{ publication.likes|length }} J'aime
-                                                </span>
-                                            </a>
-                                            <a class="ml-4"> <i class="ri-chat-2-line  fa-2x"></i> {{ publication.commentaires|length}} <span class="ml-2"> Comments</span></a>
-                                            <a class="favorite-data"
-                                               data-target="icon_favorite_{{ publication.id }}"
-                                               data-path="{{ path('favorite_like', {id: publication.id}) }}">
-                                                <i id="icon_favorite_{{ publication.id }}"
-                                                   class="{{ app.user and publication.favoriteOfUser(app.user) ? 'ri-heart-fill' : 'ri-heart-line' }}
-                                                    fa-2x">
-                                                </i>
-                                                <span class="ml-2"> Favorite</span>
-                                            </a>
-                                            <a class="ml-4"> <i class="far fa-user text-primary  fa-2x"></i><span class="ml-2"> {{ publication.users }}</span></a>
-                                        </div>
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
+                                        </a>                                     
                                     </div>
                                 </div>
                                 <hr>
@@ -446,7 +415,6 @@
             return false;
         }
     }
-<<<<<<< HEAD
 
     //////////////LIKES/////// ///////       
     let likeButtons = Array.from(document.getElementsByClassName('like-data'));
@@ -499,8 +467,6 @@
                 })
         });
     })
-=======
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
 </script>
 
 

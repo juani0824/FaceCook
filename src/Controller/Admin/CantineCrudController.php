@@ -21,6 +21,14 @@ class CantineCrudController extends AbstractCrudController
     }
 
     
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+                ->setPageTitle(Crud::PAGE_INDEX, 'Cantine Scolaires')
+        ;
+          
+    }
+    
     public function configureFields(string $pageName): iterable
     {
         return [

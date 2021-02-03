@@ -85,19 +85,12 @@ class Publication
     private $likes;
 
     /**
-<<<<<<< HEAD
      * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="publication")
      */
     private $favorites;
 
 
 
-=======
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="favorites")
-     */
-    private $favorites;
-
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -105,12 +98,8 @@ class Publication
         $this->favorites = new ArrayCollection();
     }
 
-<<<<<<< HEAD
     public function likedByUser($user)
     {
-=======
-    public function likedByUser($user) {
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
         foreach ($this->getLikes() as $like) {
             if ($like->getUser()->getId() === $user->getId()) {
                 return true;
@@ -120,16 +109,10 @@ class Publication
         return false;
     }
 
-<<<<<<< HEAD
     public function favoriteOfUser($user)
     {
         foreach ($this->getFavorites() as $favorite) {
             if ($favorite->getUser()->getId() === $user->getId()) {
-=======
-    public function favoriteOfUser($user) {
-        foreach ($this->getFavorites() as $favorite) {
-            if ($favorite->getId() === $user->getId()) {
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
                 return true;
             }
         }
@@ -314,36 +297,23 @@ class Publication
     }
 
     /**
-<<<<<<< HEAD
      * @return Collection|Favorite[]
-=======
-     * @return Collection|User[]
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
      */
     public function getFavorites(): Collection
     {
         return $this->favorites;
     }
 
-<<<<<<< HEAD
     public function addFavorite(Favorite $favorite): self
     {
         if (!$this->favorites->contains($favorite)) {
             $this->favorites[] = $favorite;
             $favorite->setPublication($this);
-=======
-    public function addFavorite(User $favorite): self
-    {
-        if (!$this->favorites->contains($favorite)) {
-            $this->favorites[] = $favorite;
-            $favorite->addFavorite($this);
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
         }
 
         return $this;
     }
 
-<<<<<<< HEAD
     public function removeFavorite(Favorite $favorite): self
     {
         if ($this->favorites->removeElement($favorite)) {
@@ -351,12 +321,6 @@ class Publication
             if ($favorite->getPublication() === $this) {
                 $favorite->setPublication(null);
             }
-=======
-    public function removeFavorite(User $favorite): self
-    {
-        if ($this->favorites->removeElement($favorite)) {
-            $favorite->removeFavorite($this);
->>>>>>> b85ad07a95249c02ff95e915aae945624e1ecec3
         }
 
         return $this;

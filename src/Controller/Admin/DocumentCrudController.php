@@ -24,6 +24,14 @@ class DocumentCrudController extends AbstractCrudController
     }
 
     
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+                ->setPageTitle(Crud::PAGE_INDEX, 'Liste de Documents')
+        ;
+          
+    }
+    
     public function configureFields(string $pageName): iterable
     {
 

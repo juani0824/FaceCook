@@ -24,6 +24,13 @@ class PublicationCrudController extends AbstractCrudController
         return Publication::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+                ->setPageTitle(Crud::PAGE_INDEX, 'Publications')
+        ;
+          
+    }
 
     public function configureFields(string $pageName): iterable
     {
