@@ -50,7 +50,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Géstion', 'fas fa-users', User::class);
         yield MenuItem::section('Publication');
-        yield MenuItem::linkToCrud('Géstion', 'fas fa-address-card', Publication::class);
+        yield MenuItem::linkToCrud('Géstion', 'fas fa-address-card', Publication::class)
+        ->setDefaultSort(['created_at' => 'DESC']);  
         yield MenuItem::section('Commentaires');
         yield MenuItem::linkToCrud('Géstion', 'fas fa-comments', Commentaire::class);
         yield MenuItem::section('Documents');

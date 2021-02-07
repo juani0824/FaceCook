@@ -32,6 +32,7 @@ class CommentaireController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/new", name="commentaire_new", methods={"GET","POST"})
      */
     public function new(Request $request, CommentaireManager $commentaireManager): Response

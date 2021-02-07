@@ -32,6 +32,7 @@ class CantineController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="cantine_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -55,6 +56,7 @@ class CantineController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="cantine_show", methods={"GET"})
      */
     public function show(Cantine $cantine): Response
@@ -65,6 +67,7 @@ class CantineController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}/edit", name="cantine_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Cantine $cantine): Response
@@ -85,6 +88,7 @@ class CantineController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="cantine_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Cantine $cantine): Response

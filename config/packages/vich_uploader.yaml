@@ -6,9 +6,19 @@ vich_uploader:
             uri_prefix: /images/publications
             upload_destination: '%kernel.project_dir%/public/images/publications'
             namer: Vich\UploaderBundle\Naming\UniqidNamer
-
             
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
+    
+        pdf:
+            uri_prefix: /docs/
+            upload_destination: '%kernel.project_dir%/public/docs'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+    
             

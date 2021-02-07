@@ -68,7 +68,7 @@
 <!-- Page Content End-->
 <div id="content-page" class="content-page">
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-lg-8 row m-0 p-0">
                 <div class="col-sm-12">
                     {{ form_start(formPublication) }}
@@ -164,7 +164,7 @@
                                         <h5 class="mb-0 d-inline-block"><a href="#" class="">{{ publication.users }}</a>
                                         </h5>
                                         <p class="mb-0 text-primary" style="font-weight: 500;">
-                                            {{ publication.createdAt| date('d/m/Y à h\\hi') }}
+                                            {{ publication.createdAt| date('d/m/Y à H\\hi') }}
                                         </p>
                                         {% if publication.titre %}
                                         <h5 class="text-center text-uppercase" style="font-weight: 550; color:#ff6c40 ">
@@ -245,7 +245,7 @@
                                              fa-2x">
                                             </i>
                                             <span class="text-primary"> Favorite</span>
-                                        </a>                                     
+                                        </a>
                                     </div>
                                 </div>
                                 <hr>
@@ -336,60 +336,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        let likeButtons = Array.from(document.getElementsByClassName('like-data'));
-        likeButtons.forEach(btn => {
-            btn.addEventListener('click', e => {
-                e.preventDefault();
-                let btn = e.currentTarget;
-                let path = btn.dataset.path;
-                let target = btn.dataset.target;
-                let nbLikes = Number(btn.dataset.nblikes);
-                fetch(path, { method: 'POST' })
-                .then(response => response.json())
-                .then(data => {
-                    const likesText = document.getElementById(`nb_likes_${target}`);
-                    data.toString() === '-' ? nbLikes-- : nbLikes++;
-                    const thumb = document.getElementById(`thumb_${target}`);
-                    if (thumb.classList.contains('ri-thumb-up-fill')) {
-                        thumb.classList.replace('ri-thumb-up-fill', 'ri-thumb-up-line');
-                    } else {
-                        thumb.classList.replace('ri-thumb-up-line', 'ri-thumb-up-fill');
-                    }
 
-                    likesText.innerText = `${nbLikes} J'aime`;
-                    btn.dataset.nblikes = nbLikes;
-                })
-            })
-        });
-
-
-        /* Comme tu le remarque probablement ces méthodes sont très similaires, je te laisse refactoriser si tu le souhaite */
-
-        let favoriteButtons = Array.from(document.getElementsByClassName('favorite-data'));
-        favoriteButtons.forEach(favoriteButton => {
-            favoriteButton.addEventListener('click', e => {
-                e.preventDefault();
-                let btn = e.currentTarget;
-                let path = btn.dataset.path;
-                let target = btn.dataset.target;
-                fetch(path, { method: 'POST' })
-                    .then(response => {
-                        const favorite = document.getElementById(`${target}`);
-                        if (favorite.classList.contains('ri-heart-fill')) {
-                            favorite.classList.replace('ri-heart-fill', 'ri-heart-line');
-                        } else {
-                            favorite.classList.replace('ri-heart-line', 'ri-heart-fill');
-                        }
-                    })
-            });
-        })
-    </script>
-
-
-<script src="  {{ asset('js/jquery.min.js') }}"></script>
-
-<script src="{{ asset('bundles/sideclickbootstrapmodal/js/sideclick-bootstrap-modal.js') }}"></script>
 <script>
     // Add the following code if you want the name of the file appear on select
     $(".custom-file-input").on("change", function () {
@@ -468,6 +415,9 @@
         });
     })
 </script>
+
+<script src="  {{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('bundles/sideclickbootstrapmodal/js/sideclick-bootstrap-modal.js') }}"></script>
 
 
 {% endblock %}

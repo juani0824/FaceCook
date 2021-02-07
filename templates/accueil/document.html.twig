@@ -21,6 +21,12 @@
                                 <div class="social-links">
                                     <h4>Documents</h4>
                                 </div>
+                                {% if is_granted('ROLE_ADMIN')%}
+                                <div class="social-links">
+                                    <a href="{{ path('document_new')}}" class="btn btn-primary btn-lg">Créer Document</a>
+                                </div>
+                                {% endif %}
+                                
                                 <div class="social-info">
                                     <ul
                                         class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">

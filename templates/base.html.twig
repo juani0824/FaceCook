@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}{% endblock %}FaceCook</title>
-    {% block stylesheets %}{% endblock %} 
+    {% block stylesheets %}{% endblock %}
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{asset('images/ico.png')}}" />
     <!-- Bootstrap CSS -->
@@ -143,8 +143,8 @@
                                         {% if app.user.pseudo is defined and app.user.pseudo is not null %}
                                         <h6 class="mb-0 line-height">{{ app.user.pseudo }}</h6>
                                         {% else %}
-                                        <h6 class="mb-0 line-height">{{ app.user.prenom }} {{ app.user.nom }}</h6>                                  
-                                        {% endif %}                                        
+                                        <h6 class="mb-0 line-height">{{ app.user.prenom }} {{ app.user.nom }}</h6>
+                                        {% endif %}
                                     </div>
                                 </a>
                                 {% else %}
@@ -381,10 +381,12 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Modal-->
+    <script src="{{ asset('bundles/sideclickbootstrapmodal/js/sideclick-bootstrap-modal.js') }}"></script>
+
     <script src="  {{ asset('js/jquery.min.js') }}"></script>
     <script src="  {{ asset('js/popper.min.js') }}"></script>
     <script src="  {{ asset('js/bootstrap.min.js') }}"></script>
-
     <!-- Wow JavaScript -->
     <script src="{{asset('js/lottie.js')}}"></script>
     <!-- Sidebar rigth -->
@@ -403,8 +405,6 @@
     <script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script>
     <!-- Smooth Scrollbar JavaScript -->
     <script src="{{asset('js/smooth-scrollbar.js')}}"></script>
-    <!-- Modal-->
-    <script src="{{ asset('bundles/sideclickbootstrapmodal/js/sideclick-bootstrap-modal.js') }}"></script>
 
     <script>
         // Add the following code if you want the name of the file appear on select
