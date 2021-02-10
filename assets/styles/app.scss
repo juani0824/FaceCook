@@ -1,3 +1,4 @@
+// bootstrap
 @import "~bootstrap/scss/functions";
 
 $custom-file-text: (
@@ -8,23 +9,36 @@ $custom-file-text: (
 
 @import "~bootstrap/scss/bootstrap";
 
+// fontawesome
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/brands";
 @import "~@fortawesome/fontawesome-free/scss/solid";
-@import "~@fortawesome/fontawesome-free/scss/solid";
 
+// animate.css
 @import "~animate.css/animate.css";
-@import "~remixicon.css/remixicon.css";
-@import "~line-awesome.min.css/line-awesome.min.css";
-@import "~ionicons.min.css/ionicons.min.css";
-@import "~dripicons.min.css/dripicons.min.css";
-@import "~magnific-popup.min.css/magnific-popup.min.css";
 
+// remixicon
+@import "~remixicon/fonts/remixicon.css";
+
+// line-awesome
+@import "~line-awesome/dist/line-awesome/scss/line-awesome";
+
+// owl.carousel
+//@import "~owl.carousel/src/scss/owl.carousel";
+//@import "~owl.carousel/src/scss/owl.theme.default";
+
+// magnific-popup
+@import "~magnific-popup/src/css/main";
+@import "~magnific-popup/src/css/settings";
+
+// select2
+@import "~select2/src/scss/core";
 
 @import "style";
 @import "responsive";
 @import "typography";
-@import "variable";
+@import "variables";
 
-
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,800,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900&display=swap');

@@ -17,4 +17,8 @@ global.$ = global.jQuery = $;
 import 'popper.js';
 import 'bootstrap';
 
+import 'owl.carousel';
+import 'magnific-popup';
+import 'select2';
+
 

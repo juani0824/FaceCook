@@ -1,5 +1,5 @@
 /*
-Template: FaceCook - Responsive Bootstrap 4 
+Template: FaceCook - Responsive Bootstrap 4
 Author: Juani Bailleul
 */
 
@@ -30,27 +30,6 @@ Author: Juani Bailleul
 ======================================
 [ End table content ]
 ======================================*/
-
-
-/*---------------------------------------------------------------------
-import Css
------------------------------------------------------------------------*/
-@import "variable.css";
-@import url("../css/remixicon.css");
-@import url("../css/line-awesome.min.css");
-/*@import url("owl.carousel.min.css");
-@import url("../css/dripicons.css");
-@import url("../css/ionicons.min.css");@import url("slick-theme.css"); // pas besion ici
-@import url("Chart.min.css"); 
-@import url("select2.min.css"); // pas besion ici
-@import url("magnific-popup.css");*/
-
-/*---------------------------------------------------------------------
-Font
------------------------------------------------------------------------*/
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,800,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900&display=swap');
-
 
 /*---------------------------------------------------------------------
 General
@@ -937,7 +916,7 @@ loading
 /* Last Post*/
 .recent-posts ul li{
   list-style: none;
-  
+
 }
 .recent-posts .recent-post-item{
   display: -webkit-flex;
