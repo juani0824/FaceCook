@@ -5,20 +5,12 @@
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}{% endblock %}FaceCook</title>
-    {% block stylesheets %}{% endblock %}
+    <title>{% block title %}FaceCook{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{asset('images/ico.png')}}" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/bootstrap.min.css')}}">
-    <!-- Typography CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/typography.css')}} ">
-    <!-- Style CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/style.css')}}">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/responsive.css')}}">
-    <!--Fonts style-->
-    <link rel="stylesheet" href=" {{ asset('css/all.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
@@ -379,41 +371,37 @@
         </div>
     </footer>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- Modal-->
-    <script src="{{ asset('bundles/sideclickbootstrapmodal/js/sideclick-bootstrap-modal.js') }}"></script>
+    {% block javascripts %}
+        {{ encore_entry_link_tags('app') }}
 
-    <script src="  {{ asset('js/jquery.min.js') }}"></script>
-    <script src="  {{ asset('js/popper.min.js') }}"></script>
-    <script src="  {{ asset('js/bootstrap.min.js') }}"></script>
-    <!-- Wow JavaScript -->
-    <script src="{{asset('js/lottie.js')}}"></script>
-    <!-- Sidebar rigth -->
-    <script src="{{asset('js/chart-custom.js')}}"></script>
-    <!-- Custom JavaScript -->
-    <script src="{{ asset('js/custom.js') }}"></script>
-    <script src="{{ asset('js/scripts.js') }}"></script>
-    <!-- Appear JavaScript -->
-    <script src="{{asset('js/jquery.appear.js')}}"></script>
-    <script src="{{asset('js/jquery.counterup.min.js')}}"></script>
-    <!-- Slick JavaScript -->
-    <script src="{{asset('js/slick.min.js')}}"></script>
-    <!-- Select2 JavaScript -->
-    <script src="{{asset('js/select2.min.js')}}"></script>
-    <!-- Magnific Popup JavaScript -->
-    <script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script>
-    <!-- Smooth Scrollbar JavaScript -->
-    <script src="{{asset('js/smooth-scrollbar.js')}}"></script>
-
-    <script>
-        // Add the following code if you want the name of the file appear on select
-        $(".custom-file-input").on("change", function () {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        });
-    </script>
-    {% block javascripts %}{% endblock %}
+        <!-- Optional JavaScript -->
+        <!-- Wow JavaScript -->
+        <script src="{{asset('js/lottie.js')}}"></script>
+        <!-- Sidebar rigth -->
+        <script src="{{asset('js/chart-custom.js')}}"></script>
+        <!-- Custom JavaScript -->
+        <script src="{{ asset('js/custom.js') }}"></script>
+        <script src="{{ asset('js/scripts.js') }}"></script>
+        <!-- Appear JavaScript -->
+        <script src="{{asset('js/jquery.appear.js')}}"></script>
+        <script src="{{asset('js/jquery.counterup.min.js')}}"></script>
+        <!-- Slick JavaScript -->
+        <script src="{{asset('js/slick.min.js')}}"></script>
+        <!-- Select2 JavaScript -->
+        <script src="{{asset('js/select2.min.js')}}"></script>
+        <!-- Magnific Popup JavaScript -->
+        <script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script>
+        <!-- Smooth Scrollbar JavaScript -->
+        <script src="{{asset('js/smooth-scrollbar.js')}}"></script>
+        
+        <script>
+            // Add the following code if you want the name of the file appear on select
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+    {% endblock %}
 </body>
 
 </html>

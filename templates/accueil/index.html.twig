@@ -74,11 +74,11 @@
                     {{ form_start(formPublication) }}
                     <div class="publication-area p-2 iq-card mb-5">
                         <nav class="navbar px-0 nav-pills nav-justified justify-content-between">
-                            <button type="button" class="nav-link" data-toggle="modal" data-target="#myRecette"><i
+                            <button type="button" class="nav-link" data-toggle="modal" data-target="#myRecette" style="background-color: white;"><i
                                     class="ri-restaurant-2-line ri-2x mr-2"></i> Créer
                                 une recette</button>
 
-                            <label for="publication_imageFile_file" role="button" class="nav-link"><i
+                            <label for="publication_imageFile_file" role="button" class="nav-link" style="background-color: white;"><i
                                     class="ri-image-line ri-2x mr-2"></i>
                                 Nouvelle Publication
                                 <div class="d-none">{{ form_widget(formPublication.imageFile) }}</div>
@@ -242,7 +242,7 @@
                                         <a class="favorite-data ml-4" data-target="icon_favorite_{{ publication.id }}"
                                             data-path="{{ path('favorite_like', {id: publication.id}) }}">
                                             <i id="icon_favorite_{{ publication.id }}" class="{{ app.user and publication.favoriteOfUser(app.user) ? 'ri-heart-fill text-primary' : 'ri-heart-line text-primary' }}
-                                             fa-2x">
+                                             fa-sm">
                                             </i>
                                             <span class="text-primary"> Favorite</span>
                                         </a>
@@ -301,6 +301,7 @@
                                     </li>
                                 </ul>
                                 {% endfor %}
+                                
                                 <!-- Boucle Commentaire-->
                                 <!-- Modal Modifier Commentaire -->
                                 <div class="modal fade" tabindex="-1" id="emptyModal" aria-labelledby="myModalLabel"
@@ -336,88 +337,86 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
+    <!-- Modal-->
+    <script src="{{ asset('bundles/sideclickbootstrapmodal/js/sideclick-bootstrap-modal.js') }}"></script>
 
-<script>
-    // Add the following code if you want the name of the file appear on select
-    $(".custom-file-input").on("change", function () {
-        var fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-    });
-
-    // suprimir une publication et supprimir un commentaire
-    function ConfirmDelete() {
-        var resp = confirm("Etes-vous sûr de vouloir supprimer?");
-        if (resp == true) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function ConfirmDeletePublication() {
-        var response = confirm("Etes-vous sûr de vouloir supprimer?");
-        if (response == true) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    //////////////LIKES/////// ///////       
-    let likeButtons = Array.from(document.getElementsByClassName('like-data'));
-    likeButtons.forEach(btn => {
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-            let btn = e.currentTarget;
-            let path = btn.dataset.path;
-            let target = btn.dataset.target;
-            let nbLikes = Number(btn.dataset.nblikes);
-            fetch(path, {
-                    method: 'POST'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const likesText = document.getElementById(`nb_likes_${target}`);
-                    data.toString() === '-' ? nbLikes-- : nbLikes++;
-
-                    const thumb = document.getElementById(`thumb_${target}`);
-                    if (thumb.classList.contains('ri-thumb-up-fill')) {
-                        thumb.classList.replace('ri-thumb-up-fill', 'ri-thumb-up-line');
-                    } else {
-                        thumb.classList.replace('ri-thumb-up-line', 'ri-thumb-up-fill');
-                    }
-
-                    likesText.innerText = `${nbLikes} J'aime`;
-                    btn.dataset.nblikes = nbLikes;
-                })
-        })
-    });
-
-    /////////// FAVORITES /////////////
-    let favoriteButtons = Array.from(document.getElementsByClassName('favorite-data'));
-    favoriteButtons.forEach(favoriteButton => {
-        favoriteButton.addEventListener('click', e => {
-            e.preventDefault();
-            let btn = e.currentTarget;
-            let path = btn.dataset.path;
-            let target = btn.dataset.target;
-            fetch(path, {
-                    method: 'POST'
-                })
-                .then(response => {
-                    const favorite = document.getElementById(`${target}`);
-                    if (favorite.classList.contains('ri-heart-fill')) {
-                        favorite.classList.replace('ri-heart-fill', 'ri-heart-line');
-                    } else {
-                        favorite.classList.replace('ri-heart-line', 'ri-heart-fill');
-                    }
-                })
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
-    })
-</script>
 
-<script src="  {{ asset('js/jquery.min.js') }}"></script>
-<script src="{{ asset('bundles/sideclickbootstrapmodal/js/sideclick-bootstrap-modal.js') }}"></script>
+        // suprimir une publication et supprimir un commentaire
+        function ConfirmDelete() {
+            var resp = confirm("Etes-vous sûr de vouloir supprimer?");
+            if (resp == true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
+        function ConfirmDeletePublication() {
+            var response = confirm("Etes-vous sûr de vouloir supprimer?");
+            if (response == true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
+        //////////////LIKES/////// ///////       
+        let likeButtons = Array.from(document.getElementsByClassName('like-data'));
+        likeButtons.forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.preventDefault();
+                let btn = e.currentTarget;
+                let path = btn.dataset.path;
+                let target = btn.dataset.target;
+                let nbLikes = Number(btn.dataset.nblikes);
+                fetch(path, {
+                        method: 'POST'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const likesText = document.getElementById(`nb_likes_${target}`);
+                        data.toString() === '-' ? nbLikes-- : nbLikes++;
+
+                        const thumb = document.getElementById(`thumb_${target}`);
+                        if (thumb.classList.contains('ri-thumb-up-fill')) {
+                            thumb.classList.replace('ri-thumb-up-fill', 'ri-thumb-up-line');
+                        } else {
+                            thumb.classList.replace('ri-thumb-up-line', 'ri-thumb-up-fill');
+                        }
+
+                        likesText.innerText = `${nbLikes} J'aime`;
+                        btn.dataset.nblikes = nbLikes;
+                    })
+            })
+        });
+
+        /////////// FAVORITES /////////////
+        let favoriteButtons = Array.from(document.getElementsByClassName('favorite-data'));
+        favoriteButtons.forEach(favoriteButton => {
+            favoriteButton.addEventListener('click', e => {
+                e.preventDefault();
+                let btn = e.currentTarget;
+                let path = btn.dataset.path;
+                let target = btn.dataset.target;
+                fetch(path, {
+                        method: 'POST'
+                    })
+                    .then(response => {
+                        const favorite = document.getElementById(`${target}`);
+                        if (favorite.classList.contains('ri-heart-fill')) {
+                            favorite.classList.replace('ri-heart-fill', 'ri-heart-line');
+                        } else {
+                            favorite.classList.replace('ri-heart-line', 'ri-heart-fill');
+                        }
+                    })
+            });
+        })
+    </script>
 {% endblock %}

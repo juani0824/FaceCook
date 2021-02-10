@@ -55,7 +55,7 @@ Index Of Script
 
         /*---------------------------------------------------------------------
         Magnific Popup
-        -----------------------------------------------------------------------*/
+        -----------------------------------------------------------------------
         jQuery('.popup-gallery').magnificPopup({
             delegate: 'a.popup-img',
             type: 'image',
@@ -238,7 +238,7 @@ Index Of Script
 
         /*---------------------------------------------------------------------
         Counter
-        -----------------------------------------------------------------------*/
+        -----------------------------------------------------------------------
         jQuery('.counter').counterUp({
             delay: 10,
             time: 1000
@@ -347,7 +347,7 @@ Index Of Script
 
         /*---------------------------------------------------------------------
         Progress Bar
-        -----------------------------------------------------------------------*/
+        -----------------------------------------------------------------------
         jQuery('.iq-progress-bar > span').each(function() {
             let progressBar = jQuery(this);
             let width = jQuery(this).data('percent');
@@ -375,20 +375,6 @@ Index Of Script
         });
         
 
-
-        /*---------------------------------------------------------------------
-        Wow Animation
-        -----------------------------------------------------------------------*/
-        let wow = new WOW({
-            boxClass: 'wow',
-            animateClass: 'animated',
-            offset: 0,
-            mobile: false,
-            live: true
-        });
-        wow.init();
-
-
         /*---------------------------------------------------------------------
         Mailbox
         -----------------------------------------------------------------------*/
@@ -401,41 +387,7 @@ Index Of Script
         });
 
 
-        /*---------------------------------------------------------------------
-        chatuser
-        -----------------------------------------------------------------------*/
-        jQuery(document).on('click', '.chat-head .chat-user-profile', function() {
-            jQuery(this).parent().next().toggleClass('show');
-        });
-        jQuery(document).on('click', '.user-profile .close-popup', function() {
-            jQuery(this).parent().parent().removeClass('show');
-        });
 
-        /*---------------------------------------------------------------------
-        chatuser main
-        -----------------------------------------------------------------------*/
-        jQuery(document).on('click', '.chat-search .chat-profile', function() {
-            jQuery(this).parent().next().toggleClass('show');
-        });
-        jQuery(document).on('click', '.user-profile .close-popup', function() {
-            jQuery(this).parent().parent().removeClass('show');
-        });
-
-        /*---------------------------------------------------------------------
-        Chat start
-        -----------------------------------------------------------------------*/
-        jQuery(document).on('click', '#chat-start', function() {
-            jQuery('.chat-data-left').toggleClass('show');
-        });
-        jQuery(document).on('click', '.close-btn-res', function() {
-            jQuery('.chat-data-left').removeClass('show');
-        });
-        jQuery(document).on('click', '.iq-chat-ui li', function() {
-            jQuery('.chat-data-left').removeClass('show');
-        });
-        jQuery(document).on('click', '.sidebar-toggle', function() {
-            jQuery('.chat-data-left').addClass('show');
-        });
 
         /*---------------------------------------------------------------------
         todo Page
@@ -498,20 +450,6 @@ Index Of Script
             });
         }
 
-        /*---------------------------------------------------------------------
-           checkout
-        -----------------------------------------------------------------------*/
-
-        jQuery(document).ready(function(){
-            jQuery('#place-order').click(function(){
-                jQuery('#cart').removeClass('show');
-                jQuery('#address').addClass('show');
-            });
-            jQuery('#deliver-address').click(function(){
-                jQuery('#address').removeClass('show');
-                jQuery('#payment').addClass('show');
-            });
-        });
         
         /*---------------------------------------------------------------------
         Button 

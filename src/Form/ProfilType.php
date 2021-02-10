@@ -24,10 +24,10 @@ class ProfilType extends AbstractType
             ->add('pseudo', TextType::class, [
                 'required' => false,
             ])
-            ->add('prenom', TextType::class )
-            ->add('nom', TextType::class)
-            ->add('portable', TelType::class)
-            ->add('email', EmailType::class)
+            ->add('prenom', TextType::class, [])
+            ->add('nom', TextType::class, [])
+            ->add('portable', TelType::class, [])
+            ->add('email', EmailType::class, [])
          ;  
     }
 

@@ -44,7 +44,8 @@ class FavoriteRepository extends ServiceEntityRepository
             ->setParameter('userId', $user->getId())
             ->setMaxResults($nombre)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getResult();
+            
     }
 
     // /**

@@ -33,11 +33,16 @@ class ProfilController extends AbstractController
             array('created_at' => 'Desc')
         );
 
-        // Lister mes Favorites
+        // Lister all mes Favorites
         $favorites = $em->getRepository('App:Favorite')->findBy(
             array('user' => $user->getId())
            
-        );      
+        ); 
+
+        // last 9 favorites
+        
+        
+        
 
         return $this->render('profil/index.html.twig', [
 

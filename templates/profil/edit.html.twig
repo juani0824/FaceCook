@@ -62,18 +62,18 @@
                                         <div class="col-md-12">
                                             <div class="profile-img-edit">
                                                 {% if user.avatar is defined and user.avatar is not null %}
-                                                <img class="profile-pic" src="{{ asset('images/user/') }}{{user.avatar}}"
-                                                    alt="profil" class=" img-fluid" width="150" height="150">
+                                                    <img class="profile-pic" src="{{ asset('images/user/' ~ user.avatar) }}"
+                                                        alt="profil" class="img-fluid" width="150" height="150">
                                                 {% else %}
-                                                <img class="profile-pic"
-                                                    src="{{ asset('images/user/profil_photo.png')}}" }} class="" width="150" height="150" alt="profil">
+                                                    <img class="profile-pic"
+                                                        src="{{ asset('images/user/profil_photo.png')}}" }} width="150" height="150" alt="profil">
                                                 {% endif %}
                                                 <div class="p-image">
                                                     <label for="profil_avatar" role="button">
                                                         <i class="ri-pencil-line upload-button text-white"></i>
                                                         <div class="d-none">
-                                                            {{ form_widget(userForm.avatar,  {'attr':{'class':'file-upload'}})
-                                                            }}</div>
+                                                            {{ form_widget(userForm.avatar,  {'attr':{'class':'file-upload'}}) }}
+                                                        </div>
                                                     </label>
                                                 </div>
                                             </div>

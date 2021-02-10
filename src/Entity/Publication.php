@@ -97,7 +97,7 @@ class Publication
         $this->likes = new ArrayCollection();
         $this->favorites = new ArrayCollection();
     }
-
+   
     public function likedByUser($user)
     {
         foreach ($this->getLikes() as $like) {
