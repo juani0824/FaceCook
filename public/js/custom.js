@@ -51,7 +51,7 @@ Index Of Script
         jQuery('[data-toggle="popover"]').popover();
         jQuery('[data-toggle="tooltip"]').tooltip();
 
-       
+
 
         /*---------------------------------------------------------------------
         Magnific Popup
@@ -131,14 +131,14 @@ Index Of Script
                 jQuery(this).toggleClass('accordion-active').children('div.accordion-details ').slideDown('slow');
             }
         });
-        
+
         /*---------------------------------------------------------------------
         Page Loader
         -----------------------------------------------------------------------*/
         jQuery("#load").fadeOut();
         jQuery("#loading").delay().fadeOut("");
 
-        
+
 
         /*---------------------------------------------------------------------
        Owl Carousel
@@ -225,14 +225,7 @@ Index Of Script
         /*---------------------------------------------------------------------
         Scrollbar
         -----------------------------------------------------------------------*/
-        let Scrollbar = window.Scrollbar;
-        if (jQuery('#sidebar-scrollbar').length) {
-            Scrollbar.init(document.querySelector('#sidebar-scrollbar'), options);
-        }
-        let Scrollbar1 = window.Scrollbar;
-        if (jQuery('#right-sidebar-scrollbar').length) {
-            Scrollbar1.init(document.querySelector('#right-sidebar-scrollbar'), options);
-        }
+
 
 
 
@@ -294,7 +287,7 @@ Index Of Script
                     slidesToShow: 1
                 }
             }],
-           
+
         });
 
          jQuery('#recent-music').slick({
@@ -317,7 +310,7 @@ Index Of Script
                     slidesToShow: 1
                 }
             }],
-           
+
         });
 
           jQuery('#top-music').slick({
@@ -340,7 +333,7 @@ Index Of Script
                     slidesToShow: 1
                 }
             }],
-           
+
         });
 
 
@@ -373,7 +366,7 @@ Index Of Script
         jQuery(document).on('click', ".wrapper-menu", function() {
             jQuery("body").toggleClass("sidebar-main");
         });
-        
+
 
         /*---------------------------------------------------------------------
         Mailbox
@@ -435,11 +428,11 @@ Index Of Script
                     jQuery(this).find('input:checkbox[name=todo-check]').attr("checked", true);
                     jQuery(this).addClass('active-task');
                 }
-               
+
             });
         });
 
-       
+
 
         /*------------------------------------------------------------------
         Flatpicker
@@ -450,9 +443,9 @@ Index Of Script
             });
         }
 
-        
+
         /*---------------------------------------------------------------------
-        Button 
+        Button
         -----------------------------------------------------------------------*/
 
         jQuery('.qty-btn').on('click',function(){

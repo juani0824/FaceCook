@@ -11,11 +11,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href=" {{ asset('css/bootstrap.min.css')}}">
     <!-- Typography CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/typography.css')}} ">
+    <link rel="stylesheet" href=" {{ asset('css/_typography.css')}} ">
     <!-- Style CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/style.css')}}">
+    <link rel="stylesheet" href=" {{ asset('css/_style.css')}}">
     <!-- Responsive CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/responsive.css')}}">
+    <link rel="stylesheet" href=" {{ asset('css/_responsive.css')}}">
     <!--Fonts style-->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet"
@@ -26,7 +26,7 @@
 <body>
 
     {% block body %}
-        <!-- loader Start 
+        <!-- loader Start
      <div id="loading">
         <div id="loading-center">
         </div>
@@ -68,7 +68,7 @@
                             Un e-mail a été envoyé contenant un lien sur lequel vous pouvez cliquer pour réinitialiser
                             votre mot de passe.<br>
                             Ce lien expirera dans <span class="text-primary font-weight-bold"> &nbsp; &nbsp;{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</span>
-                           
+
                         </p>
                         <p style="font-size: larger;">Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier <span class="text-primary"> Courrier indésirable</span>  ou</p>
                         <div class="d-flex mb-5" style="float: right;">

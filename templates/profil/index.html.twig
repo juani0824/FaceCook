@@ -14,11 +14,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href=" {{ asset('css/bootstrap.min.css')}}">
     <!-- Typography CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/typography.css')}} ">
+    <link rel="stylesheet" href=" {{ asset('css/_typography.css')}} ">
     <!-- Style CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/style.css')}}">
+    <link rel="stylesheet" href=" {{ asset('css/_style.css')}}">
     <!-- Responsive CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/responsive.css')}}">
+    <link rel="stylesheet" href=" {{ asset('css/_responsive.css')}}">
     <!--Fonts style-->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet"
@@ -30,7 +30,7 @@
 
 <body class="right-column-fixed">
     {% block body %}
-    <!-- loader Start 
+    <!-- loader Start
     <div id="loading">
         <div id="loading-center">
         </div>
@@ -338,7 +338,7 @@
                                         </div>
                                      </div>
                                   </a>
-                                 
+
                                </div>
                             </div>
                          </div>
@@ -460,7 +460,7 @@
 
                                             <h4>{{app.user.cantines}}</h4>
                                         </div>
-                                        {# 
+                                        {#
                                         <div class="social-info">
                                             <ul
                                                 class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
@@ -504,7 +504,7 @@
                                                 <div class="iq-card-header d-flex justify-content-between">
                                                     <div class="iq-header-title">
                                                         <h4 class="card-title">Favoris</h4>
-                                                    </div>                                                   
+                                                    </div>
                                                 </div>
                                                 <!-- Boucle Derniers Favoris-->
                                                 {#{% for favoris in lastFavorites %}
@@ -925,7 +925,7 @@
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
 
-        //////////Likes ///////        
+        //////////Likes ///////
         let likeButtons = Array.from(document.getElementsByClassName('like-data'));
         likeButtons.forEach(btn => {
             btn.addEventListener('click', e => {

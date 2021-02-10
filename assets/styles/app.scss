@@ -35,10 +35,10 @@ $custom-file-text: (
 // select2
 @import "~select2/src/scss/core";
 
+@import "variables";
 @import "style";
 @import "responsive";
 @import "typography";
-@import "variables";
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,800,900&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900&display=swap');

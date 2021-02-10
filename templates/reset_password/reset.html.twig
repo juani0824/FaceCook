@@ -11,11 +11,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href=" {{ asset('css/bootstrap.min.css')}}">
     <!-- Typography CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/typography.css')}} ">
+    <link rel="stylesheet" href=" {{ asset('css/_typography.css')}} ">
     <!-- Style CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/style.css')}}">
+    <link rel="stylesheet" href=" {{ asset('css/_style.css')}}">
     <!-- Responsive CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/responsive.css')}}">
+    <link rel="stylesheet" href=" {{ asset('css/_responsive.css')}}">
     <!--Fonts style-->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet"
@@ -61,12 +61,12 @@
                 </div>
                 <div class="col-md-6 bg-white pt-5 d-flex align-items-center justify-content-center">
                     <div class="sign-in-from">
-                        <h1 class="mb-5">Bienvenue!</h1>                      
+                        <h1 class="mb-5">Bienvenue!</h1>
                         <!--Formulaire réinitialisation mot de passe-->
-                        {{ form_start(resetForm, {'attr': {'class': 'mt-4'}} ) }}                   
+                        {{ form_start(resetForm, {'attr': {'class': 'mt-4'}} ) }}
                         <div class="form-group">
-                            {{ form_row(resetForm.plainPassword) }}  
-                                                  
+                            {{ form_row(resetForm.plainPassword) }}
+
                         </div>
                         <div class="d-inline-block w-100">
                             <button type="submit" class="btn btn-primary float-right">Enregistrer</button>

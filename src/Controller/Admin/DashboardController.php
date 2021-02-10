@@ -40,7 +40,7 @@ class DashboardController extends AbstractDashboardController
     public function configureAssets(): Assets
     {
         return Assets::new()
-            ->addCssFile('bundles/easyadmin/css/style.css');
+            ->addCssFile('bundles/easyadmin/css/_style.css');
     }
 
     public function configureMenuItems(): iterable
@@ -51,7 +51,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Géstion', 'fas fa-users', User::class);
         yield MenuItem::section('Publication');
         yield MenuItem::linkToCrud('Géstion', 'fas fa-address-card', Publication::class)
-        ->setDefaultSort(['created_at' => 'DESC']);  
+        ->setDefaultSort(['created_at' => 'DESC']);
         yield MenuItem::section('Commentaires');
         yield MenuItem::linkToCrud('Géstion', 'fas fa-comments', Commentaire::class);
         yield MenuItem::section('Documents');

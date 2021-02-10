@@ -1,36 +1,9 @@
-<!doctype html>
-<html lang="fr">
+{% extends 'base.html.twig' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}Login - FaceCook</title>
-    {% block stylesheets %}{% endblock %}
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title></title>
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="images/ico.png" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/bootstrap.min.css')}}">
-    <!-- Typography CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/typography.css')}} ">
-    <!-- Style CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/style.css')}}">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/responsive.css')}}">
-    <!--Fonts style-->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+{% block title %}Login {% endblock %}
 
-</head>
-
-<body>
-
-    {% block body %}
-
-    <!-- loader Start 
+{% block body %}
+    <!-- loader Start
     <div id="loading">
         <div id="loading-center">
         </div>
@@ -51,15 +24,17 @@
                 <div class="col-md-6 text-center">
                     <div class="sign-in-detail text-white">
                         <a class="sign-in-logo mb-2" href="/">
-                            <img src="{{asset('images/logo1.png')}}" class="img-fluid" alt="" style="height: 70px;">
+                            <img src="{{ asset(path_images ~ 'logo1.png') }}" class="img-fluid" alt=""
+                                 style="height: 70px;">
                             <h2 class="d-flex justify-content-center" style="font-family:'BigJohn';">Face <span
-                                    style="font-family:'SlimJoe';">Cook</span></h2>
+                                        style="font-family:'SlimJoe';">Cook</span></h2>
                         </a>
                         <div class="">
-                            <img src="{{asset('images/cheff.png')}}" class="img-fluid mb-4" alt="cheff">
+                            <img src="{{ asset(path_images ~ 'cheff.png') }}" class="img-fluid mb-4" alt="cheff">
                         </div>
                         <a class="sign-in-logo mb-5" href="#">
-                            <img src="{{asset('images/Logo_TD_fd_transparent.png')}}" class="img-fluid" alt="" style="height: 90px;">
+                            <img src="{{ asset(path_images ~ 'Logo_TD_fd_transparent.png') }}" class="img-fluid" alt=""
+                                 style="height: 90px;">
                         </a>
 
                     </div>
@@ -70,47 +45,52 @@
 
                         <form method="post" class="mt-4">
                             {% if error %}
-                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}
-                            </div>
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}
+                                </div>
                             {% endif %}
 
                             {% if app.user %}
-                            <div class="mb-3">
-                                <span>Vous êtes connecté(e) en tant que</span>  <span
-                                    style="color:#ff6c40; font-weight:400;">{{ app.user.username }}, </span><a
-                                    href="{{ path('app_logout') }}">Déconnexion</a>
-                            </div>
+                                <div class="mb-3">
+                                    <span>Vous êtes connecté(e) en tant que</span> <span
+                                            style="color:#ff6c40; font-weight:400;">{{ app.user.username }}, </span><a
+                                            href="{{ path('app_logout') }}">Déconnexion</a>
+                                </div>
                             {% endif %}
 
                             <div class="form-group form-login">
                                 <label for="inputEmail"><span>Email</span></label>
                                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
-                                    class="form-control" required autofocus>
+                                       class="form-control" required autofocus>
                             </div>
                             <div class="form-group mb-5 form-login">
                                 <label for="inputPassword"><span style="font-size: larger;">Mot de passe</span></label>
-                                <a href="{{path('app_forgot_password_request')}}" class="float-right"> <span>Mot de passe oublié?</span> </a>
+                                <a href="{{ path('app_forgot_password_request') }}" class="float-right"> <span>Mot de passe oublié?</span>
+                                </a>
                                 <input type="password" class="form-control mb-0" name="password" id="inputPassword"
-                                    placeholder="Votre mot de passe" required>
+                                       placeholder="Votre mot de passe" required>
                             </div>
 
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                             {#
-                                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                                    See https://symfony.com/doc/current/security/remember_me.html
+                            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                            See https://symfony.com/doc/current/security/remember_me.html
 
-                                    <div class="checkbox mb-3">
-                                        <label>
-                                            <input type="checkbox" name="_remember_me"> Remember me
-                                        </label>
-                                    </div>
-                                #}
+                            <div class="checkbox mb-3">
+                                <label>
+                                    <input type="checkbox" name="_remember_me"> Remember me
+                                </label>
+                            </div>
+                            #}
 
                             <div class="d-inline-block w-100 mb-5">
                                 <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
-                                    <input type="checkbox" name="_remember_me" class="custom-control-input" id="remenber_me">
-                                    <label class="custom-control-label text-primary" for="customCheck1" style="font-size: larger;">Souvenir de moi </label>
+                                    <label>
+                                        <input type="checkbox" name="_remember_me" class="custom-control-input"
+                                               id="remenber_me">
+                                    </label>
+                                    <label class="custom-control-label text-primary" for="customCheck1"
+                                           style="font-size: larger;">Souvenir de moi </label>
                                 </div>
                                 <button type="submit" class="btn btn-primary float-right">Login</button>
                             </div>
@@ -122,14 +102,4 @@
         <!--container end-->
     </section>
 
-    {% endblock %}
-    {% block javascripts %}{% endblock %}
-
-    <script src="  {{ asset('js/jquery.min.js') }}"></script>
-    <script src="  {{ asset('js/popper.min.js') }}"></script>
-    <script src="  {{ asset('js/bootstrap.min.js') }}"></script>
-    <!-- Custom JavaScript -->
-    <script src="{{ asset('js/custom.js') }}"></script>
-</body>
-
-</html>
+{% endblock %}
