@@ -1,54 +1,22 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends 'base.html.twig' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erreur-403 - FaceCook</title>
-    {% block stylesheets %}{% endblock %}
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <!-- Typography CSS -->
-    <link rel="stylesheet" href="{{asset('css/_typography.css')}}">
-    <!-- Style CSS -->
-    <link rel="stylesheet" href="{{asset('css/_style.css')}}">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="{{asset('css/_responsive.css')}}">
-</head>
-</head>
+{% block title %}Erreur 403 - {% endblock %}
+
 {% block body %}
-
-<body class="page-404"
-    style="background:url(./images/error/bg-1.png); background-size:cover; background-repeat:no-repeat;">
-
-    <div class="">
+    <div class="page-404 page-error">
         <div class="container p-0">
             <div class="row">
                 <div class="col-sm-12 text-center">
                     <div class="" style="margin-top: 200px;">
-                        <img src="{{asset('images/error/403.png')}}" class="mb-3 img-fluid">
+                        <img src="{{asset(path_images ~ 'error/403.png')}}" class="mb-3 img-fluid">
                         <h2 class="mb-2">Oops! Accès Interdit.</h2>
                         <p>vous n'avez pas la permission de voir cette page.</p>
-                        <a class="btn btn-primary mt-3" href="/"><i class="ri-home-4-line"
-                                style="font-size: x-large;"></i><span> Retour à l'Accueil</span></a>
+                        <a class="btn btn-primary mt-3" href="/">
+                            <i class="ri-home-4-line" style="font-size: x-large;"></i><span> Retour à l'Accueil</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-</body>
 {% endblock %}
-
-{% block javascripts %}
-
-<script src="{{asset('js/jquery.min.js')}}"></script>
-<script src="{{asset('js/popper.min.js')}}"></script>
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
-
-{% endblock %}
-
-</html>

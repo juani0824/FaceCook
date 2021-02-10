@@ -62,11 +62,11 @@
                                         <div class="col-md-12">
                                             <div class="profile-img-edit">
                                                 {% if user.avatar is defined and user.avatar is not null %}
-                                                    <img class="profile-pic" src="{{ asset('images/user/' ~ user.avatar) }}"
-                                                        alt="profil" class="img-fluid" width="150" height="150">
+                                                    <img class="profile-pic img-fluid" src="{{ asset(path_images ~ 'user/' ~ user.avatar) }}"
+                                                        alt="profil" width="150" height="150">
                                                 {% else %}
                                                     <img class="profile-pic"
-                                                        src="{{ asset('images/user/profil_photo.png')}}" }} width="150" height="150" alt="profil">
+                                                        src="{{ asset(path_images ~ 'user/profil_photo.png') }}" width="150" height="150" alt="profil">
                                                 {% endif %}
                                                 <div class="p-image">
                                                     <label for="profil_avatar" role="button">

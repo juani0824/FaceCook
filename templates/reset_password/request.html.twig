@@ -1,31 +1,8 @@
-<html lang="fr">
+{% extends 'base.html.twig' %}
 
-<head>
-    <meta charset="UTF-8">
-    <!-- Required meta tags -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Réinitialisation mot de passe - FaceCook</title>
-    {% block stylesheets %}{% endblock %}
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{{asset('images/ico.png')}}" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/bootstrap.min.css')}}">
-    <!-- Typography CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/_typography.css')}} ">
-    <!-- Style CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/_style.css')}}">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/_responsive.css')}}">
-    <!--Fonts style-->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+{% block title %}Vérification Email{% endblock %}
 
-</head>
-
-<body>
-    {% block body %}
-
+{% block body %}
     <!-- loader Start
       <div id="loading">
          <div id="loading-center">
@@ -46,15 +23,17 @@
                 <div class="col-md-6 text-center pt-5">
                     <div class="sign-in-detail text-white">
                         <a class="sign-in-logo mb-2" href="/">
-                            <img src="{{asset('images/logo1.png')}}" class="img-fluid" alt="" style="height: 70px;">
+                            <img src="{{ asset(path_images ~ 'logo1.png') }}" class="img-fluid" alt=""
+                                 style="height: 70px;">
                             <h2 class="d-flex justify-content-center" style="font-family:'BigJohn';">Face <span
-                                    style="font-family:'SlimJoe';">Cook</span></h2>
+                                        style="font-family:'SlimJoe';">Cook</span></h2>
                         </a>
                         <div class="">
-                            <img src="{{asset('images/cheff.png')}}" class="img-fluid mb-4" alt="cheff">
+                            <img src="{{ asset(path_images ~ 'cheff.png') }}" class="img-fluid mb-4" alt="cheff">
                         </div>
                         <a class="sign-in-logo mb-5" href="#">
-                            <img src="{{asset('images/Logo_TD_fd_transparent.png')}}" class="img-fluid" alt="" style="height: 90px;">
+                            <img src="{{ asset(path_images ~ 'Logo_TD_fd_transparent.png') }}" class="img-fluid" alt=""
+                                 style="height: 90px;">
                         </a>
 
                     </div>
@@ -70,13 +49,12 @@
                         {{ form_start(requestForm, {'attr': {'class': 'mt-4'}} ) }}
                         <!-- Alert Reset Password-->
                         {% for flashError in app.flashes('reset_password_error') %}
-                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
                         {% endfor %}
 
                         <div class="form-group">
 
-                            {{ form_row(requestForm.email, {'attr': { 'class': 'form-control mb-0', 'id': 'exampleInputEmail1', 'placeholder':'entrez votre Email'}})
-                            }}
+                            {{ form_row(requestForm.email, {'attr': { 'class': 'form-control mb-0', 'id': 'exampleInputEmail1', 'placeholder':'entrez votre Email'}}) }}
                         </div>
 
                         <div class="d-inline-block w-100">
@@ -89,16 +67,4 @@
             </div>
         </div>
     </section>
-
-    {% endblock %}
-    {% block javascripts %}{% endblock %}
-
-    <script src="  {{ asset('js/jquery.min.js') }}"></script>
-    <script src="  {{ asset('js/popper.min.js') }}"></script>
-    <script src="  {{ asset('js/bootstrap.min.js') }}"></script>
-    <!-- Custom JavaScript -->
-    <script src="{{ asset('js/custom.js') }}"></script>
-
-</body>
-
-</html>
+{% endblock %}

@@ -18,7 +18,7 @@
                                 <!-- Item -->
                                 {% for recette in lastRecettes %}
                                 <li class="recent-post-item">
-                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}"
+                                    <img src="{{asset('publications/' ~ recette.photo ) }}"
                                         alt="recettes" width="60" height="60">
                                     <div class="body-recent-post">
                                         <a href="{{ path('recette_detail', {'id': recette.id}) }}">
@@ -72,7 +72,7 @@
                 <div class="iq-card iq-card-block iq-card-stretch iq-card-height blog blog-detail">
                     <div class="iq-card-body">
                         <div class="image-block">
-                            <img src="{{asset('images/publications/' ~ publication.photo ) }}" class="img-fluid rounded w-100"
+                            <img src="{{asset('publications/' ~ publication.photo ) }}" class="img-fluid rounded w-100"
                                 alt="recette">
                         </div>
                         <div class="blog-description mt-3">
@@ -100,7 +100,7 @@
                                   fa-2x">
                                  </i>
                                  <span class="text-primary"> Favorite</span>
-                             </a>                               
+                             </a>
                                 <a href="#" class="ml-4"> <i class="far  fa-user text-primary  fa-2x"></i><span class="ml-2 text-primary"> {{ publication.users }}</span></a>
                             </div>
                             <hr>
@@ -117,30 +117,29 @@
 
 {% endblock %}
 
-{%  block javascripts %} 
-
-<script>
-      /////////// FAVORITES /////////////
-      let favoriteButtons = Array.from(document.getElementsByClassName('favorite-data'));
-      favoriteButtons.forEach(favoriteButton => {
-          favoriteButton.addEventListener('click', e => {
-              e.preventDefault();
-              let btn = e.currentTarget;
-              let path = btn.dataset.path;
-              let target = btn.dataset.target;
-              fetch(path, {
-                      method: 'POST'
-                  })
-                  .then(response => {
-                      const favorite = document.getElementById(`${target}`);
-                      if (favorite.classList.contains('ri-heart-fill')) {
-                          favorite.classList.replace('ri-heart-fill', 'ri-heart-line');
-                      } else {
-                          favorite.classList.replace('ri-heart-line', 'ri-heart-fill');
-                      }
-                  })
-          });
-      })
-</script>
-
+{%  block javascripts %}
+ {{ parent() }}
+    <script>
+          /////////// FAVORITES /////////////
+          let favoriteButtons = Array.from(document.getElementsByClassName('favorite-data'));
+          favoriteButtons.forEach(favoriteButton => {
+              favoriteButton.addEventListener('click', e => {
+                  e.preventDefault();
+                  let btn = e.currentTarget;
+                  let path = btn.dataset.path;
+                  let target = btn.dataset.target;
+                  fetch(path, {
+                          method: 'POST'
+                      })
+                      .then(response => {
+                          const favorite = document.getElementById(`${target}`);
+                          if (favorite.classList.contains('ri-heart-fill')) {
+                              favorite.classList.replace('ri-heart-fill', 'ri-heart-line');
+                          } else {
+                              favorite.classList.replace('ri-heart-line', 'ri-heart-fill');
+                          }
+                      })
+              });
+          })
+    </script>
 {% endblock %}

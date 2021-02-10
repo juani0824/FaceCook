@@ -17,7 +17,7 @@
                                 <!-- Item -->
                                 {% for recette in lastRecettes %}
                                 <li class="recent-post-item">
-                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes"
+                                    <img src="{{asset('publications/' ~ recette.photo ) }}" alt="recettes"
                                         width="60" height="60">
                                     <div class="body-recent-post">
                                         <a href="{{ path('recette_detail', {'id': recette.id}) }}">
@@ -74,7 +74,7 @@
                     <div class="iq-card-body profile-page p-0">
                         <div class="profile-header profile-info">
                             <div class="cover-container">
-                                <img src="{{ asset('images/page-img/bg-4.png')}}" alt="profile-bg"
+                                <img src="{{ asset(path_images ~'page-img/bg-4.png')}}" alt="profile-bg"
                                     class="rounded img-fluid">
                             </div>
                             <div
@@ -104,7 +104,7 @@
                     <div class="iq-card-body">
                         <div class="iq-badges text-left">
                             <div class="badges-icon">
-                                <img class="avatar-80 rounded" src="{{ asset('images/page-img/09.png')}}" alt="">
+                                <img class="avatar-80 rounded" src="{{ asset(path_images ~'page-img/09.png')}}" alt="">
                             </div>
                             <h5 class="mb-2 text-center">{{ cantine.nom }}</h5>
                             <p class="mb-0"><span class="text-primary" style="font-weight: 520;"> Adresse:</span>

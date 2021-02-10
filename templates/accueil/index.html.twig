@@ -17,7 +17,7 @@
                                 <!-- Item -->
                                 {% for recette in lastRecettes %}
                                 <li class="recent-post-item">
-                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes"
+                                    <img src="{{asset('publications/' ~ recette.photo ) }}" alt="recettes"
                                         width="60" height="60">
                                     <div class="body-recent-post">
                                         <a href="{{ path('recette_detail', {'id': recette.id}) }}">
@@ -212,7 +212,7 @@
                             <div class="user-post">
                                 {% if publication.photo %}
                                 <a href="javascript:void();"><img
-                                        src="{{asset('images/publications/')}}{{ publication.photo }}" alt="post-image"
+                                        src="{{asset('publications/' ~ publication.photo) }}" alt="post-image"
                                         class="img-fluid rounded w-100"></a>
                                 {% else %}
 
@@ -256,10 +256,10 @@
                                         <div class="d-flex ">
                                             <div class="user-img">
                                                 {% if publication.users.avatar is defined and publication.users.avatar is not null %}
-                                                <img src="{{ asset('images/user/')}}{{ publication.users.avatar }}"
+                                                <img src="{{ asset(path_images ~ 'user/')}}{{ publication.users.avatar }}"
                                                     class="avatar-35 rounded-circle img-fluid" alt="Avatar">
                                                 {% else %}
-                                                <img src="{{ asset('images/user/profil_photo.png')}}"
+                                                <img src="{{ asset(path_images ~ 'user/profil_photo.png')}}"
                                                     class="avatar-35 rounded-circle img-fluid" alt="Avatar">
                                                 {% endif %}
                                             </div>
@@ -301,7 +301,7 @@
                                     </li>
                                 </ul>
                                 {% endfor %}
-                                
+
                                 <!-- Boucle Commentaire-->
                                 <!-- Modal Modifier Commentaire -->
                                 <div class="modal fade" tabindex="-1" id="emptyModal" aria-labelledby="myModalLabel"
@@ -367,7 +367,7 @@
             }
         }
 
-        //////////////LIKES/////// ///////       
+        //////////////LIKES/////// ///////
         let likeButtons = Array.from(document.getElementsByClassName('like-data'));
         likeButtons.forEach(btn => {
             btn.addEventListener('click', e => {

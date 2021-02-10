@@ -3,126 +3,124 @@
 {% block title %}Recettes -{% endblock %}
 
 {% block body %}
-
-<!-- Right Sidebar Panel Start-->
-<div class="right-sidebar-mini right-sidebar">
-    <div class="right-sidebar-panel p-0">
-        <div class="iq-card shadow-none">
-            <div class="iq-card-body p-0">
-                <div class="media-height p-3">
-                    <div class="card recent-posts mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h4 class="card-title mx-0 mt-0 mb-3">Dernières Recettes</h4>
-                            <ul class="pl-2 ">
-                                <!--Boucle Dernières Recettes-->
-                                <!-- Item -->
-                                {% for recette in lastRecettes %}
-                                <li class="recent-post-item">
-                                    <img src="{{asset('images/publications/' ~ recette.photo ) }}" alt="recettes"
-                                        width="60" height="60">
-                                    <div class="body-recent-post">
-                                        <a href="{{ path('recette_detail', {'id': recette.id}) }}">
-                                            <h5 class="mt-0 mx-0 mb-1 text-uppercase">
-                                                {{ recette.titre }}
-                                            </h5>
-                                        </a>
-                                        <span class="text-primary">
+    <!-- Right Sidebar Panel Start-->
+    <div class="right-sidebar-mini right-sidebar">
+        <div class="right-sidebar-panel p-0">
+            <div class="iq-card shadow-none">
+                <div class="iq-card-body p-0">
+                    <div class="media-height p-3">
+                        <div class="card recent-posts mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h4 class="card-title mx-0 mt-0 mb-3">Dernières Recettes</h4>
+                                <ul class="pl-2 ">
+                                    <!--Boucle Dernières Recettes-->
+                                    <!-- Item -->
+                                    {% for recette in lastRecettes %}
+                                        <li class="recent-post-item">
+                                            <img src="{{ asset('publications/' ~ recette.photo ) }}"
+                                                 alt="recettes"
+                                                 width="60" height="60">
+                                            <div class="body-recent-post">
+                                                <a href="{{ path('recette_detail', {'id': recette.id}) }}">
+                                                    <h5 class="mt-0 mx-0 mb-1 text-uppercase">
+                                                        {{ recette.titre }}
+                                                    </h5>
+                                                </a>
+                                                <span class="text-primary">
                                             <i class="las la-thumbs-up la-lg"></i>
                                             {{ recette.likes|length }}
                                         </span>
-                                        <span class="text-primary">
+                                                <span class="text-primary">
                                             <i class="ri-chat-2-line la-1x mr-1"></i>
-                                            {{ recette.commentaires|length}}
+                                            {{ recette.commentaires|length }}
                                         </span>
-                                    </div>
-                                </li>
-                                {% endfor %}
-                            </ul>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Catégories -->
-                    <div class="card recent-posts shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Catégories</h5>
-                            <ul class="pl-0">
-                                <li class="recent-post-item">
-                                    <a href="{{ path('recette')}}" style="font-weight: 500;">Recettes</a>
-                                    <span class="number-posts ml-auto text-primary"
-                                        style="font-weight: 500;">{{ recettes|length }}</span>
-                                </li>
-                            </ul>
+                        <!-- Catégories -->
+                        <div class="card recent-posts shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Catégories</h5>
+                                <ul class="pl-0">
+                                    <li class="recent-post-item">
+                                        <a href="{{ path('recette') }}" style="font-weight: 500;">Recettes</a>
+                                        <span class="number-posts ml-auto text-primary"
+                                              style="font-weight: 500;">{{ recettes|length }}</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="right-sidebar-toggle bg-primary mt-3">
-                    <i class="ri-arrow-left-line side-left-icon"></i>
-                    <i class="ri-arrow-right-line side-right-icon"><span class="ml-3 d-inline-block">Fermer
+                    <div class="right-sidebar-toggle bg-primary mt-3">
+                        <i class="ri-arrow-left-line side-left-icon"></i>
+                        <i class="ri-arrow-right-line side-right-icon"><span class="ml-3 d-inline-block">Fermer
                             Menu</span></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Right Sidebar Panel End-->
+    <!-- Right Sidebar Panel End-->
 
-<!-- Page Content-->
+    <!-- Page Content-->
 
-<div id="content-page" class="content-page">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="iq-card">
-                    <div class="iq-card-body profile-page p-0">
-                        <div class="profile-header">
-                            <div class="cover-container">
-                                <img src="{{ asset('images/page-img/profile-bg10.jpg')}}" alt="profile-bg"
-                                    class="rounded img-fluid">
-                            </div>
-                            <div
-                                class="profile-info p-4 d-flex align-items-center justify-content-between position-relative">
-                                <div class="social-links">
-                                    <h4>Recettes</h4>
+    <div id="content-page" class="content-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="iq-card">
+                        <div class="iq-card-body profile-page p-0">
+                            <div class="profile-header">
+                                <div class="cover-container">
+                                    <img src="{{ asset(path_images ~ 'page-img/profile-bg10.jpg') }}" alt="profile-bg"
+                                         class="rounded img-fluid">
                                 </div>
-                                <div class="social-info">
-                                    <ul
-                                        class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
-                                        <li class="text-center pl-3">
-                                            <h6> Post</h6>
-                                            <p class="mb-0 text-primary" style="font-size: large;">
-                                                {{ recettes| length }}</p>
-                                        </li>
-                                    </ul>
+                                <div
+                                        class="profile-info p-4 d-flex align-items-center justify-content-between position-relative">
+                                    <div class="social-links">
+                                        <h4>Recettes</h4>
+                                    </div>
+                                    <div class="social-info">
+                                        <ul
+                                                class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
+                                            <li class="text-center pl-3">
+                                                <h6> Post</h6>
+                                                <p class="mb-0 text-primary" style="font-size: large;">
+                                                    {{ recettes| length }}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div> <!-- col-12 end-->
-            <!-- Liste des Recettes-->
-            {% for  recette in recettes %}
-            <!--Boucle recettes-->
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <div class="container-img-fit" style="background: black;">
-                        <img class="card-img-top" src="{{asset('images/publications/' ~ recette.photo ) }}"
-                            alt="Recette">
-                    </div>
-                    <div class="card-body text-center">
-                        <h4 class="card-title text-uppercase" style="color: #ff6c40;">{{ recette.titre }}</h4>
-                        <p class="card-text text-justify">{{ recette.description }}</p>
+                </div> <!-- col-12 end-->
+                <!-- Liste des Recettes-->
+                {% for  recette in recettes %}
+                    <!--Boucle recettes-->
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="container-img-fit" style="background: black;">
+                                <img class="card-img-top" src="{{ asset('publications/' ~ recette.photo ) }}"
+                                     alt="Recette">
+                            </div>
+                            <div class="card-body text-center">
+                                <h4 class="card-title text-uppercase" style="color: #ff6c40;">{{ recette.titre }}</h4>
+                                <p class="card-text text-justify">{{ recette.description }}</p>
 
-                        <a href="{{ path('recette_detail', {'id': recette.id}) }}" class="btn btn-primary">Lire
-                            plus
-                        </a>
+                                <a href="{{ path('recette_detail', {'id': recette.id}) }}" class="btn btn-primary">Lire
+                                    plus
+                                </a>
 
-                    </div>
-                </div>
-            </div><!-- .col-md-4 -->
-            {% endfor %}
+                            </div>
+                        </div>
+                    </div><!-- .col-md-4 -->
+                {% endfor %}
+            </div>
         </div>
-    </div>
-</div> <!-- Content-page end-->
-
-
+    </div> <!-- Content-page end-->
 {% endblock %}
