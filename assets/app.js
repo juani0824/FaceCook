@@ -19,5 +19,7 @@ import 'bootstrap';
 
 import 'magnific-popup';
 import 'select2';
+import 'slick-carousel';
 
-
+import './scripts';
+import './custom';
