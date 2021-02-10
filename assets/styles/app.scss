@@ -12,11 +12,19 @@ $custom-file-text: (
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/brands";
 @import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/solid";
 
 @import "~animate.css/animate.css";
+@import "~remixicon.css/remixicon.css";
+@import "~line-awesome.min.css/line-awesome.min.css";
+@import "~ionicons.min.css/ionicons.min.css";
+@import "~dripicons.min.css/dripicons.min.css";
+@import "~magnific-popup.min.css/magnific-popup.min.css";
+
 
 @import "style";
 @import "responsive";
 @import "typography";
+@import "variable";
 
 
