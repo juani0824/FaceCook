@@ -60,7 +60,7 @@ class AccueilController extends AbstractController
             'publications' => $publicationManager->allPublication(),
             'recettes' => $publicationManager->allRecette(),
             'lastRecettes' => $publicationManager->lastXRecette(),
-            
+
         ]);
     }
 
@@ -89,7 +89,7 @@ class AccueilController extends AbstractController
      */
     public function document()
     {
-        // pour lister les documents 
+        // pour lister les documents
         $document = $this->getDoctrine()->getRepository(Document::class)->findBy(
             [],
             ['created_at' => 'desc']
@@ -105,10 +105,26 @@ class AccueilController extends AbstractController
      */
     public function faq(PublicationManager $publicationManager)
     {
-       
+
         return $this->render('accueil/faq.html.twig', [
             'lastRecettes' => $publicationManager->lastXRecette(),
             'recettes' => $publicationManager->allRecette(),
+        ]);
+    }
+
+    /**
+     * Affiche toute les recettes.
+     * @return Response
+     */
+    public function allRecipes(): Response
+    {
+        $recipes = $this->getDoctrine()->getRepository(Publication::class)->findBy(
+            ['type' => true],
+            ['created_at' => 'desc']
+        );
+
+        return $this->render('_right_panel.html.twig', [
+            'recipes' => $recipes,
         ]);
     }
 }

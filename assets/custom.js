@@ -46,14 +46,6 @@ Index Of Script
     jQuery(document).ready(function() {
 
         /*---------------------------------------------------------------------
-        Tooltip
-        -----------------------------------------------------------------------*/
-        jQuery('[data-toggle="popover"]').popover();
-        jQuery('[data-toggle="tooltip"]').tooltip();
-
-       
-
-        /*---------------------------------------------------------------------
         Magnific Popup
         -----------------------------------------------------------------------
         jQuery('.popup-gallery').magnificPopup({
@@ -83,42 +75,6 @@ Index Of Script
         });
 
 
-        /*---------------------------------------------------------------------
-        Ripple Effect
-        -----------------------------------------------------------------------*/
-        jQuery(document).on('click', ".iq-waves-effect", function(e) {
-            // Remove any old one
-            jQuery('.ripple').remove();
-            // Setup
-            let posX = jQuery(this).offset().left,
-                posY = jQuery(this).offset().top,
-                buttonWidth = jQuery(this).width(),
-                buttonHeight = jQuery(this).height();
-
-            // Add the element
-            jQuery(this).prepend("<span class='ripple'></span>");
-
-
-            // Make it round!
-            if (buttonWidth >= buttonHeight) {
-                buttonHeight = buttonWidth;
-            } else {
-                buttonWidth = buttonHeight;
-            }
-
-            // Get the center of the element
-            let x = e.pageX - posX - buttonWidth / 2;
-            let y = e.pageY - posY - buttonHeight / 2;
-
-
-            // Add the ripples CSS and start the animation
-            jQuery(".ripple").css({
-                width: buttonWidth,
-                height: buttonHeight,
-                top: y + 'px',
-                left: x + 'px'
-            }).addClass("rippleEffect");
-        });
 
         /*---------------------------------------------------------------------
         Page faq
@@ -131,14 +87,7 @@ Index Of Script
                 jQuery(this).toggleClass('accordion-active').children('div.accordion-details ').slideDown('slow');
             }
         });
-        
-        /*---------------------------------------------------------------------
-        Page Loader
-        -----------------------------------------------------------------------*/
-        jQuery("#load").fadeOut();
-        jQuery("#loading").delay().fadeOut("");
 
-        
 
         /*---------------------------------------------------------------------
        Owl Carousel
@@ -184,13 +133,6 @@ Index Of Script
         });
 
         /*---------------------------------------------------------------------
-        Select input
-        -----------------------------------------------------------------------*/
-        jQuery('.select2jsMultiSelect').select2({
-            tags: true
-        });
-
-        /*---------------------------------------------------------------------
         Search input
         -----------------------------------------------------------------------*/
         jQuery(document).on('click', function(e) {
@@ -221,20 +163,6 @@ Index Of Script
                 jQuery('.navbar-list li .search-toggle').removeClass('active');
             }
         });
-
-        /*---------------------------------------------------------------------
-        Scrollbar
-        -----------------------------------------------------------------------*/
-        let Scrollbar = window.Scrollbar;
-        if (jQuery('#sidebar-scrollbar').length) {
-            Scrollbar.init(document.querySelector('#sidebar-scrollbar'), options);
-        }
-        let Scrollbar1 = window.Scrollbar;
-        if (jQuery('#right-sidebar-scrollbar').length) {
-            Scrollbar1.init(document.querySelector('#right-sidebar-scrollbar'), options);
-        }
-
-
 
         /*---------------------------------------------------------------------
         Counter
@@ -294,7 +222,7 @@ Index Of Script
                     slidesToShow: 1
                 }
             }],
-           
+
         });
 
          jQuery('#recent-music').slick({
@@ -317,7 +245,7 @@ Index Of Script
                     slidesToShow: 1
                 }
             }],
-           
+
         });
 
           jQuery('#top-music').slick({
@@ -340,7 +268,7 @@ Index Of Script
                     slidesToShow: 1
                 }
             }],
-           
+
         });
 
 
@@ -363,17 +291,7 @@ Index Of Script
         });
 
 
-        /*---------------------------------------------------------------------
-        Page Menu
-        -----------------------------------------------------------------------*/
-        jQuery(document).on('click', '.wrapper-menu', function() {
-            jQuery(this).toggleClass('open');
-        });
 
-        jQuery(document).on('click', ".wrapper-menu", function() {
-            jQuery("body").toggleClass("sidebar-main");
-        });
-        
 
         /*---------------------------------------------------------------------
         Mailbox
@@ -435,11 +353,11 @@ Index Of Script
                     jQuery(this).find('input:checkbox[name=todo-check]').attr("checked", true);
                     jQuery(this).addClass('active-task');
                 }
-               
+
             });
         });
 
-       
+
 
         /*------------------------------------------------------------------
         Flatpicker
@@ -450,9 +368,9 @@ Index Of Script
             });
         }
 
-        
+
         /*---------------------------------------------------------------------
-        Button 
+        Button
         -----------------------------------------------------------------------*/
 
         jQuery('.qty-btn').on('click',function(){

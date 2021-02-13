@@ -2,68 +2,14 @@
 
 {% block title %}Accueil - {% endblock %}
 
-{% block body %}
-<!-- Right Sidebar Panel Start-->
-<div class="right-sidebar-mini right-sidebar">
-    <div class="right-sidebar-panel p-0">
-        <div class="iq-card shadow-none">
-            <div class="iq-card-body p-0">
-                <div class="media-height p-3">
-                    <div class="card recent-posts mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h4 class="card-title mx-0 mt-0 mb-3">Dernières Recettes</h4>
-                            <ul class="pl-2 ">
-                                <!--Boucle Dernières Recettes-->
-                                <!-- Item -->
-                                {% for recette in lastRecettes %}
-                                <li class="recent-post-item">
-                                    <img src="{{asset('publications/' ~ recette.photo ) }}" alt="recettes"
-                                        width="60" height="60">
-                                    <div class="body-recent-post">
-                                        <a href="{{ path('recette_detail', {'id': recette.id}) }}">
-                                            <h5 class="mt-0 mx-0 mb-1 text-uppercase">
-                                                {{ recette.titre }}
-                                            </h5>
-                                        </a>
-                                        <span class="text-primary">
-                                            <i class="las la-thumbs-up la-lg"></i>
-                                            {{ recette.likes|length }}
-                                        </span>
-                                        <span class="text-primary">
-                                            <i class="ri-chat-2-line la-1x mr-1"></i>
-                                            {{ recette.commentaires|length}}
-                                        </span>
-                                    </div>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('like') }}
+    {{ encore_entry_link_tags('favorite') }}
+{% endblock %}
 
-                    <!-- Catégories -->
-                    <div class="card recent-posts shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Catégories</h5>
-                            <ul class="pl-0">
-                                <li class="recent-post-item">
-                                    <a href="{{ path('recette')}}" style="font-weight: 500;">Recettes</a>
-                                    <span class="number-posts ml-auto text-primary"
-                                        style="font-weight: 500;">{{ recettes|length }}</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="right-sidebar-toggle bg-primary mt-3">
-                    <i class="ri-arrow-left-line side-left-icon"></i>
-                    <i class="ri-arrow-right-line side-right-icon"><span class="ml-3 d-inline-block">Fermer
-                            Menu</span></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Right Sidebar Panel End-->
+{% block body %}
+    {{ render(controller('App\\Controller\\AccueilController::allRecipes')) }}
 
 <!-- Page Content End-->
 <div id="content-page" class="content-page">
@@ -85,7 +31,7 @@
                             </label>
                         </nav>
 
-                        <div class="">
+                        <div>
                             <div style="transition: border-color .3s; border: none; border-bottom: 1px solid #ccc; width: 100%; margin-bottom: 10px;
                                 ">{{form_widget(formPublication.contenu, {'attr': {'id': 'publication_contenu'}})}}
                             </div>
@@ -104,10 +50,10 @@
                             <!-- Modal Header -->
                             <div class="modal-header">
                                 {% if app.user.avatar is defined and app.user.avatar is not null %}
-                                <img src="{{asset('images/user/' ~ app.user.avatar) }}" class="rounded-circle mr-2"
+                                <img src="{{asset(path_images ~ 'user/' ~ app.user.avatar) }}" class="rounded-circle mr-2"
                                     width="60" height="60" alt="photo profil">
                                 {% else %}
-                                <img src="{{ asset('images/user/foto1.jpg')}}" class="rounded-circle mr-2" width="60"
+                                <img src="{{ asset(path_images ~ 'user/foto1.jpg')}}" class="rounded-circle mr-2" width="60"
                                     height="60">
                                 {% endif %}
                                 {#  {% if user.pseudo is not null %} condicion para colocar el pseudo#}
@@ -152,11 +98,11 @@
                                     <div class="media-support-user-img mr-3">
                                         <!-- condition pour recuperer photo profil-->
                                         {% if  publication.users.avatar is defined and publication.users.avatar is not null %}
-                                        <img src="{{ asset('images/user/' ~ publication.users.avatar )}}"
+                                        <img src="{{ asset(path_images ~ 'user/' ~ publication.users.avatar )}}"
                                             class="rounded-circle" width="60" height="60" alt="Utilisateur">
                                         {% else %}
                                         <img class="rounded-circle img-fluid"
-                                            src="{{asset('images/user/profil_photo.png')}}" alt="Profil">
+                                            src="{{asset(path_images ~ 'user/profil_photo.png')}}" alt="Profil">
                                         {% endif %}
                                         <!-- Condition fin-->
                                     </div>
@@ -318,8 +264,9 @@
                                     <div class="input-group">
                                         <input id="commenter" name="comment" type="text" class="form-control input-sm "
                                             placeholder="Ecrivez votre message ici..." />
-                                        <button class="btn btn-primary btn-sm" type="submit" style="height: 45px;"><i
-                                                class="fa fa-send fa-1x" aria-hidden="true"></i></button>
+                                        <button class="btn btn-primary btn-sm" type="submit" style="height: 45px;">
+                                            <i class="fa fa-send fa-1x" aria-hidden="true"></i>
+                                        </button>
                                     </div>
                                 </form>
                             </div>
@@ -338,85 +285,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <!-- Modal-->
-    <script src="{{ asset('bundles/sideclickbootstrapmodal/js/sideclick-bootstrap-modal.js') }}"></script>
-
-    <script>
-        // Add the following code if you want the name of the file appear on select
-        $(".custom-file-input").on("change", function () {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        });
-
-        // suprimir une publication et supprimir un commentaire
-        function ConfirmDelete() {
-            var resp = confirm("Etes-vous sûr de vouloir supprimer?");
-            if (resp == true) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        function ConfirmDeletePublication() {
-            var response = confirm("Etes-vous sûr de vouloir supprimer?");
-            if (response == true) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        //////////////LIKES/////// ///////
-        let likeButtons = Array.from(document.getElementsByClassName('like-data'));
-        likeButtons.forEach(btn => {
-            btn.addEventListener('click', e => {
-                e.preventDefault();
-                let btn = e.currentTarget;
-                let path = btn.dataset.path;
-                let target = btn.dataset.target;
-                let nbLikes = Number(btn.dataset.nblikes);
-                fetch(path, {
-                        method: 'POST'
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        const likesText = document.getElementById(`nb_likes_${target}`);
-                        data.toString() === '-' ? nbLikes-- : nbLikes++;
-
-                        const thumb = document.getElementById(`thumb_${target}`);
-                        if (thumb.classList.contains('ri-thumb-up-fill')) {
-                            thumb.classList.replace('ri-thumb-up-fill', 'ri-thumb-up-line');
-                        } else {
-                            thumb.classList.replace('ri-thumb-up-line', 'ri-thumb-up-fill');
-                        }
-
-                        likesText.innerText = `${nbLikes} J'aime`;
-                        btn.dataset.nblikes = nbLikes;
-                    })
-            })
-        });
-
-        /////////// FAVORITES /////////////
-        let favoriteButtons = Array.from(document.getElementsByClassName('favorite-data'));
-        favoriteButtons.forEach(favoriteButton => {
-            favoriteButton.addEventListener('click', e => {
-                e.preventDefault();
-                let btn = e.currentTarget;
-                let path = btn.dataset.path;
-                let target = btn.dataset.target;
-                fetch(path, {
-                        method: 'POST'
-                    })
-                    .then(response => {
-                        const favorite = document.getElementById(`${target}`);
-                        if (favorite.classList.contains('ri-heart-fill')) {
-                            favorite.classList.replace('ri-heart-fill', 'ri-heart-line');
-                        } else {
-                            favorite.classList.replace('ri-heart-line', 'ri-heart-fill');
-                        }
-                    })
-            });
-        })
-    </script>
+    {{ encore_entry_script_tags('like') }}
+    {{ encore_entry_script_tags('favorite') }}
 {% endblock %}

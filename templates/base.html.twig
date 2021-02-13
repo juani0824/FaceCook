@@ -38,10 +38,8 @@
                                     <span>Accueil</span></a>
                             </li>
                             <li {% if route_name == "profil_edit" %} class="active" {% else %} class="" {% endif %}>
-                                <a href="#profilSubmenu" data-toggle="collapse" aria-expanded="false"
-                                    class="dropdown-toggle">
-                                    <i class="las la-user"></i>
-                                    <span>Profil</span>
+                                <a class="btn" data-toggle="collapse" href="#profilSubmenu" role="button" aria-expanded="false" aria-controls="profilSubmenu">
+                                    <i class="las la-user"></i><span>Profil</span>
                                 </a>
                                 <ul class="collapse list-unstyled" id="profilSubmenu">
                                     <li>
@@ -100,9 +98,9 @@
                                         style="font-family:'SlimJoe';">Cook</span></h2>
                             </a>
                             <div class="iq-menu-bt align-self-center">
-                                <div class="wrapper-menu">
+                                <a href="#" class="wrapper-menu">
                                     <div class="main-circle"><i class="ri-menu-line"></i></div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                         <div class="iq-search-bar">
@@ -232,11 +230,11 @@
                                             <div class="iq-card-body p-0 ">
                                                 <div class="bg-primary p-3">
                                                     <h5 class="mb-0 text-white">All Messages<small
-                                                            class="badge  badge-light float-right pt-1">5</small></h5>
+                                                            class="badge  badge-light float-right pt-1">4</small></h5>
                                                 </div>
                                                 <a href="#" class="iq-sub-card">
                                                     <div class="media align-items-center">
-                                                        <div class="">
+                                                        <div>
                                                             <img class="avatar-40 rounded"
                                                                 src="{{asset(path_images ~ 'user/01.jpg')}}" alt="">
                                                         </div>
@@ -248,7 +246,7 @@
                                                 </a>
                                                 <a href="#" class="iq-sub-card">
                                                     <div class="media align-items-center">
-                                                        <div class="">
+                                                        <div>
                                                             <img class="avatar-40 rounded"
                                                                 src="{{asset(path_images ~ 'user/02.jpg')}}" alt="">
                                                         </div>
@@ -260,7 +258,7 @@
                                                 </a>
                                                 <a href="#" class="iq-sub-card">
                                                     <div class="media align-items-center">
-                                                        <div class="">
+                                                        <div>
                                                             <img class="avatar-40 rounded"
                                                                 src="{{asset(path_images ~ 'user/03.jpg')}}" alt="">
                                                         </div>
@@ -272,25 +270,13 @@
                                                 </a>
                                                 <a href="#" class="iq-sub-card">
                                                     <div class="media align-items-center">
-                                                        <div class="">
+                                                        <div>
                                                             <img class="avatar-40 rounded"
                                                                 src="{{asset(path_images ~ 'user/04.jpg')}}" alt="">
                                                         </div>
                                                         <div class="media-body ml-3">
                                                             <h6 class="mb-0 ">Variations Passages</h6>
                                                             <small class="float-left font-size-12">12 Sep</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="iq-sub-card">
-                                                    <div class="media align-items-center">
-                                                        <div class="">
-                                                            <img class="avatar-40 rounded"
-                                                                src="{{asset(path_images ~ 'user/05.jpg')}}" alt="">
-                                                        </div>
-                                                        <div class="media-body ml-3">
-                                                            <h6 class="mb-0 ">Lorem Ipsum generators</h6>
-                                                            <small class="float-left font-size-12">5 Dec</small>
                                                         </div>
                                                     </div>
                                                 </a>
@@ -374,7 +360,7 @@
         </footer>
     {% endif %}
     {% block javascripts %}
-        {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </body>
 
