@@ -35,7 +35,8 @@ new SideclickModal();
 
 import Scrollbar from 'smooth-scrollbar';
 
-import './scripts';
+import './js/scripts';
+import './js/panel_right';
 
 // dropdown
 $('.dropdown-toggle').dropdown();

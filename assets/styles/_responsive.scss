@@ -1,6 +1,8 @@
 /*
-Template: FaceCook - Responsive Bootstrap 4 
-Author: Juani Bailleul
+Template: SocialV - Responsive Bootstrap 4 Admin Dashboard Template
+Author: iqonicthemes.in
+Design and Developed by: iqonicthemes.in
+NOTE: This file contains the styling for responsive Template.
 */
 	@media (min-width:1200px) {
 		.container, .container-lg, .container-md, .container-sm, .container-xl { max-width: 1000px; }
@@ -76,7 +78,7 @@ Author: Juani Bailleul
 		.iq-email-to-list ul li { margin: 0 5px 0 0; }
 		.iq-email-to-list .justify-content-between { float: left; width: 900px; }
 		.sign-in-from { padding: 0 30px; }
-		.sign-in-detail { padding: 70px 50px !important ; }
+		.sign-in-detail { padding: 100px 50px; }
 	}
 	@media (min-width: 992px) {
 		.blog-list .blog-description {
@@ -192,10 +194,6 @@ Author: Juani Bailleul
 		.iq-sub-card.iq-sub-card-big {display: block !important;}
 		.iq-sub-card.iq-sub-card-big div + div {margin-top: 10px;}
 		.iq-sub-dropdown.iq-sub-dropdown-large { width: 300px;}
-		input#inputEmail.form-control{
-			width: 100px !important;
-		}
-
 	}
 	@media(max-width:479px) {
 		.display-1 { font-size: 2.0rem; font-weight: 500; }

@@ -1,6 +1,8 @@
 /*
-Template: FaceCook - Responsive Bootstrap 4
-Author: Juani Bailleul
+Template: SocialV - Responsive Bootstrap 4 Admin Dashboard Template
+Author: iqonicthemes.in
+Design and Developed by: iqonicthemes.in
+NOTE: This file contains the styling for responsive Template.
 */
 
 /*================================================
@@ -30,6 +32,12 @@ Author: Juani Bailleul
 ======================================
 [ End table content ]
 ======================================*/
+
+/*---------------------------------------------------------------------
+Font
+-----------------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,800,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900&display=swap');
 
 /*---------------------------------------------------------------------
 General
@@ -1323,10 +1331,10 @@ Avatar Size
 }
 
 .avatar-130 {
-  height: 130px !important;
-  width: 130px !important;
-  line-height: 130px !important;
-  font-size: 1.6rem !important;
+  height: 130px;
+  width: 130px;
+  line-height: 130px;
+  font-size: 1.6rem;
 }
 
 /*----------------------------------------------
@@ -2032,9 +2040,9 @@ Alert
 }
 
 .alert-success {
-  color: #155724 !important;
-  border-color: #c3e6cb !important;
-  background-color: #d4edda !important;
+  color: var(--iq-success);
+  border-color: var(--iq-success-dark);
+  background-color: var(--iq-light-success);
 }
 
 .alert-danger {
@@ -2105,7 +2113,7 @@ Alert
   font-size: 20px;
   font-weight: 400;
   line-height: 1;
-  color: black !important;
+  color: var(--iq-white);
   text-shadow: none;
   opacity: 1;
 }
