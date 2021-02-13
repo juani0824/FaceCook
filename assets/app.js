@@ -8,8 +8,6 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
-console.log('app.js')
-
 // start the Stimulus application
 import './bootstrap';
 
@@ -123,3 +121,6 @@ function ConfirmDeletePublication() {
     var response = confirm("Etes-vous sûr de vouloir supprimer?");
     return response === true;
 }
+
+console.debug('app.js');
+
